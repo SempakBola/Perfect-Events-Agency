@@ -6,6 +6,7 @@ public class App {
         int choice=0;
         do {
             Scanner sc = new Scanner(System.in);
+            System.out.println("Welcome to the Perfect Events Agency\n");
             System.out.println("Choose your role:"+"\n"+"1. Employee"+"\n"+"2. Customer");
             choice = sc.nextInt();
             if(choice!=1 && choice!=2){
