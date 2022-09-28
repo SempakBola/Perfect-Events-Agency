@@ -1,10 +1,8 @@
 import java.util.Scanner;
 
 public class App {
-    public App() { //empty constructor to call the interface method in the driver class
-    }
 
-    public void Interface() { //contains the code for the UI;
+    public static void main(String[]args) { //contains the code for the UI;
         int choice=0;
         do {
             Scanner sc = new Scanner(System.in);
