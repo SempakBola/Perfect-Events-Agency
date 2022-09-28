@@ -1,11 +1,14 @@
 public class Booking {
-    private Package packages;
+    private Packages packages;
     private Venue venue;
     private FoodSelection foodSelection;
     private Options options;
     private int totalCost;
 
-    public Booking(Package packages, Venue venue, FoodSelection foodSelection, Options options, int totalCost) {
+    public Booking() {
+    };
+
+    public Booking(Packages packages, Venue venue, FoodSelection foodSelection, Options options, int totalCost) {
         this.packages = packages;
         this.venue = venue;
         this.foodSelection = foodSelection;
@@ -14,31 +17,34 @@ public class Booking {
     }
 
     //getter and setter methods
-    public Package getPackages() {
+    public Packages getPackages() {
         return packages;
     }
 
-    public void setPackages(Package packages) {
-        this.packages = packages;
+    public void selectPackage(Packages selection) {
+        this.packages = selection;
+        this.totalCost += selection.getPrice();
     }
 
     public Venue getVenue() {
         return venue;
     }
 
-    public void setVenue(Venue venue) {
+    public void selectVenue(Venue venue) {
         this.venue = venue;
+        this.totalCost += venue.getPrice();
     }
 
     public FoodSelection getFoodSelection() {
         return foodSelection;
     }
 
-    public void setFoodSelection(FoodSelection foodSelection) {
+    public void foodSelection(FoodSelection foodSelection) {
         this.foodSelection = foodSelection;
+        this.totalCost+=foodSelection.getPrice();
     }
 
-    public Options getOptions() {
+    public Options selectOptions() {
         return options;
     }
 
@@ -54,23 +60,11 @@ public class Booking {
         this.totalCost = totalCost;
     }
 
-    public void createPayment(Booking booking, int progress, boolean isDone) {
+    public void createPayment(String paymentMethod, Booking booking, int progress, boolean isDone) {
         //create payment
-        Payment payment = new Payment("Cash", totalCost);
+        Payment payment = new Payment(paymentMethod, totalCost);
         //create eventID
         payment.createEventID(booking, payment, progress, isDone);
-    }
-
-    public void foodSelection(){
-
-    }
-
-    public void venueSelection(){
-        
-    }
-
-    public void selectOptions(){
-
     }
 
 }

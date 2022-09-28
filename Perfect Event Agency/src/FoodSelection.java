@@ -2,33 +2,32 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 
 public class FoodSelection {
-    private Dictionary foodAndDrinks;
+    private String foodandBeveragePackage;
+    private float price;
 
-    public FoodSelection() {
-        this.foodAndDrinks = new Hashtable();
+    public FoodSelection(String foodandBeveragePackage, float price) {
+        this.foodandBeveragePackage = foodandBeveragePackage;
+        this.price = price;
     }
 
-    //setter
-    public void setFoodAndDrinks(Dictionary foodAndDrinks) {
-        this.foodAndDrinks = foodAndDrinks;
+    public String getFoodandBeveragePackage() {
+        return foodandBeveragePackage;
     }
 
-    //getter
-    public Dictionary getFoodAndDrinks() {
-        return foodAndDrinks;
+    public void setFoodandBeveragePackage(String foodandBeveragePackage) {
+        this.foodandBeveragePackage = foodandBeveragePackage;
     }
 
-    //get element price
-    public float getPrice(String foodSelection) {
-        return (float) foodAndDrinks.get(foodSelection);
+    public float getPrice() {
+        return price;
     }
+    
+    public void setPrice(float price) {
+        this.price = price;
+    }
+    
 }
 
-//testing purposes
-public static void main(String[]args) {
-    FoodSelection foodSelection = new FoodSelection();
-    foodSelection.getFoodAndDrinks().put("Chicken", 100.0f);
-    System.out.print;
 
-}
+    
 

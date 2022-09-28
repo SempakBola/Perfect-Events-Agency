@@ -1,5 +1,6 @@
 import java.util.*;
 public class Customer{
+    
     private String firstName;
     private String lastName;
     private String dob;
@@ -85,6 +86,19 @@ public class Customer{
 
     public void addQuery(Queries query) {
         this.queries.add(query);
+    }
+
+    //create query
+    public void createQuery(String details) {
+        Random rand = new Random();
+        int queryID= rand.nextInt(1000);
+        String reply=" ";
+        Queries query = new Queries(queryID, details, reply);
+        this.queries.add(query);
+    }
+
+    public void viewPackage(Packages package){
+
     }
 
 }

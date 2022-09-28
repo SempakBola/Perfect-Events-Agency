@@ -5,7 +5,6 @@ public class Venue {
     private int capacity;
     private float price;
     private boolean availability;
-    private ArrayList<Venue> venueList = new ArrayList<Venue>();
 
     public Venue(String name, int capacity, float price, boolean availability) {
         this.name = name;
