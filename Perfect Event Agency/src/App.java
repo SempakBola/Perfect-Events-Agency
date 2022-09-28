@@ -1,8 +1,10 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class App {
-    public static void main(String[] args) throws Exception {
+    public App() { //empty constructor to call the interface method in the driver class
+    }
+
+    public void Interface() { //contains the code for the UI;
         int choice=0;
         do {
             Scanner sc = new Scanner(System.in);
@@ -240,4 +242,7 @@ public class App {
         }
                 
     }
+
+
+
 }
