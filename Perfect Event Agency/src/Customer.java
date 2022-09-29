@@ -5,11 +5,16 @@ public class Customer{
     private String lastName;
     private String dob;
     private String address;
+    
+    //for testing purposes only
     private float balance;
+
     private ArrayList<Complaint> complaints;
     private ArrayList<Refund> refunds;
     private ArrayList<EventID> events;
     private ArrayList<Queries> queries;
+
+    public Customer(){};
 
     public Customer(String firstName, String lastName, String dob, String address) {
         this.firstName = firstName;

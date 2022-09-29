@@ -1,18 +1,38 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
 
     public static void main(String[]args) { //contains the code for the UI;
         int choice=0;
+        //test data
+        ArrayList<Venue> venues = new ArrayList<Venue>();
+        venues.add(new Venue("The Ballroom", 1000, 20000, true));
+        venues.add(new Venue("The Grand Hall", 500, 10000, true));
+        venues.add(new Venue("The Grand Ballroom", 1000, 25000, true));
+        venues.add(new Venue("The Westin", 1200, 15000, false));
+
+        ArrayList<FoodSelection> foodSelections = new ArrayList<FoodSelection>();
+        foodSelections.add(new FoodSelection("Food Plan A", 1000));
+        foodSelections.add(new FoodSelection("Food Plan B", 2000));
+        foodSelections.add(new FoodSelection("Food Plan C", 3000));
+        foodSelections.add(new FoodSelection("Food Plan D", 4000));
+
+        ArrayList<Packages> packages = new ArrayList<Packages>();
+        packages.add(new Packages("Package A", 1000));
+        packages.add(new Packages("Package B", 2000));
+        packages.add(new Packages("Package C", 3000));
+        packages.add(new Packages("Package D", 4000));
+
+        
         do {
             Scanner sc = new Scanner(System.in);
             System.out.println("Welcome to the Perfect Events Agency\n");
-            System.out.println("Choose your role:"+"\n"+"1. Employee"+"\n"+"2. Customer");
+            System.out.println("Choose your role:"+"\n"+"1. Employee"+"\n"+"2. Customer"+"\n3. Exit");
             choice = sc.nextInt();
             if(choice!=1 && choice!=2){
                 System.out.println("Invalid choice");
             }
-        } while (choice!=1 && choice!=2);{
             //Employee View
             if (choice==1) {
                 System.out.println("Welcome to Employee Portal");
@@ -20,7 +40,6 @@ public class App {
                 //Choose role
                 do {
                     System.out.println("Pick your role:"+"\n"+"1. Event Manager"+"\n"+"2. Finance Manager"+"\n"+"3. Logistics Manager"+"\n4. Caterer");
-                    Scanner sc = new Scanner(System.in);
                     sub_choice1 = sc.nextInt();
                     if(sub_choice1<1 || sub_choice1>4){
                         System.out.println("Invalid choice");
@@ -34,7 +53,7 @@ public class App {
                                 //input event manager functions
                                 //ENTER CODE HERE. Make changes to the options below if needed
                                 System.out.println("1. Handle Query"+"\n"+"2. Handle Complaints"+"\n"+"3. Book Venue"+"\n"+
-                                "4. Handle Changes"+"\n"+"5. Track Progress"+"\n"+"6. Update Progress"+"\n7. Generate Bill");
+                                "4. Handle Changes"+"\n"+"5. Track Progress"+"\n"+"6. Update Progress"+"\n7. Generate Bill"+"\n8.Back");
                                 sub_choice2 = sc.nextInt();
                                 switch (sub_choice2) {
                                     case 1:
@@ -70,7 +89,7 @@ public class App {
                                         System.out.println("Invalid choice");
                                         break;
                                 }
-                            } while (sub_choice2<1 || sub_choice2>7);
+                            } while (sub_choice2!=8);
                             break;
                         case 2:
                             //FinanceManager
@@ -78,7 +97,7 @@ public class App {
                             int sub_choice3=0;
                             do {
                                 System.out.println("1. Create Cost Plan"+"\n"+"2. Change Cost Plan"+"\n"+"3. Allocate Money"+"\n"+
-                                "4. Pay Salary"+"\n"+"5. Track Progress"+"\n"+"6. Update Progress"+"\n7. Update Packages");
+                                "4. Pay Salary"+"\n"+"5. Track Progress"+"\n"+"6. Update Progress"+"\n7. Update Packages"+"\n8. Back");
                                 sub_choice3 = sc.nextInt();
                                 switch (sub_choice3) {
                                     case 1:
@@ -114,7 +133,7 @@ public class App {
                                         System.out.println("Invalid choice");
                                         break;
                                 } 
-                            } while (sub_choice3<1 || sub_choice3>7);
+                            } while (sub_choice3!=8);
                             break;
                         case 3:
                             //LogisticsManager
@@ -122,7 +141,7 @@ public class App {
                             int sub_choice4=0;
                             do {
                                 System.out.println("1. Hire Musical Band"+"\n"+"2. Hire Sound System"+"\n"+"3. Order Flowers"+"\n"+
-                                "4. Track Progress"+"\n"+"5. Update Progress"+"\n"+"6. Generate Bill");
+                                "4. Track Progress"+"\n"+"5. Update Progress"+"\n"+"6. Generate Bill"+"\n7. Back");
                                 sub_choice4 = sc.nextInt();
                                 switch (sub_choice4) {
                                     case 1:
@@ -153,7 +172,7 @@ public class App {
                                         System.out.println("Invalid choice");
                                         break;
                                 } 
-                            } while (sub_choice4<1 || sub_choice4>6);
+                            } while (sub_choice4!=7);
                             break;
                         case 4:
                             //Caterer
@@ -161,7 +180,7 @@ public class App {
                             int sub_choice5=0;
                             do {
                                 System.out.println("1. Arrange Food and Beverage"+"\n"+
-                                "2. Track Progress"+"\n"+"3. Update Progress"+"\n"+"4. Generate Bill");
+                                "2. Track Progress"+"\n"+"3. Update Progress"+"\n"+"4. Generate Bill"+"\n5. Back");
                                 sub_choice5 = sc.nextInt();
                                 switch (sub_choice5) {
                                     case 1:
@@ -185,7 +204,7 @@ public class App {
                                         System.out.println("Invalid choice");
                                         break;
                                 } 
-                            } while (sub_choice5<1 || sub_choice5>4);
+                            } while (sub_choice5!=5);
                             break;
                     
                         default:
@@ -197,15 +216,18 @@ public class App {
                 System.out.println("Welcome to Customer Portal");
                 int sub_choice6=0;
                 Scanner sc1 = new Scanner(System.in);
+                Customer c = new Customer();
                 do {
                     System.out.println("\n1. View Packages"+"\n2. Book Event"+"\n3. Track Progress"+"\n4. Create Query"+
-                    "\n5. Make Complaint"+"\n6. Request Refund and Cancel"+"\n7. Change Booking");
+                    "\n5. Make Complaint"+"\n6. Request Refund and Cancel"+"\n7. Change Booking"+"\n8. RETURN");
                     sub_choice6 = sc1.nextInt();
                     switch (sub_choice6) {
                         case 1:
                             //View Packages
                             //ENTER CODE HERE
-                            System.out.println("View Packages");
+                            for (int i = 0; i < packages.size(); i++) {
+                                c.viewPackage(packages.get(i));
+                            }
                             break;
                         case 2:
                             //Book Event
@@ -235,8 +257,10 @@ public class App {
                             System.out.println("Invalid choice");
                             break;
                     }
-                } while (sub_choice6<1 || sub_choice6>7);
+                } while (sub_choice6!=8);
             }
+        } while (choice!=3);{
+            
         }
                 
     }
