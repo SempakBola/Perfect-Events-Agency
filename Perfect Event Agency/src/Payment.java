@@ -1,9 +1,9 @@
 import java.util.Random;
 public class Payment {
     private String paymentMethod;
-    private float amount;
+    private double amount;
 
-    public Payment(String paymentMethod, float amount) {
+    public Payment(String paymentMethod, double amount) {
         this.paymentMethod = paymentMethod;
         this.amount = amount;
     }
@@ -16,7 +16,7 @@ public class Payment {
         this.paymentMethod = paymentMethod;
     }
 
-    public float getAmount() {
+    public double getAmount() {
         return amount;
     }
 
@@ -25,9 +25,12 @@ public class Payment {
     }
 
     public EventID createEventID(Customer customer,Booking booking, Payment payment) {
-        customer.setBalance(customer.getBalance() - payment.getAmount());
+        customer.setBalance((float) (customer.getBalance() - payment.getAmount()));
         //create event ID
-        EventID eventID = new EventID(booking,payment);
+       // EventID eventID = new EventID(booking,payment);
+        EventID eventID = new EventID();
+        eventID.setPayment(payment);
+        eventID.setBooking(booking);
         return eventID;
     }
 }

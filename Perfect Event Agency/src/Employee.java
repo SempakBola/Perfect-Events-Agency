@@ -6,18 +6,19 @@ public class Employee { //employee constructor class
     private Double bill;
     private Double Salary;
 
+
+    //constructor method for employee class
     public Employee(int employeeID, String firstName, String lastName, String position, Double bill, Double salary) {
         this.employeeID = employeeID;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.position = position;
         this.bill = bill;
         this.Salary = salary;
     }
 
     public Employee() {
     }
-
+    //getters and setters for the employee class
     public int getEmployeeID() {
         return employeeID;
     }

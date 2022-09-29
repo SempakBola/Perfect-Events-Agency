@@ -3,7 +3,7 @@ public class Booking {
     private Venue venue;
     private FoodSelection foodSelection;
     private Options options;
-    private int totalCost;
+    private double totalCost;
 
     public Booking() {
     };
@@ -14,6 +14,7 @@ public class Booking {
         this.foodSelection = foodSelection;
         this.options = options;
         this.totalCost = 0;
+
     }
 
     //getter and setter methods
@@ -52,7 +53,7 @@ public class Booking {
         this.options = options;
     }
 
-    public int getTotalCost() {
+    public double getTotalCost() {
         return totalCost;
     }
 

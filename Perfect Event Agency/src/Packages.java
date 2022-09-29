@@ -1,8 +1,8 @@
 public class Packages {
     private String details;
-    private float price;
+    private double price;
 
-    public Packages(String details, float price) {
+    public Packages(String details, double price) {
         this.details = details;
         this.price = price;
     }
@@ -16,7 +16,7 @@ public class Packages {
         this.details = details;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 

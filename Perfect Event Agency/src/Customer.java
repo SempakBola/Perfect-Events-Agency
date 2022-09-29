@@ -142,7 +142,7 @@ public class Customer{
         for (int i = 0; i < events.size(); i++) {
             if (events.get(i).getEventID()==eventID){
                 //if found, refund the payment
-                setBalance(events.get(i).getPayment().getAmount());
+                setBalance((float) events.get(i).getPayment().getAmount());
                 //create new booking
                 createBooking(customer, packages,venue,foodSelection,options, paymentMethod);
                 //remove old booking

@@ -1,22 +1,14 @@
-import java.util.Random;
-
 public class EventID {
+
     private int eventID;
     private Booking booking;
     private Payment payment;
     private int progress;
     private boolean isDone;
 
-    public EventID(Booking booking, Payment payment) {
-        Random rand = new Random();
-        this.eventID = rand.nextInt(10000);
-        this.booking = booking;
-        this.payment = payment;
-        this.progress = 0;
-        this.isDone = false;
+    public EventID() {
     }
 
-    //getter and setter methods
     public int getEventID() {
         return eventID;
     }
@@ -49,13 +41,11 @@ public class EventID {
         this.progress = progress;
     }
 
-    public boolean isIsDone() {
+    public boolean isDone() {
         return isDone;
     }
 
-    public void setIsDone(boolean isDone) {
-        this.isDone = isDone;
+    public void setDone(boolean done) {
+        isDone = done;
     }
-
-    
 }
