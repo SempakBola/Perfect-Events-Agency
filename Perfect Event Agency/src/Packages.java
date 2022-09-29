@@ -25,5 +25,9 @@ public class Packages {
         this.price = price;
     }
 
+    public void str() {
+        System.out.println("Package Details: " + details);
+        System.out.println("Package Price: " + price);
+    }
     
 }

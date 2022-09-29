@@ -37,6 +37,7 @@ public class App {
             if (choice==1) {
                 System.out.println("Welcome to Employee Portal");
                 int sub_choice1=0;
+                
                 //Choose role
                 do {
                     System.out.println("Pick your role:"+"\n"+"1. Event Manager"+"\n"+"2. Finance Manager"+"\n"+"3. Logistics Manager"+"\n4. Caterer");
@@ -49,6 +50,7 @@ public class App {
                             //EventManager
                             System.out.println("Welcome to Event Manager Portal");
                             int sub_choice2=0;
+                            Finance_Manager finance_manager = new Finance_Manager();
                             do {
                                 //input event manager functions
                                 //ENTER CODE HERE. Make changes to the options below if needed
@@ -285,8 +287,15 @@ public class App {
 
                             b.selectOptions(option);
 
-                            
-
+                            //entering customer details
+                            System.out.println("Enter your first name: ");
+                            c.setFirstName(sc.next());
+                            System.out.println("Enter your last name: ");
+                            c.setLastName(sc.next());
+                            System.out.println("Enter your dob: ");
+                            c.setDob(sc.next());
+                            System.out.println("Enter your address: ");
+                            c.setAddress(sc.next());
 
                             break;
                         case 3:

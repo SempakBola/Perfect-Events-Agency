@@ -118,6 +118,25 @@ public class Customer{
         this.queries.add(query);
     }
 
+    //view queries
+    public void viewQueries() {
+        for (Queries query : queries) {
+            System.out.println("Query ID: " + query.getQueryID());
+            System.out.println("Details: " + query.getDetails());
+            System.out.println("Reply: " + query.getReply());
+        }
+    }
+
+    //view events
+    public void viewEvents() {
+        for (EventID event : events) {
+            System.out.println("Event ID: " + event.getEventID());
+            System.out.println("Payment Method: " + event.getPayment().getPaymentMethod());
+            System.out.println("Amount Paid: " + event.getPayment().getAmount());
+
+        }
+    }
+
     // view packages
     public void viewPackage(Packages selectedPackage) {
         System.out.println(selectedPackage.getDetails());
@@ -162,7 +181,7 @@ public class Customer{
         return balance;
     }
 
-    
+
     public void changeBooking(Customer customer, int eventID,Packages packages, Venue venue, FoodSelection foodSelection, Options options, String paymentMethod) {
         //loop through the list and look for the matching eventID
         for (int i = 0; i < events.size(); i++) {
@@ -178,5 +197,13 @@ public class Customer{
                 System.out.println("Event not found");
             }
         }
+    }
+
+    public void str(){
+        System.out.println("Customer: "+firstName+" "+lastName);
+        System.out.println("DOB: "+dob);
+        System.out.println("Address: "+address);
+        System.out.println("Balance: "+balance);
+        
     }
 }
