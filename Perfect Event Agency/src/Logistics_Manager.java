@@ -1,9 +1,12 @@
+import java.util.ArrayList;
+
 public class Logistics_Manager extends Employee{
 
 
     //constructor method
-    public Logistics_Manager(int employeeID, String firstName, String lastName, String position, Double bill, Double salary) {
-        super(employeeID, firstName, lastName, position, bill, salary);
+
+    public Logistics_Manager(int employeeID, String firstName, String lastName, double bill, double salary, ArrayList<EventID> managedEvent, double employeeBalance) {
+        super(employeeID, firstName, lastName, bill, salary, managedEvent, employeeBalance);
     }
 
     public void hireMusicBand(){
@@ -16,6 +19,7 @@ public class Logistics_Manager extends Employee{
     public void orderFlowers(){
 
     }
+
 
 
 }

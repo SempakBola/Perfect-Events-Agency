@@ -1,19 +1,29 @@
+import java.util.ArrayList;
+
 public class Employee { //employee constructor class
     private int employeeID;
     private String firstName;
     private String lastName;
     private String position;
-    private Double bill;
-    private Double Salary;
+    private double bill;
+    private double Salary;
+
+    private ArrayList<EventID> managedEvent = new ArrayList<>();
+
+    private double employeeBalance;
 
 
     //constructor method for employee class
-    public Employee(int employeeID, String firstName, String lastName, String position, Double bill, Double salary) {
+
+
+    public Employee(int employeeID, String firstName, String lastName, double bill, double salary, ArrayList<EventID> managedEvent, double employeeBalance) {
         this.employeeID = employeeID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.bill = bill;
-        this.Salary = salary;
+        Salary = salary;
+        this.managedEvent = managedEvent;
+        this.employeeBalance = employeeBalance;
     }
 
     public Employee() {
@@ -73,5 +83,21 @@ public class Employee { //employee constructor class
 
     public void updateProgress(){
 
+    }
+
+    public ArrayList<EventID> getManagedEvent() {
+        return managedEvent;
+    }
+
+    public void setManagedEvent(ArrayList<EventID> managedEvent) {
+        this.managedEvent = managedEvent;
+    }
+
+    public double getEmployeeBalance() {
+        return employeeBalance;
+    }
+
+    public void setEmployeeBalance(double employeeBalance) {
+        this.employeeBalance = employeeBalance;
     }
 }
