@@ -111,10 +111,7 @@ public class Customer{
 
     //create query
     public void createQuery(String details) {
-        Random rand = new Random();
-        int queryID= rand.nextInt(1000);
-        String reply=" ";
-        Queries query = new Queries(queryID, details, reply);
+        Queries query = new Queries(details);
         this.queries.add(query);
     }
 
@@ -133,7 +130,7 @@ public class Customer{
             System.out.println("Event ID: " + event.getEventID());
             System.out.println("Payment Method: " + event.getPayment().getPaymentMethod());
             System.out.println("Amount Paid: " + event.getPayment().getAmount());
-
+            event.getBooking().str();
         }
     }
 
@@ -157,8 +154,7 @@ public class Customer{
         System.out.println(selectedFood.getPrice());
     }
 
-    public void createBooking(Customer customer,Packages selectedPackage, Venue selectedVenue, FoodSelection selectedFood, Options selectedOptions, String paymentMethod) {
-        Booking booking = new Booking(selectedPackage, selectedVenue, selectedFood, selectedOptions);
+    public void createBooking(Customer customer,Booking booking, String paymentMethod) {
         events.add(booking.createPayment(customer, paymentMethod, booking));
     }
 
@@ -166,8 +162,9 @@ public class Customer{
         return event.getProgress();
     }
 
-    public void requestRefund(EventID event, String details) {
-        Refund refund = new Refund(event, details);
+    public void requestRefund(Customer customer,EventID eventID, String details) {
+        Refund refund = new Refund(eventID, details);
+        refund.refundMoney(customer, eventID.getEventID());
         refunds.add(refund);
     }
 
@@ -182,14 +179,14 @@ public class Customer{
     }
 
 
-    public void changeBooking(Customer customer, int eventID,Packages packages, Venue venue, FoodSelection foodSelection, Options options, String paymentMethod) {
+    public void changeBooking(Customer customer, int eventID,Booking booking, String paymentMethod) {
         //loop through the list and look for the matching eventID
         for (int i = 0; i < events.size(); i++) {
             if (events.get(i).getEventID()==eventID){
                 //if found, refund the payment
-                setBalance((float) events.get(i).getPayment().getAmount());
+                setBalance((float) events.get(i).getPayment().getAmount()+getBalance());
                 //create new booking
-                createBooking(customer, packages,venue,foodSelection,options, paymentMethod);
+                createBooking(customer, booking, paymentMethod);
                 //remove old booking
                 events.remove(i);
             }
@@ -199,11 +196,11 @@ public class Customer{
         }
     }
 
-    public void str(){
+    public void customerDetails(){
         System.out.println("Customer: "+firstName+" "+lastName);
         System.out.println("DOB: "+dob);
         System.out.println("Address: "+address);
         System.out.println("Balance: "+balance);
-        
+
     }
 }

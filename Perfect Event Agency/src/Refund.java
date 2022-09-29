@@ -33,4 +33,14 @@ public class Refund {
     public void setIsRefunded(boolean isRefunded) {
         this.isRefunded = isRefunded;
     }
+
+    public void refundMoney(Customer customer, int eventID) {
+            for (int i = 0; i < customer.getEvents().size(); i++) {
+                if (customer.getEvents().get(i).getEventID() == eventID) {
+                    customer.setBalance((float) (customer.getBalance() + customer.getEvents().get(i).getPayment().getAmount()));
+                    customer.getEvents().remove(i);
+                    this.isRefunded = true;
+                }
+            }
+        }
 }

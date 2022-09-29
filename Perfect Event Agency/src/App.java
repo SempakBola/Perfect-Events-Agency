@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
+    public void printSeperator() {
+        System.out.println("------------------------------------------------------------");
+    }
 
     public static void main(String[]args) { //contains the code for the UI;
         int choice=0;
@@ -24,17 +27,20 @@ public class App {
         packages.add(new Packages("Package C", 3000));
         packages.add(new Packages("Package D", 4000));
 
-        
+        App app = new App();
+
         do {
             Scanner sc = new Scanner(System.in);
             System.out.println("Welcome to the Perfect Events Agency\n");
             System.out.println("Choose your role:"+"\n"+"1. Employee"+"\n"+"2. Customer"+"\n3. Exit");
             choice = sc.nextInt();
+            app.printSeperator();
             if(choice!=1 && choice!=2){
                 System.out.println("Invalid choice");
             }
             //Employee View
             if (choice==1) {
+                app.printSeperator();
                 System.out.println("Welcome to Employee Portal");
                 int sub_choice1=0;
                 
@@ -218,56 +224,58 @@ public class App {
                 System.out.println("Welcome to Customer Portal");
                 int sub_choice6=0;
                 Scanner sc1 = new Scanner(System.in);
-                Customer c = new Customer();
+                Customer customer = new Customer();
                 do {
                     System.out.println("\n1. View Packages"+"\n2. Book Event"+"\n3. Track Progress"+"\n4. Create Query"+
-                    "\n5. Make Complaint"+"\n6. Request Refund and Cancel"+"\n7. Change Booking"+"\n8. RETURN");
+                    "\n5. Make Complaint"+"\n6. Request Refund and Cancel"+"\n7. Change Booking"+
+                    "\n8. Check Balance"+"\n9. Deposit Money"+"\n10. Back");
                     sub_choice6 = sc1.nextInt();
                     switch (sub_choice6) {
                         case 1:
                             //View Packages
                             //ENTER CODE HERE
+                            app.printSeperator();
                             for (int i = 0; i < packages.size(); i++) {
                                 System.out.println(i+1);
-                                c.viewPackage(packages.get(i));
+                                customer.viewPackage(packages.get(i));
                             }
                             break;
                         case 2:
                             //Book Event
                             //ENTER CODE HERE
-                            Booking b = new Booking();
+                            Booking booking = new Booking();
                             //selecting package
+                            app.printSeperator();
                             for (int i = 0; i < packages.size(); i++) {
                                 System.out.println(i+1);
-                                c.viewPackage(packages.get(i));
+                                customer.viewPackage(packages.get(i));
                             }
                             System.out.println("Enter the package number you want to book");
-                            b.selectPackage(packages.get(sc1.nextInt()-1));
+                            booking.selectPackage(packages.get(sc1.nextInt()-1));
                             
+                            app.printSeperator();
                             //selecting venue
                             System.out.println("Enter the number of guests: ");
                             int numberOfGuests = sc1.nextInt();
                             for (int i=0; i<venues.size(); i++){
-                                if (venues.get(i).getCapacity()==numberOfGuests && venues.get(i).isAvailability()){
+                                if (venues.get(i).getCapacity()>=numberOfGuests && venues.get(i).isAvailability()==true){
                                     System.out.println(i+1);
-                                    c.viewVenue(venues.get(i));
-                                }
-                                else{
-                                    System.out.println("No venue available");
+                                    customer.viewVenue(venues.get(i));
                                 }
                             }
                             System.out.println("Enter the venue number you want to book");
-                            b.selectVenue(venues.get(sc1.nextInt()-1));
+                            booking.selectVenue(venues.get(sc1.nextInt()-1));
 
-                            
+                            app.printSeperator();
                             //enter food selection
                             for (int i=0;i<foodSelections.size();i++){
                                 System.out.println(i+1);
-                                c.viewFood(foodSelections.get(i));
+                                customer.viewFood(foodSelections.get(i));
                             }
                             System.out.println("Enter the food number you want to book");
-                            b.foodSelection(foodSelections.get(sc1.nextInt()-1));
+                            booking.foodSelection(foodSelections.get(sc1.nextInt()-1));
 
+                            app.printSeperator();
                             //selecting options
                             Options option = new Options();
                             System.out.println("Do you want to hire a band? (Y/N)");
@@ -285,44 +293,87 @@ public class App {
                                 option.setIsSoundSystem(true);
                             }
 
-                            b.selectOptions(option);
+                            app.printSeperator();
 
+                            booking.selectOptions(option);
+                            //to ensure that the code doesnt skip the input
+                            sc.nextLine();
                             //entering customer details
                             System.out.println("Enter your first name: ");
-                            c.setFirstName(sc.next());
+                            customer.setFirstName(sc.nextLine());
                             System.out.println("Enter your last name: ");
-                            c.setLastName(sc.next());
+                            customer.setLastName(sc.nextLine());
                             System.out.println("Enter your dob: ");
-                            c.setDob(sc.next());
+                            customer.setDob(sc.nextLine());
                             System.out.println("Enter your address: ");
-                            c.setAddress(sc.next());
-
+                            customer.setAddress(sc.nextLine());
+                            System.out.println("Select your payment method: 1. Credit card\n 2.Debit card\n 3. Net banking (Enter String)" );
+                            String paymentMethod = sc.nextLine();
+                            app.printSeperator();
+                            //entering payment details
+                            customer.createBooking(customer, booking, paymentMethod);
                             break;
                         case 3:
                             //Track Progress
                             //ENTER CODE HERE
+                            app.printSeperator();
+                            customer.viewEvents();
                             break;
                         case 4:
                             //Create Query
                             //ENTER CODE HERE
+                            System.out.println("Enter your query: ");
+                            customer.createQuery(sc.nextLine());
                             break;
                         case 5:
                             //Make Complaint
                             //ENTER CODE HERE
+                            app.printSeperator();
+                            customer.viewEvents();
+                            System.out.println("Enter Event ID: ");
+                            int eventID = sc1.nextInt();
+                            for (int i=0; i<customer.getEvents().size(); i++){
+                                if (customer.getEvents().get(i).getEventID()==eventID){
+                                    System.out.println("Enter your complaint: ");
+                                    customer.makeComplaint(customer.getEvents().get(i), sc1.nextLine());
+                                }
+                            }
                             break;
                         case 6:
                             //Request Refund and Cancel
                             //ENTER CODE HERE
+                            app.printSeperator();
+                            customer.viewEvents();
+                            System.out.println("Enter Event ID: ");
+                            int eventID1 = sc1.nextInt();
+                            String details =sc1.nextLine();
+                            for (int i=0; i<customer.getEvents().size(); i++){
+                                if (customer.getEvents().get(i).getEventID()==eventID1){
+                                    customer.requestRefund(customer,customer.getEvents().get(i), details);
+                                }
+                            }
                             break;
                         case 7:
                             //Change Booking
                             //ENTER CODE HERE
                             break;
+                        case 8:
+                            //check balance
+                            //ENTER CODE HERE
+                            app.printSeperator();
+                            System.out.println("Your balance is: "+customer.getBalance());
+                        case 9:
+                            //Deposit Money
+                            //ENTER CODE HERE
+                            app.printSeperator();
+                            System.out.println("Enter the amount you want to deposit: ");
+                            customer.setBalance(sc.nextFloat()+customer.getBalance());
+                            System.out.println("Your new balance is: "+customer.getBalance());
                         default:
                             System.out.println("Invalid choice");
                             break;
                     }
-                } while (sub_choice6!=8);
+                } while (sub_choice6!=10);
             }
         } while (choice!=3);{
             
