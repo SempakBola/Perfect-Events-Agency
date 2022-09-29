@@ -27,10 +27,7 @@ public class Payment {
     public EventID createEventID(Customer customer,Booking booking, Payment payment) {
         customer.setBalance((float) (customer.getBalance() - payment.getAmount()));
         //create event ID
-       // EventID eventID = new EventID(booking,payment);
-        EventID eventID = new EventID();
-        eventID.setPayment(payment);
-        eventID.setBooking(booking);
+       EventID eventID = new EventID(booking,payment);
         return eventID;
     }
 }

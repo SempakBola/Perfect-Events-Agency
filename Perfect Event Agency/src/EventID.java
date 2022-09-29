@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class EventID {
 
     private int eventID;
@@ -6,7 +8,13 @@ public class EventID {
     private int progress;
     private boolean isDone;
 
-    public EventID() {
+    public EventID(Booking booking, Payment payment) {
+        this.booking = booking;
+        this.payment = payment;
+        this.progress = 0;
+        this.isDone = false;
+        Random rand = new Random();
+        this.eventID = rand.nextInt(1000000);
     }
 
     public int getEventID() {

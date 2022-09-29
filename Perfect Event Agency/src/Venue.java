@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.Random;
 
 public class Venue {
     private String name;
@@ -45,4 +45,5 @@ public class Venue {
     public void setAvailability(boolean availability) {
         this.availability = availability;
     }
+
 }

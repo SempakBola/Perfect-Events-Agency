@@ -6,6 +6,7 @@ public class Booking {
     private double totalCost;
 
     public Booking() {
+        this.totalCost = 0;
     };
 
     public Booking(Packages packages, Venue venue, FoodSelection foodSelection, Options options) {
@@ -45,11 +46,11 @@ public class Booking {
         this.totalCost+=foodSelection.getPrice();
     }
 
-    public Options selectOptions() {
+    public Options getOptions() {
         return options;
     }
 
-    public void setOptions(Options options) {
+    public void selectOptions(Options options) {
         this.options = options;
     }
 

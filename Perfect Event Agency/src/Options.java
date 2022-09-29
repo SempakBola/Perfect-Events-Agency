@@ -3,10 +3,10 @@ public class Options {
     private boolean isSoundSystem;
     private boolean isFlowerDecoration;
 
-    public Options(boolean isHireBand, boolean isSoundSystem, boolean isFlowerDecoration) {
-        this.isHireBand = isHireBand;
-        this.isSoundSystem = isSoundSystem;
-        this.isFlowerDecoration = isFlowerDecoration;
+    public Options(){
+        this.isHireBand = false;
+        this.isSoundSystem = false;
+        this.isFlowerDecoration = false;
     }
 
     //getter and setter methods
@@ -32,6 +32,12 @@ public class Options {
 
     public void setIsFlowerDecoration(boolean isFlowerDecoration) {
         this.isFlowerDecoration = isFlowerDecoration;
+    }
+
+    public void str(){
+        System.out.println("Hire Band: " + isHireBand);
+        System.out.println("Sound System: " + isSoundSystem);
+        System.out.println("Flower Decoration: " + isFlowerDecoration);
     }
 
 }

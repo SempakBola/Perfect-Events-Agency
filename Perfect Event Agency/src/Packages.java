@@ -1,3 +1,4 @@
+import java.util.Random;
 public class Packages {
     private String details;
     private double price;
@@ -23,5 +24,6 @@ public class Packages {
     public void setPrice(float price) {
         this.price = price;
     }
+
     
 }

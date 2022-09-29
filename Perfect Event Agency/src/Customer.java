@@ -5,7 +5,7 @@ public class Customer{
     private String lastName;
     private String dob;
     private String address;
-    
+
     //for testing purposes only
     private float balance;
 
@@ -14,7 +14,13 @@ public class Customer{
     private ArrayList<EventID> events;
     private ArrayList<Queries> queries;
 
-    public Customer(){};
+    public Customer(){
+        this.balance=1000;
+        this.complaints = new ArrayList<Complaint>();
+        this.refunds = new ArrayList<Refund>();
+        this.events = new ArrayList<EventID>();
+        this.queries = new ArrayList<Queries>();
+    };
 
     public Customer(String firstName, String lastName, String dob, String address) {
         this.firstName = firstName;
@@ -118,6 +124,20 @@ public class Customer{
         System.out.println(selectedPackage.getPrice());
     }
 
+    //view venues
+    public void viewVenue(Venue selectedVenue) {
+        System.out.println(selectedVenue.getName());
+        System.out.println(selectedVenue.getPrice());
+        System.out.println(selectedVenue.getCapacity());
+        System.out.println(selectedVenue.isAvailability());
+    }
+
+    //view food Selection
+    public void viewFood(FoodSelection selectedFood) {
+        System.out.println(selectedFood.getFoodandBeveragePackage());
+        System.out.println(selectedFood.getPrice());
+    }
+
     public void createBooking(Customer customer,Packages selectedPackage, Venue selectedVenue, FoodSelection selectedFood, Options selectedOptions, String paymentMethod) {
         Booking booking = new Booking(selectedPackage, selectedVenue, selectedFood, selectedOptions);
         events.add(booking.createPayment(customer, paymentMethod, booking));
@@ -137,6 +157,12 @@ public class Customer{
         complaints.add(complaint);
     }
 
+
+    public float checkBalance() {
+        return balance;
+    }
+
+    
     public void changeBooking(Customer customer, int eventID,Packages packages, Venue venue, FoodSelection foodSelection, Options options, String paymentMethod) {
         //loop through the list and look for the matching eventID
         for (int i = 0; i < events.size(); i++) {

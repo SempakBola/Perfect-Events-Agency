@@ -1,5 +1,4 @@
-import java.util.Dictionary;
-import java.util.Hashtable;
+import java.util.Random;
 
 public class FoodSelection {
     private String foodandBeveragePackage;
@@ -25,6 +24,7 @@ public class FoodSelection {
     public void setPrice(float price) {
         this.price = price;
     }
+
     
 }
 
