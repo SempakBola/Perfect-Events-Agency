@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class EventID {
     private int eventID;
     private Booking booking;
@@ -5,12 +7,13 @@ public class EventID {
     private int progress;
     private boolean isDone;
 
-    public EventID(int eventID, Booking booking, Payment payment, int progress, boolean isDone) {
-        this.eventID = eventID;
+    public EventID(Booking booking, Payment payment) {
+        Random rand = new Random();
+        this.eventID = rand.nextInt(10000);
         this.booking = booking;
         this.payment = payment;
-        this.progress = progress;
-        this.isDone = isDone;
+        this.progress = 0;
+        this.isDone = false;
     }
 
     //getter and setter methods

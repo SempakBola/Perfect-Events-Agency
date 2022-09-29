@@ -24,10 +24,10 @@ public class Payment {
         this.amount = amount;
     }
 
-    public void createEventID(Booking booking, Payment payment, int progress, boolean isDone) {
+    public EventID createEventID(Customer customer,Booking booking, Payment payment) {
+        customer.setBalance(customer.getBalance() - payment.getAmount());
         //create event ID
-        Random rand = new Random();
-        int id = rand.nextInt(1000);
-        EventID eventID = new EventID(id,booking,payment,progress,isDone);
+        EventID eventID = new EventID(booking,payment);
+        return eventID;
     }
 }

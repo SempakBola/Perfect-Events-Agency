@@ -3,10 +3,10 @@ public class Refund {
     private String details;
     private boolean isRefunded;
 
-    public Refund(EventID eventID, String details, boolean isRefunded) {
+    public Refund(EventID eventID, String details) {
         this.eventID = eventID;
         this.details = details;
-        this.isRefunded = isRefunded;
+        this.isRefunded = false;
     }
 
     //getter and setter methods

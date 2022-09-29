@@ -5,6 +5,7 @@ public class Customer{
     private String lastName;
     private String dob;
     private String address;
+    private float balance;
     private ArrayList<Complaint> complaints;
     private ArrayList<Refund> refunds;
     private ArrayList<EventID> events;
@@ -15,6 +16,7 @@ public class Customer{
         this.lastName = lastName;
         this.dob = dob;
         this.address = address;
+        this.balance=1000;
         this.complaints = new ArrayList<Complaint>();
         this.refunds = new ArrayList<Refund>();
         this.events = new ArrayList<EventID>();
@@ -54,6 +56,10 @@ public class Customer{
         return queries;
     }
 
+    public float getBalance() {
+        return balance;
+    }
+
     //setters
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -69,6 +75,10 @@ public class Customer{
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public void setBalance(float balance) {
+        this.balance = balance;
     }
 
     //adders
@@ -97,8 +107,45 @@ public class Customer{
         this.queries.add(query);
     }
 
-    public void viewPackage(Packages package){
-
+    // view packages
+    public void viewPackage(Packages selectedPackage) {
+        System.out.println(selectedPackage.getDetails());
+        System.out.println(selectedPackage.getPrice());
     }
 
+    public void createBooking(Customer customer,Packages selectedPackage, Venue selectedVenue, FoodSelection selectedFood, Options selectedOptions, String paymentMethod) {
+        Booking booking = new Booking(selectedPackage, selectedVenue, selectedFood, selectedOptions);
+        events.add(booking.createPayment(customer, paymentMethod, booking));
+    }
+
+    public int checkProgress(EventID event) {
+        return event.getProgress();
+    }
+
+    public void requestRefund(EventID event, String details) {
+        Refund refund = new Refund(event, details);
+        refunds.add(refund);
+    }
+
+    public void makeComplaint(EventID event, String details) {
+        Complaint complaint = new Complaint(event, details);
+        complaints.add(complaint);
+    }
+
+    public void changeBooking(Customer customer, int eventID,Packages packages, Venue venue, FoodSelection foodSelection, Options options, String paymentMethod) {
+        //loop through the list and look for the matching eventID
+        for (int i = 0; i < events.size(); i++) {
+            if (events.get(i).getEventID()==eventID){
+                //if found, refund the payment
+                setBalance(events.get(i).getPayment().getAmount());
+                //create new booking
+                createBooking(customer, packages,venue,foodSelection,options, paymentMethod);
+                //remove old booking
+                events.remove(i);
+            }
+            else{
+                System.out.println("Event not found");
+            }
+        }
+    }
 }

@@ -8,12 +8,12 @@ public class Booking {
     public Booking() {
     };
 
-    public Booking(Packages packages, Venue venue, FoodSelection foodSelection, Options options, int totalCost) {
+    public Booking(Packages packages, Venue venue, FoodSelection foodSelection, Options options) {
         this.packages = packages;
         this.venue = venue;
         this.foodSelection = foodSelection;
         this.options = options;
-        this.totalCost = totalCost;
+        this.totalCost = 0;
     }
 
     //getter and setter methods
@@ -60,11 +60,11 @@ public class Booking {
         this.totalCost = totalCost;
     }
 
-    public void createPayment(String paymentMethod, Booking booking, int progress, boolean isDone) {
+    public EventID createPayment(Customer customer, String paymentMethod, Booking booking) {
         //create payment
-        Payment payment = new Payment(paymentMethod, totalCost);
+        Payment payment = new Payment(paymentMethod, booking.getTotalCost());
         //create eventID
-        payment.createEventID(booking, payment, progress, isDone);
+        return payment.createEventID(customer, booking, payment);
     }
 
 }

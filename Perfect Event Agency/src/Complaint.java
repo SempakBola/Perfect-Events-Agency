@@ -3,10 +3,10 @@ public class Complaint {
     private String details;
     private String reply;
 
-    public Complaint(EventID eventID, String details, String reply) {
+    public Complaint(EventID eventID, String details) {
         this.eventID = eventID;
         this.details = details;
-        this.reply = reply;
+        this.reply = "";
     }
 
     //getter and setter methods
