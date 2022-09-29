@@ -307,10 +307,19 @@ public class App {
                             customer.setDob(sc.nextLine());
                             System.out.println("Enter your address: ");
                             customer.setAddress(sc.nextLine());
-                            System.out.println("Select your payment method: 1. Credit card\n 2.Debit card\n 3. Net banking (Enter String)" );
-                            String paymentMethod = sc.nextLine();
-                            app.printSeperator();
+
                             //entering payment details
+                            System.out.println("Select your payment method: \n1. Credit card\n 2.Debit card\n 3. Net banking (Enter String)" );
+                            int payment_choice=sc.nextInt();
+                            String paymentMethod="";
+                            if (payment_choice==1){
+                                paymentMethod="Credit card";
+                            } else if (payment_choice==2){
+                                paymentMethod="Debit card";
+                            } else if (payment_choice==3){
+                                paymentMethod="Net banking";
+                            }
+                            app.printSeperator();
                             customer.createBooking(customer, booking, paymentMethod);
                             break;
                         case 3:
@@ -362,6 +371,7 @@ public class App {
                                 customer.viewEvents();
                                 System.out.println("Enter Event ID: ");
                                 int eventID1 = sc1.nextInt();
+                                sc.nextLine();
                                 String details =sc1.nextLine();
                                 for (int i=0; i<customer.getEvents().size(); i++){
                                 if (customer.getEvents().get(i).getEventID()==eventID1){
@@ -377,6 +387,7 @@ public class App {
                         case 7:
                             //Change Booking
                             //ENTER CODE HERE
+                            app.printSeperator();
                             break;
                         case 8:
                             //check balance
