@@ -10,6 +10,16 @@ public class Tracker {
     private final ArrayList<String> tasks = new ArrayList<>();
     Logistics_Manager logistics_manager = new Logistics_Manager();
 
+
+    private Tracker(){
+
+    }
+
+    public static Tracker getTracker(){
+        return new Tracker();
+    }
+
+
     public String AvailableTask(){
 
         ArrayList<String> tasks = new ArrayList<>(Arrays.asList(tasksNames));
