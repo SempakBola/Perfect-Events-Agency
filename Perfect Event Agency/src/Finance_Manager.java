@@ -2,15 +2,18 @@ import java.util.ArrayList;
 
 public class Finance_Manager extends Employee {
 
-    ArrayList<Cost_Plan> costPlans = new ArrayList<>();
+   private ArrayList<Cost_Plan> costPlans = new ArrayList<>();
+    private  double company_balance = 100000;
 
-    public Finance_Manager(int employeeID, String firstName, String lastName, String position, Double bill, Double salary) {
-        super(employeeID, firstName, lastName, position, bill, salary);
-        super.setPosition("Finance Manager");
+    private float workingEmployeeSplit;
+
+    public Finance_Manager(int employeeID, String firstName, String lastName, double bill, double salary, ArrayList<EventID> managedEvent, double employeeBalance) {
+        super(employeeID, firstName, lastName, bill, salary, managedEvent, employeeBalance);
+        super.setPosition("Finance_Manager");
     }
 
     public Finance_Manager() {
-        
+        super.setPosition("Finance_Manager");
     }
 
     public ArrayList<Cost_Plan> getCostPlans() {
@@ -21,21 +24,32 @@ public class Finance_Manager extends Employee {
         this.costPlans = costPlans;
     }
 
-    public void allocateMoney(){
+
+    public void checkForWorkingEmployees(){
+        Logistics_Manager log = new Logistics_Manager();
+        if(log.optionalserviceused()){
+            workingEmployeeSplit = 0.25F;
+        }else{
+            workingEmployeeSplit = 0.33F;
+        }
 
     }
 
-    public void paySalary(){
+    public void allocateMoney(int employeeID, double amount){
+        EventID eventID = new EventID();
+        double cost = eventID.getBooking().getTotalCost();
+        amount = (company_balance - cost) * workingEmployeeSplit ;
+        if(amount<0){
+            amount = 0;
+        }
+        super.setEmployeeBalance(employeeID, amount);
 
     }
 
-    public void updatePacakages(){
-
+    public void paySalary(int employeeID, double amount){
+        super.setSalary(employeeID,amount);
     }
 
-    public static void main(String[] args) {
-        Finance_Manager finance_manager = new Finance_Manager(123, "John", "Doe", "Finance Manager", 0.0, 0.0);
-        System.out.println(finance_manager.getPosition());
-    }
+
 
 }

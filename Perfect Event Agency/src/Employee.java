@@ -73,8 +73,10 @@ public class Employee { //employee constructor class
         return Salary;
     }
 
-    public void setSalary(Double salary) {
-        Salary = salary;
+    public void setSalary(int employeeID, double salary) {
+        if (this.employeeID == employeeID){
+            Salary = salary;
+        }
     }
 
     public void generateBill(){
@@ -97,7 +99,10 @@ public class Employee { //employee constructor class
         return employeeBalance;
     }
 
-    public void setEmployeeBalance(double employeeBalance) {
-        this.employeeBalance = employeeBalance;
+    public void setEmployeeBalance(int employeeID, double employeeBalance) {
+        if (this.employeeID == employeeID){
+            this.employeeBalance = employeeBalance;
+        }
+
     }
 }

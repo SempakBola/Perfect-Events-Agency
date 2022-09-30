@@ -18,6 +18,10 @@ public class EventID {
         this.eventID = rand.nextInt(1000000);
     }
 
+    public EventID() {
+
+    }
+
     public int getEventID() {
         return eventID;
     }
