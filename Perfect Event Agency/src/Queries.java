@@ -1,12 +1,13 @@
+import java.util.Random;
 public class Queries {
     private int queryID;
     private String details;
     private String reply;
 
-    public Queries(int queryID, String details, String reply) {
-        this.queryID = queryID;
+    public Queries(String details) {
+        this.queryID = new Random().nextInt(1000);
         this.details = details;
-        this.reply = reply;
+        this.reply = "";
     }
 
     //getter and setter methods

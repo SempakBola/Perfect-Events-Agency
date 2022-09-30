@@ -70,11 +70,11 @@ public class Booking {
     }
 
     public void str(){
-        System.out.println("Package: " + packages.str(););
-        System.out.println("Venue: " + venue.getName());
-        System.out.println("Food: " + foodSelection.getFoodandBeveragePackage());
-        System.out.println("Options: " + options.getOptions());
-        System.out.println("Total Cost: " + totalCost);
+        packages.str();;
+        venue.str();
+        foodSelection.str();
+        options.str();
+        System.out.println("totalCost: " + totalCost);
     }
 
 }

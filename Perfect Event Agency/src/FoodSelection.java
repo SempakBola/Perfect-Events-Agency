@@ -25,6 +25,11 @@ public class FoodSelection {
         this.price = price;
     }
 
+    public void str() {
+        System.out.println("Food and Beverage Package: " + foodandBeveragePackage);
+        System.out.println("Price: " + price);
+    }
+
     
 }
 

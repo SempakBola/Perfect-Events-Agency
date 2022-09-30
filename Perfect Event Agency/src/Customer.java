@@ -111,10 +111,7 @@ public class Customer{
 
     //create query
     public void createQuery(String details) {
-        Random rand = new Random();
-        int queryID= rand.nextInt(1000);
-        String reply=" ";
-        Queries query = new Queries(queryID, details, reply);
+        Queries query = new Queries(details);
         this.queries.add(query);
     }
 
@@ -127,13 +124,23 @@ public class Customer{
         }
     }
 
+    //view refunds
+    public void viewRefunds() {
+        for (Refund refund : refunds) {
+            System.out.println("Event ID: " + refund.getEventID().getEventID());
+            System.out.println("Details: " + refund.getDetails());
+            System.out.println("Is Refunded: " + refund.isIsRefunded());
+        }
+    }
+
     //view events
     public void viewEvents() {
         for (EventID event : events) {
             System.out.println("Event ID: " + event.getEventID());
             System.out.println("Payment Method: " + event.getPayment().getPaymentMethod());
             System.out.println("Amount Paid: " + event.getPayment().getAmount());
-
+            event.getBooking().str();
+            System.out.println("----------------");
         }
     }
 
@@ -157,8 +164,7 @@ public class Customer{
         System.out.println(selectedFood.getPrice());
     }
 
-    public void createBooking(Customer customer,Packages selectedPackage, Venue selectedVenue, FoodSelection selectedFood, Options selectedOptions, String paymentMethod) {
-        Booking booking = new Booking(selectedPackage, selectedVenue, selectedFood, selectedOptions);
+    public void createBooking(Customer customer,Booking booking, String paymentMethod) {
         events.add(booking.createPayment(customer, paymentMethod, booking));
     }
 
@@ -166,8 +172,11 @@ public class Customer{
         return event.getProgress();
     }
 
-    public void requestRefund(EventID event, String details) {
-        Refund refund = new Refund(event, details);
+    public void requestRefund(Customer customer,EventID eventID, String details) {
+        Refund refund = new Refund(eventID, details);
+        //testing if refund function works
+        refund.refundMoney(customer, eventID.getEventID());
+        System.out.println("Your balance is now: " + customer.getBalance());
         refunds.add(refund);
     }
 
@@ -176,20 +185,35 @@ public class Customer{
         complaints.add(complaint);
     }
 
+    public void viewComplaints() {
+        for (Complaint complaint : complaints) {
+            System.out.println("Event ID: " + complaint.getEventID().getEventID());
+            System.out.println("Details: " + complaint.getDetails());
+            System.out.println("Reply: " + complaint.getReply());
+        }
+    }
 
     public float checkBalance() {
         return balance;
     }
 
+    public void trackEvent(int event) {
+        for (EventID eventID : events) {
+            if (eventID.getEventID() == event) {
+                System.out.println("Event ID: " + eventID.getEventID());
+                System.out.println("Progress: " + eventID.getProgress());
+            }
+        }
+    }
 
-    public void changeBooking(Customer customer, int eventID,Packages packages, Venue venue, FoodSelection foodSelection, Options options, String paymentMethod) {
+    public void changeBooking(Customer customer, int eventID,Booking booking, String paymentMethod) {
         //loop through the list and look for the matching eventID
         for (int i = 0; i < events.size(); i++) {
             if (events.get(i).getEventID()==eventID){
                 //if found, refund the payment
-                setBalance((float) events.get(i).getPayment().getAmount());
+                setBalance((float) events.get(i).getPayment().getAmount()+getBalance());
                 //create new booking
-                createBooking(customer, packages,venue,foodSelection,options, paymentMethod);
+                createBooking(customer, booking, paymentMethod);
                 //remove old booking
                 events.remove(i);
             }
@@ -199,11 +223,23 @@ public class Customer{
         }
     }
 
-    public void str(){
+    public void customerDetails(){
         System.out.println("Customer: "+firstName+" "+lastName);
         System.out.println("DOB: "+dob);
         System.out.println("Address: "+address);
         System.out.println("Balance: "+balance);
-        
+        System.out.println("-------------------------");
+        System.out.println("EVENTS");
+        viewEvents();
+        System.out.println("-------------------------");
+        System.out.println("COMPLAINTS");
+        viewComplaints();
+        System.out.println("-------------------------");
+        System.out.println("QUERIES");
+        viewQueries();
+        System.out.println("-------------------------");
+        System.out.println("REFUNDS");
+        viewRefunds();
+
     }
 }

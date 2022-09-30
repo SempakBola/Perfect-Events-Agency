@@ -46,4 +46,11 @@ public class Venue {
         this.availability = availability;
     }
 
+
+    public void str() {
+        System.out.println("Venue Name: " + name);
+        System.out.println("Venue Capacity: " + capacity);
+        System.out.println("Venue Price: " + price);
+        System.out.println("Venue Availability: " + availability);
+    }
 }
