@@ -128,7 +128,6 @@ public class App {
                                         break;
                                     case 5:
                                         //Track Progress
-                                        //ENTER CODE HERE
                                         break;
                                     case 6:
                                         //Update Progress
