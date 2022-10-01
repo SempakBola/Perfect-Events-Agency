@@ -15,12 +15,7 @@ public class Cost_Plan {
         this.totalCost = totalCost;
     }
 
- /*eventID and costplanID only constructor if other parameters are not available.
-    EventID and CostplanID are necessary to create one*/
-
-    public Cost_Plan(int costPlanID, EventID eventID) {
-        this.costPlanID = costPlanID;
-        this.eventID = eventID;
+    public Cost_Plan() { //empty constructor
     }
 
     //getters and setters for the cost plan class

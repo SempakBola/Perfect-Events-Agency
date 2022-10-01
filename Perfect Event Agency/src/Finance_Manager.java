@@ -25,20 +25,20 @@ public class Finance_Manager extends Employee {
     }
 
 
-    public void checkForWorkingEmployees(){
+    public float employeeDistribution(){
         Logistics_Manager log = new Logistics_Manager();
         if(log.optionalserviceused()){
             workingEmployeeSplit = 0.25F;
         }else{
             workingEmployeeSplit = 0.33F;
         }
-
+        return workingEmployeeSplit;
     }
 
     public void allocateMoney(int employeeID, double amount){
         EventID eventID = new EventID();
         double cost = eventID.getBooking().getTotalCost();
-        amount = (company_balance - cost) * workingEmployeeSplit ;
+        amount = (company_balance - cost) * employeeDistribution();
         if(amount<0){
             amount = 0;
         }

@@ -20,7 +20,7 @@ public class Tracker {
     }
 
 
-    public String AvailableTask(){
+    public int AvailableTask(){
 
         ArrayList<String> tasks = new ArrayList<>(Arrays.asList(tasksNames));
         if(logistics_manager.optionalserviceused()){
@@ -28,7 +28,7 @@ public class Tracker {
         }
         remainingTasks = tasks.size();
 
-        return tasks.toString();
+        return remainingTasks;
     }
 
 
@@ -38,7 +38,6 @@ public class Tracker {
             System.out.println("All tasks are completed");
         }else{
             tasks.remove(taskName);
-            remainingTasks--;
         }
 
     }
@@ -47,7 +46,7 @@ public class Tracker {
         if(logistics_manager.optionalserviceused()){
             totalnumberofTasks++;
         }
-        int completionPercentage = (remainingTasks/totalnumberofTasks)*100;
-        System.out.println(completionPercentage + "% is completed");
+        int completionPercentage = (AvailableTask()/totalnumberofTasks)*100;
+        System.out.println("number of tasks remaining "+ AvailableTask() + ". " + completionPercentage + "% is completed");
     }
 }
