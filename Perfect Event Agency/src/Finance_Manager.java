@@ -7,6 +7,8 @@ public class Finance_Manager extends Employee {
 
     private float workingEmployeeSplit;
 
+    EventID eventID = new EventID();
+
     public Finance_Manager(int employeeID, String firstName, String lastName, double bill, double salary, ArrayList<EventID> managedEvent, double employeeBalance) {
         super(employeeID, firstName, lastName, bill, salary, managedEvent, employeeBalance);
         super.setPosition("Finance_Manager");
@@ -36,7 +38,6 @@ public class Finance_Manager extends Employee {
     }
 
     public void allocateMoney(int employeeID, double amount){
-        EventID eventID = new EventID();
         double cost = eventID.getBooking().getTotalCost();
         amount = (company_balance - cost) * employeeDistribution();
         if(amount<0){
@@ -49,6 +50,8 @@ public class Finance_Manager extends Employee {
     public void paySalary(int employeeID, double amount){
         super.setSalary(employeeID,amount);
     }
+
+
 
 
 

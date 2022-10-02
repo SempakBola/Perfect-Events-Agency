@@ -3,10 +3,10 @@ import java.util.Random;
 public class Venue {
     private String name;
     private int capacity;
-    private float price;
+    private double price;
     private boolean availability;
 
-    public Venue(String name, int capacity, float price, boolean availability) {
+    public Venue(String name, int capacity, double price, boolean availability) {
         this.name = name;
         this.capacity = capacity;
         this.price = price;
@@ -30,11 +30,11 @@ public class Venue {
         this.capacity = capacity;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

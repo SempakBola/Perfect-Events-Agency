@@ -224,6 +224,8 @@ public class Customer{
         }
     }
 
+
+
     public void customerDetails(){
         System.out.println("Customer: "+firstName+" "+lastName);
         System.out.println("DOB: "+dob);

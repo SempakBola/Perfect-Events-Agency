@@ -1,29 +1,55 @@
+import java.util.ArrayList;
+
 public class Event_Manager extends Employee{ //event manager class
 
+    ArrayList<EventID> eventID = new ArrayList<>();
 
     //constructor method
-    public Event_Manager(int employeeID, String firstName, String lastName, String position, Double bill, Double salary) {
-        super(employeeID, firstName, lastName,position, bill, salary);
-        super.setPosition("Event Manager");
+
+
+    public Event_Manager(int employeeID, String firstName, String lastName, double bill, double salary, ArrayList<EventID> managedEvent, double employeeBalance) {
+        super(employeeID, firstName, lastName, bill, salary, managedEvent, employeeBalance);
     }
 
     public Event_Manager() { //empty constructor method
     }
 
-    public void handleQuery(){
+
+
+    public void handleQuery(int selectedEvent, String replyQueries){
+        Queries queries = new Queries();
+        for(EventID event: eventID){
+            if(selectedEvent == event.getEventID()){
+                queries.setReply(replyQueries);
+            }
+        }
+
 
     }
-    public void handleComplaints(){
+    public void handleComplaints(int selectedEvent, String replyComplaints){
+
+        Complaint complaint = new Complaint();
+        for(EventID event: eventID){
+            if(selectedEvent == event.getEventID()){
+                complaint.setReply(replyComplaints);
+            }
+        }
 
     }
 
-    public void bookMenu(){
+    public void bookVenue(){
+
 
     }
 
-    public void handleChanges(){
 
+    public void getVenueBill(){
+        for(EventID event: eventID) {
+            super.setBill(event.getBooking().getVenue().getPrice());
+            System.out.println(getBill());
+        }
     }
+
 
 
 }

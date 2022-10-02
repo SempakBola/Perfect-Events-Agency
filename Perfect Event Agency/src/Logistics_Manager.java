@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Logistics_Manager extends Employee{
 
     private  boolean optionalServiceRequested;
-
+    EventID eventID = new EventID();
     Options options = new Options();
     Booking booking = new Booking();
 
@@ -18,7 +18,7 @@ public class Logistics_Manager extends Employee{
 
     }
 
-    public void selectedOption(Options option, Double amount){
+    public void selectedOption(String option, Double amount){
 
       /*  if(options.isIsHireBand()){
            options.setIsHireBand(true);
@@ -40,6 +40,10 @@ public class Logistics_Manager extends Employee{
 
     public boolean optionalserviceused(){
         return optionalServiceRequested;
+    }
+
+    public void getLogBill(){
+        super.setBill(eventID.getBooking().getOptions());
     }
 
 

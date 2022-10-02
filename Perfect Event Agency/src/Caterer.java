@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Caterer extends Employee { //Caterer class that is responsible for the arrangement of food and beverages
-
+    EventID eventID = new EventID();
 
     //constructor class for the caterer
 
@@ -17,5 +17,10 @@ public class Caterer extends Employee { //Caterer class that is responsible for 
     public void arrangeFoodandBeverages(){ //method that operates the caterer operation
         FoodSelection foodSelection = new FoodSelection();
         foodSelection.getFoodandBeveragePackage();
+    }
+
+    public void getMenuBill(){
+        super.setBill(eventID.getBooking().getFoodSelection().getPrice());
+        System.out.println(getBill());
     }
 }

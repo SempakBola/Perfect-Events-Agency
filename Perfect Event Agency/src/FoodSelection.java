@@ -2,9 +2,9 @@ import java.util.Random;
 
 public class FoodSelection {
     private String foodandBeveragePackage;
-    private float price;
+    private double price;
 
-    public FoodSelection(String foodandBeveragePackage, float price) {
+    public FoodSelection(String foodandBeveragePackage, double price) {
         this.foodandBeveragePackage = foodandBeveragePackage;
         this.price = price;
     }
@@ -21,11 +21,11 @@ public class FoodSelection {
         this.foodandBeveragePackage = foodandBeveragePackage;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
     
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

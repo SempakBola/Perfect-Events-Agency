@@ -9,6 +9,10 @@ public class Complaint {
         this.reply = "";
     }
 
+    public Complaint() {
+
+    }
+
     //getter and setter methods
     public EventID getEventID() {
         return eventID;

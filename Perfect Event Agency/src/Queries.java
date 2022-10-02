@@ -10,6 +10,10 @@ public class Queries {
         this.reply = "";
     }
 
+    public Queries() {
+
+    }
+
     //getter and setter methods
     public int getQueryID() {
         return queryID;
