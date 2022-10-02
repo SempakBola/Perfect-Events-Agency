@@ -6,7 +6,7 @@ public class Booking {
     private FoodSelection foodSelection;
     private Options options;
     private double totalCost;
-    private ArrayList<Cost_Storing> Receipt = new ArrayList<>();
+
 
     public Booking() {
         this.totalCost = 0;
@@ -37,9 +37,9 @@ public class Booking {
     }
 
     public void selectVenue(Venue venue) {
-       /* this.venue = venue;
-        this.totalCost += venue.getPrice();*/
-        Receipt.add(new Cost_Storing(venue,venue.getPrice()));
+        this.venue = venue;
+        this.totalCost += venue.getPrice();
+
     }
 
     public FoodSelection getFoodSelection() {
@@ -47,10 +47,9 @@ public class Booking {
     }
 
     public void foodSelection(FoodSelection foodSelection) {
-       /* this.foodSelection = foodSelection;
-        this.totalCost+=foodSelection.getPrice();*/
+       this.foodSelection = foodSelection;
+        this.totalCost+=foodSelection.getPrice();
 
-        Receipt.add(new Cost_Storing(foodSelection,foodSelection.getPrice()));
     }
 
     public Options getOptions() {
@@ -61,9 +60,9 @@ public class Booking {
         this.options = options;
     }
 
-   /* public double getTotalCost() {
+    public double getTotalCost() {
         return totalCost;
-    }*/
+    }
 
     public void Options(Options selectedOption){
 
@@ -81,22 +80,6 @@ public class Booking {
         return payment.createEventID(customer, booking, payment);
     }
 
-    public double getTotalCost(){
-        totalCost =  0;
-        for(Cost_Storing receipt:Receipt){
-             totalCost += receipt.getCost();
-        }
-        return  totalCost;
-    }
-
-
-    public ArrayList<Cost_Storing> getReceipt() {
-        return Receipt;
-    }
-
-    public void setReceipt(ArrayList<Cost_Storing> receipt) {
-        Receipt = receipt;
-    }
 
     public void str(){
         System.out.println("Package: " + packages.str(););
