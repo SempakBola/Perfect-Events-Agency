@@ -177,6 +177,7 @@ public class Customer{
         //testing if refund function works
         refund.refundMoney(customer, eventID.getEventID());
         System.out.println("Your balance is now: " + customer.getBalance());
+        
         refunds.add(refund);
     }
 
