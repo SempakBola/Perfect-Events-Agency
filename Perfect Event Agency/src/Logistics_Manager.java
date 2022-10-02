@@ -3,9 +3,7 @@ import java.util.ArrayList;
 public class Logistics_Manager extends Employee{
 
     private  boolean optionalServiceRequested;
-    private double costofBand = 1000.00;
-    private double costofSoundSytem =  2000.00;
-    private double costofFlowers = 500.00;
+
     Options options = new Options();
     Booking booking = new Booking();
 
@@ -20,26 +18,29 @@ public class Logistics_Manager extends Employee{
 
     }
 
-    public void hireMusicBand(){
-        options.setIsHireBand(true);
-        optionalserviceused();
-    }
+    public void selectedOption(Options option, Double amount){
 
-    public void hireSoundSystem(){
-        options.setIsSoundSystem(true);
-        optionalserviceused();
+      /*  if(options.isIsHireBand()){
+           options.setIsHireBand(true);
+           amount = options.getCostofBand();
 
-    }
-    public void orderFlowers(){
-    options.setIsFlowerDecoration(true);
-    optionalserviceused();
+        }
+        if(option == "Flower Decoration"){
+            options.isIsFlowerDecoration();
+            amount = options.getCostofFlowers();
 
+        }
+        if(option == "Sound System"){
+            options.isIsSoundSystem();
+            amount = options.getCostofSoundSytem();
+        }
+         */
+        optionalServiceRequested = true;
     }
 
     public boolean optionalserviceused(){
         return optionalServiceRequested;
     }
-
 
 
 }

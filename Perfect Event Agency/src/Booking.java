@@ -65,6 +65,11 @@ public class Booking {
         return totalCost;
     }*/
 
+    public void Options(Options selectedOption){
+
+
+    }
+
     public void setTotalCost(int totalCost) {
         this.totalCost = totalCost;
     }
@@ -85,7 +90,13 @@ public class Booking {
     }
 
 
+    public ArrayList<Cost_Storing> getReceipt() {
+        return Receipt;
+    }
 
+    public void setReceipt(ArrayList<Cost_Storing> receipt) {
+        Receipt = receipt;
+    }
 
     public void str(){
         System.out.println("Package: " + packages.str(););

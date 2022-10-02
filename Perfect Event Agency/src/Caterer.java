@@ -15,7 +15,7 @@ public class Caterer extends Employee { //Caterer class that is responsible for 
     }
 
     public void arrangeFoodandBeverages(){ //method that operates the caterer operation
-        //input caterer function to handle food and drinks
-        //ENTER CODE HERE.
+        FoodSelection foodSelection = new FoodSelection();
+        foodSelection.getFoodandBeveragePackage();
     }
 }

@@ -9,6 +9,10 @@ public class FoodSelection {
         this.price = price;
     }
 
+    public FoodSelection() {
+
+    }
+
     public String getFoodandBeveragePackage() {
         return foodandBeveragePackage;
     }
