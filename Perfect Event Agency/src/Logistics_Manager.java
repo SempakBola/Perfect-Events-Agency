@@ -5,7 +5,6 @@ public class Logistics_Manager extends Employee{
     private  boolean optionalServiceRequested;
     EventID eventID = new EventID();
     Options options = new Options();
-    Booking booking = new Booking();
 
     //constructor method
 
@@ -17,24 +16,16 @@ public class Logistics_Manager extends Employee{
     public Logistics_Manager() {
 
     }
-
-    public void selectedOption(String option, Double amount){
-
-      /*  if(options.isIsHireBand()){
-           options.setIsHireBand(true);
-           amount = options.getCostofBand();
-
-        }
-        if(option == "Flower Decoration"){
-            options.isIsFlowerDecoration();
-            amount = options.getCostofFlowers();
-
-        }
-        if(option == "Sound System"){
-            options.isIsSoundSystem();
-            amount = options.getCostofSoundSytem();
-        }
-         */
+    public void hireMusicBand(){
+    options.isIsHireBand();
+    optionalServiceRequested = true;
+    }
+    public void orderFlowers(){
+    options.isIsFlowerDecoration();
+   optionalServiceRequested = true;
+    }
+    public void hireSoundSystem(){
+        options.isIsSoundSystem();
         optionalServiceRequested = true;
     }
 
@@ -43,7 +34,7 @@ public class Logistics_Manager extends Employee{
     }
 
     public void getLogBill(){
-        super.setBill(eventID.getBooking().getOptions());
+        super.setBill(eventID.getBooking().getOptions().OptionCost());
     }
 
 

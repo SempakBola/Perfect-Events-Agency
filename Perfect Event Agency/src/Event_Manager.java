@@ -24,17 +24,14 @@ public class Event_Manager extends Employee{ //event manager class
             }
         }
 
-
     }
     public void handleComplaints(int selectedEvent, String replyComplaints){
-
         Complaint complaint = new Complaint();
         for(EventID event: eventID){
             if(selectedEvent == event.getEventID()){
                 complaint.setReply(replyComplaints);
             }
         }
-
     }
 
     public void bookVenue(){

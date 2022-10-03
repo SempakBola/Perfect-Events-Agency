@@ -6,6 +6,7 @@ public class Venue {
     private double price;
     private boolean availability;
 
+
     public Venue(String name, int capacity, double price, boolean availability) {
         this.name = name;
         this.capacity = capacity;

@@ -1,7 +1,10 @@
+import java.util.ArrayList;
 import java.util.Random;
 public class Packages {
     private String details;
     private double price;
+
+    private ArrayList<Venue> venues = new ArrayList<>();
 
     public Packages(String details, double price) {
         this.details = details;
@@ -29,5 +32,7 @@ public class Packages {
         System.out.println("Package Details: " + details);
         System.out.println("Package Price: " + price);
     }
+
+
     
 }
