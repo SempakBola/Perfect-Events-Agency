@@ -14,6 +14,10 @@ public class Venue {
         this.availability = availability;
     }
 
+    public Venue() {
+
+    }
+
     //getter and setter methods
     public String getName() {
         return name;

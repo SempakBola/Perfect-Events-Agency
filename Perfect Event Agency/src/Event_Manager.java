@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Event_Manager extends Employee{ //event manager class
 
@@ -34,9 +36,12 @@ public class Event_Manager extends Employee{ //event manager class
         }
     }
 
-    public void bookVenue(){
-
-
+    public void bookVenue(String venue){
+        ArrayList<Venue> venues = new ArrayList<>();
+        List<Venue> selectedVenue = venues.stream().filter(f->f.getName().equalsIgnoreCase(venue)).collect(Collectors.toList());
+        for (EventID eventID1: eventID){
+            eventID1.getBooking().selectVenue((Venue) selectedVenue);
+        }
     }
 
 

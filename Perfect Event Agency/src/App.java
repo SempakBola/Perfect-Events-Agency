@@ -1,7 +1,10 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class App {
+
+    private static ArrayList<EventID> eventID = new ArrayList<>();
     public void printSeperator() {
         System.out.println("------------------------------------------------------------");
     }
@@ -41,6 +44,7 @@ public class App {
             }
             //Employee View
             if (choice==1) {
+
                 app.printSeperator();
                 System.out.println("Welcome to Employee Portal");
                 int sub_choice1=0;
@@ -54,10 +58,12 @@ public class App {
                     }
                     switch (sub_choice1) {
                         case 1:
+                            boolean correctEventID = false;
+                            boolean validAnswer = false;
                             //EventManager
                             System.out.println("Welcome to Event Manager Portal");
                             int sub_choice2=0;
-                            Finance_Manager finance_manager = new Finance_Manager();
+                           Event_Manager event_manager = new Event_Manager();
                             do {
                                 //input event manager functions
                                 //ENTER CODE HERE. Make changes to the options below if needed
@@ -66,17 +72,96 @@ public class App {
                                 sub_choice2 = sc.nextInt();
                                 switch (sub_choice2) {
                                     case 1:
-                                        //Handle Query
-                                        //ENTER CODE HERE
-                                        System.out.println("Handle Query");
-                                        break;
+
+                                        for(EventID event: eventID) {
+                                            while (!validAnswer) {
+                                                System.out.println("Event id: (" + event.getEventID() + ") Queries:  " + event.getQueries());
+                                                System.out.println("Would you like to reply? Answer YES or NO");
+                                                String confirmReplyQuery = sc.nextLine();
+                                                if (confirmReplyQuery.toLowerCase().equals("YES")) {
+                                                    validAnswer =true;
+                                                    System.out.println("Enter reply");
+                                                    String replyQuery = sc.nextLine();
+
+                                                    while (!correctEventID) {
+                                                        System.out.println("Enter the event id for the reply");
+                                                        int replyEventID = sc.nextInt();
+                                                        if (replyEventID == event.getEventID()) {
+                                                            event_manager.handleQuery(replyEventID, replyQuery);
+                                                            correctEventID = true;
+                                                            break;
+                                                        } else {
+                                                            System.out.println("Incorrect Event ID. Try again");
+                                                            sc.nextLine();
+                                                        }
+                                                    }
+                                                }
+
+                                               else if (confirmReplyQuery.toLowerCase().equals("No")) {
+                                                    validAnswer =true;
+                                                    break;
+                                                }
+                                               else{
+                                                    System.out.println("Answer a valid answer");
+                                                    sc.nextLine();
+                                                }
+                                            }
+                                        }
                                     case 2:
-                                        //Handle Complaints
-                                        //ENTER CODE HERE
-                                        break;
+                                        for(EventID event: eventID) {
+                                            while (!validAnswer) {
+                                                System.out.println("Event id: (" + event.getEventID() + ") Complaints:  " + event.getComplaint());
+                                                System.out.println("Would you like to reply? Answer YES or NO");
+                                                String confirmReplyQuery = sc.nextLine();
+                                                if (confirmReplyQuery.toLowerCase().equals("YES")) {
+                                                    validAnswer = true;
+                                                    System.out.println("Enter reply");
+                                                    String replyComplaints = sc.nextLine();
+                                                    while (!correctEventID) {
+                                                        System.out.println("Enter the event id for the reply");
+                                                        int replyEventID = sc.nextInt();
+                                                        if (replyEventID == event.getEventID()) {
+                                                            event_manager.handleComplaints(replyEventID, replyComplaints);
+                                                            correctEventID = true;
+                                                            break;
+                                                        } else {
+                                                            System.out.println("Incorrect Event ID. Try again");
+                                                            sc.nextLine();
+                                                        }
+                                                    }
+                                                } else if (confirmReplyQuery.toLowerCase().equals("No")) {
+                                                    validAnswer = true;
+                                                    break;
+                                                }else{
+                                                    System.out.println("Enter a valid answer");
+                                                    sc.nextLine();
+                                                }
+
+
+                                            }
+                                        }
                                     case 3:
                                         //Book Venue
-                                        //ENTER CODE HERE
+                                        HashMap<Integer,String> displayVenue = new HashMap<>();
+                                        boolean correctNumber = false;
+                                        int count = 1;
+                                        for(Venue venue: venues){
+                                            displayVenue.put(count,venue.getName());
+                                            System.out.println(count + ". "+ venue.getName());
+                                            count++;
+                                        }
+                                        while (!correctNumber) {
+                                            System.out.println("\n" + "Select venue based on number: ");
+                                            int chosenVenueNumber = sc.nextInt();
+                                            if(displayVenue.containsKey(chosenVenueNumber)){
+                                                correctNumber = true;
+                                                event_manager.bookVenue(displayVenue.get(chosenVenueNumber));
+                                                break;
+                                            }else{
+                                                System.out.println("Enter a valid number");
+                                                sc.nextInt();
+                                            }
+                                        }
                                         break;
                                     case 4:
                                         //Handle Changes
