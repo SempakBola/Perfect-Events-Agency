@@ -80,7 +80,7 @@ public class Booking {
 
 
     public void str(){
-        System.out.println("Package: " + packages.str(););
+        packages.str();
         System.out.println("Venue: " + venue.getName());
         System.out.println("Food: " + foodSelection.getFoodandBeveragePackage());
         System.out.println("Options: " + options.toString());
