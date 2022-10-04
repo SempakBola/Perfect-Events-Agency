@@ -13,10 +13,13 @@ public class App {
         int choice=0;
         //test data
         ArrayList<Venue> venues = new ArrayList<Venue>();
-        venues.add(new Venue("The Ballroom", 1000, 20000, true));
-        venues.add(new Venue("The Grand Hall", 500, 10000, true));
-        venues.add(new Venue("The Grand Ballroom", 1000, 25000, true));
-        venues.add(new Venue("The Westin", 1200, 15000, false));
+        venues.add(new Venue("The Ballroom", 100, 15000, true));
+        venues.add(new Venue("The Grand Hall", 50, 5000, true));
+        venues.add(new Venue("The Grand Ballroom", 120, 8000, true));
+        venues.add(new Venue("The Westin", 200, 20000, true));
+        venues.add(new Venue("The Hilton", 30, 2000, true));
+        venues.add(new Venue("The Marriott", 150, 10000, true));
+        venues.add(new Venue("The Sheraton", 15, 1000, true));
 
         ArrayList<FoodSelection> foodSelections = new ArrayList<FoodSelection>();
         foodSelections.add(new FoodSelection("Food Plan A", 1000));
@@ -25,10 +28,9 @@ public class App {
         foodSelections.add(new FoodSelection("Food Plan D", 4000));
 
         ArrayList<Packages> packages = new ArrayList<Packages>();
-        packages.add(new Packages("Package A", 1000));
-        packages.add(new Packages("Package B", 2000));
-        packages.add(new Packages("Package C", 3000));
-        packages.add(new Packages("Package D", 4000));
+        packages.add(new Packages(1, "Package A FROM $1100",15));
+        packages.add(new Packages(2, "Package B FROM $6000 ",50));
+        packages.add(new Packages(3, "Package C FROM $11000",150));
 
         App app = new App();
         Customer customer = new Customer();
@@ -320,8 +322,7 @@ public class App {
                             //ENTER CODE HERE
                             app.printSeperator();
                             for (int i = 0; i < packages.size(); i++) {
-                                System.out.println(i+1);
-                                customer.viewPackage(packages.get(i));
+                                packages.get(i).str();
                             }
                             break;
                         case 2:
@@ -331,8 +332,7 @@ public class App {
                             //selecting package
                             app.printSeperator();
                             for (int i = 0; i < packages.size(); i++) {
-                                System.out.println(i+1);
-                                customer.viewPackage(packages.get(i));
+                                packages.get(i).str();
                             }
                             System.out.println("Enter the package number you want to book");
                             booking.selectPackage(packages.get(sc1.nextInt()-1));

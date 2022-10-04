@@ -28,7 +28,6 @@ public class Booking {
 
     public void selectPackage(Packages selection) {
         this.packages = selection;
-        this.totalCost += selection.getPrice();
 
     }
 

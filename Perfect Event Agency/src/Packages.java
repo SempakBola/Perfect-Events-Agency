@@ -1,19 +1,18 @@
 import java.util.ArrayList;
-import java.util.Random;
 public class Packages {
     private String details;
-    private double price;
     private int package_num;
+    private int capacity;
 
-    public Packages(int package_num, String details, double price) {
+    public Packages(int package_num, String details, int capacity) {
         this.details = details;
-        this.price = price;
         this.package_num = package_num;
+        this.capacity = capacity;
     }
 
-    public void showAvailableVenues(ArrayList<Venue> venues, int package_num) {
+    public void showAvailableVenues(ArrayList<Venue> venues) {
         for (Venue venue : venues) {
-            if (venue.getCapacity() >= package_num && venue.isAvailability()==true) {
+            if (venue.getCapacity() >= getCapacity() && venue.isAvailability()==true) {
                 venue.str();
             }
         }
@@ -29,13 +28,6 @@ public class Packages {
         this.details = details;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
 
     public int getPackage_num() {
         return package_num;
@@ -45,10 +37,19 @@ public class Packages {
         this.package_num = package_num;
     }
 
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
     public void str() {
-        System.out.println("Package Details: " + details);
-        System.out.println("Package Price: " + price);
         System.out.println("Package Number: " + package_num);
+        System.out.println("Package Details: " + details);
+        System.out.println("Package Capacity: " + capacity);
+
     }
 
 

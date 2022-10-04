@@ -9,9 +9,9 @@ public class EventID {
     private int progress;
     private boolean isDone;
 
-    private Complaint complaint;
+    // private Complaint complaint;
 
-    private Queries queries;
+    // private Queries queries;
 
     public EventID(Booking booking, Payment payment) {
         this.booking = booking;
@@ -66,19 +66,19 @@ public class EventID {
         isDone = done;
     }
 
-    public Complaint getComplaint() {
-        return complaint;
-    }
+    // public Complaint getComplaint() {
+    //     return complaint;
+    // }
 
-    public void setComplaint(Complaint complaint) {
-        this.complaint = complaint;
-    }
+    // public void setComplaint(Complaint complaint) {
+    //     this.complaint = complaint;
+    // }
 
-    public Queries getQueries() {
-        return queries;
-    }
+    // public Queries getQueries() {
+    //     return queries;
+    // }
 
-    public void setQueries(Queries queries) {
-        this.queries = queries;
-    }
+    // public void setQueries(Queries queries) {
+    //     this.queries = queries;
+    // }
 }

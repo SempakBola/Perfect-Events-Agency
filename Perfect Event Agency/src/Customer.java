@@ -145,9 +145,8 @@ public class Customer{
     }
 
     // view packages
-    public void viewPackage(Packages selectedPackage) {
-        System.out.println(selectedPackage.getDetails());
-        System.out.println(selectedPackage.getPrice());
+    public void viewPackage(Packages selectedPackage, ArrayList<Venue> venues) {
+        selectedPackage.showAvailableVenues(venues);
     }
 
     //view venues
