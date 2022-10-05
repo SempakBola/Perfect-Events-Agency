@@ -5,6 +5,7 @@ public class Customer{
     private String lastName;
     private String dob;
     private String address;
+    private int phoneNumber;
 
     //for testing purposes only
     private float balance;
@@ -13,6 +14,7 @@ public class Customer{
     private ArrayList<Refund> refunds;
     private ArrayList<EventID> events;
     private ArrayList<Queries> queries;
+    private ArrayList<Inspection> inspections;
 
     public Customer(){
         this.balance=1000;
@@ -20,18 +22,21 @@ public class Customer{
         this.refunds = new ArrayList<Refund>();
         this.events = new ArrayList<EventID>();
         this.queries = new ArrayList<Queries>();
+        this.inspections = new ArrayList<Inspection>();
     };
 
-    public Customer(String firstName, String lastName, String dob, String address) {
+    public Customer(String firstName, String lastName, String dob, String address, int phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dob = dob;
         this.address = address;
+        this.phoneNumber = phoneNumber;
         this.balance=1000;
         this.complaints = new ArrayList<Complaint>();
         this.refunds = new ArrayList<Refund>();
         this.events = new ArrayList<EventID>();
         this.queries = new ArrayList<Queries>();
+        this.inspections = new ArrayList<Inspection>();
     }
 
     //getters
@@ -71,6 +76,16 @@ public class Customer{
         return balance;
     }
 
+    public ArrayList<Inspection> getInspections() {
+        return inspections;
+    }
+
+    public int getPhoneNumber() {
+        return phoneNumber;
+    }
+
+
+
     //setters
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -92,6 +107,11 @@ public class Customer{
         this.balance = balance;
     }
 
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+
     //adders
     public void addComplaint(Complaint complaint) {
         this.complaints.add(complaint);
@@ -108,6 +128,11 @@ public class Customer{
     public void addQuery(Queries query) {
         this.queries.add(query);
     }
+
+    public void addInspection(Inspection inspection) {
+        this.inspections.add(inspection);
+    }
+
 
     //create query
     public void createQuery(String details) {
@@ -134,42 +159,65 @@ public class Customer{
     }
 
     //view events
-    public void viewEvents() {
-        for (EventID event : events) {
-            System.out.println("Event ID: " + event.getEventID());
-            System.out.println("Payment Method: " + event.getPayment().getPaymentMethod());
-            System.out.println("Amount Paid: " + event.getPayment().getAmount());
-            event.getBooking().str();
+    public boolean viewEvents() {
+        boolean isThereEvents= false;
+        if (events.size()==0){
+            System.out.println("You don't have any events booked yet.");
+        }
+
+        else{
+            for (EventID event : events) {
+                System.out.println("Event ID: " + event.getEventID());
+                event.getPayment().str();
+                event.getBooking().str();
+                System.out.println("----------------");
+                isThereEvents=true;
+            }
+        }
+        return isThereEvents;
+        
+    }
+
+    // view packages
+    public void viewPackages(ArrayList<Packages>packages){
+        for (Packages pack : packages) {
+            pack.str();
             System.out.println("----------------");
         }
     }
 
-    // view packages
-    public void viewPackage(Packages selectedPackage, ArrayList<Venue> venues) {
-        selectedPackage.showAvailableVenues(venues);
-    }
-
     //view venues
-    public void viewVenue(Venue selectedVenue) {
-        System.out.println(selectedVenue.getName());
-        System.out.println(selectedVenue.getPrice());
-        System.out.println(selectedVenue.getCapacity());
-        System.out.println(selectedVenue.isAvailability());
+    public void showAvailableVenues(ArrayList<Venue> venues, Booking booking) {
+        for (Venue venue : venues) {
+            if (venue.getCapacity() >= booking.getPackages().getCapacity() && venue.isAvailability()==true) {
+                venue.str();
+            }
+        }
     }
-
     //view food Selection
-    public void viewFood(FoodSelection selectedFood) {
-        System.out.println(selectedFood.getFoodandBeveragePackage());
-        System.out.println(selectedFood.getPrice());
+    public void viewFood(ArrayList<FoodSelection> food) {
+        for (FoodSelection f : food) {
+            f.str();
+        }
     }
 
-    public void createBooking(Customer customer,Booking booking, String paymentMethod) {
+    //view all venues
+    public void viewAllVenues(ArrayList<Venue> venues) {
+        for (Venue venue : venues) {
+            venue.str();
+        }
+    }
+
+    public void createBooking(Customer customer,Booking booking, String paymentMethod, String firstName, String lastName, String dob,
+    String address, int phoneNumber) {
+        setFirstName(firstName);
+        setLastName(lastName);
+        setDob(dob);
+        setAddress(address);
+        setPhoneNumber(phoneNumber);
         events.add(booking.createPayment(customer, paymentMethod, booking));
     }
 
-    public int checkProgress(EventID event) {
-        return event.getProgress();
-    }
 
     public void requestRefund(Customer customer,EventID eventID, String details) {
         Refund refund = new Refund(eventID, details);
@@ -180,9 +228,14 @@ public class Customer{
         refunds.add(refund);
     }
 
-    public void makeComplaint(EventID event, String details) {
-        Complaint complaint = new Complaint(event, details);
-        complaints.add(complaint);
+    public void makeComplaint(int eventID, String details) {
+        viewEvents();
+        for (EventID e : events) {
+            if (e.getEventID() == eventID) {
+                Complaint complaint = new Complaint(e, details);
+                complaints.add(complaint);
+            }
+        }
     }
 
     public void viewComplaints() {
@@ -197,6 +250,24 @@ public class Customer{
         return balance;
     }
 
+    public void bookInspection( ArrayList<Venue> venues, int venueID) {
+        for (Venue venue: venues){
+            if (venue.getVenueID()==venueID){
+                venue.showInspectionDateandTime();
+                System.out.println("Select the date you want to book(enter the number): ");
+                Scanner sc = new Scanner(System.in);
+                int dateNum = sc.nextInt()-1;
+                String date= venue.getAvailableDatesForInspection().get(dateNum);
+                System.out.println("Select the time you want to book(enter the number): ");
+                int timeNum = sc.nextInt()-1;
+                String time= venue.getAvailableTimesForInspection().get(timeNum);
+
+                Inspection inspection = new Inspection(date, time, venue);
+                inspections.add(inspection);
+            }
+        }
+    }
+
     public void trackEvent(int event) {
         for (EventID eventID : events) {
             if (eventID.getEventID() == event) {
@@ -206,22 +277,24 @@ public class Customer{
         }
     }
 
-    public void changeBooking(Customer customer, int eventID,Booking booking, String paymentMethod) {
-        //loop through the list and look for the matching eventID
-        for (int i = 0; i < events.size(); i++) {
-            if (events.get(i).getEventID()==eventID){
-                //if found, refund the payment
-                setBalance((float) events.get(i).getPayment().getAmount()+getBalance());
-                //create new booking
-                createBooking(customer, booking, paymentMethod);
-                //remove old booking
-                events.remove(i);
-            }
-            else{
-                System.out.println("Event not found");
-            }
-        }
-    }
+
+
+    // public void changeBooking(Customer customer, int eventID,Booking booking, String paymentMethod) {
+    //     //loop through the list and look for the matching eventID
+    //     for (int i = 0; i < events.size(); i++) {
+    //         if (events.get(i).getEventID()==eventID){
+    //             //if found, refund the payment
+    //             setBalance((float) events.get(i).getPayment().getAmount()+getBalance());
+    //             //create new booking
+    //             createBooking(customer, booking, paymentMethod);
+    //             //remove old booking
+    //             events.remove(i);
+    //         }
+    //         else{
+    //             System.out.println("Event not found");
+    //         }
+    //     }
+    // }
 
 
 

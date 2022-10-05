@@ -10,13 +10,6 @@ public class Packages {
         this.capacity = capacity;
     }
 
-    public void showAvailableVenues(ArrayList<Venue> venues) {
-        for (Venue venue : venues) {
-            if (venue.getCapacity() >= getCapacity() && venue.isAvailability()==true) {
-                venue.str();
-            }
-        }
-    }
         
 
     //getter and setter methods
@@ -46,9 +39,9 @@ public class Packages {
     }
 
     public void str() {
-        System.out.println("Package Number: " + package_num);
-        System.out.println("Package Details: " + details);
-        System.out.println("Package Capacity: " + capacity);
+        System.out.println("Package Number: " + getPackage_num());
+        System.out.println("Package Details: " + getDetails());
+        System.out.println("Package Capacity: " + getCapacity());
 
     }
 
