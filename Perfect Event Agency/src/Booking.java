@@ -77,12 +77,20 @@ public class Booking {
         return payment.createEventID(customer, booking, payment);
     }
 
+    public double ServiceFee(){
+        double baseFee = 500.00;
+        double fee = baseFee + (venue.getPrice()+foodSelection.getPrice()+options.OptionCost()) *0.1;
+        this.totalCost += fee;
+        return fee;
+    }
+
 
     public void str(){
         packages.str();
         System.out.println("Venue: " + venue.getName());
         System.out.println("Food: " + foodSelection.getFoodandBeveragePackage());
         System.out.println("Options: " + options.toString());
+        System.out.println("Service Fee: " + ServiceFee());
         System.out.println("Total Cost: " + totalCost);
     }
 

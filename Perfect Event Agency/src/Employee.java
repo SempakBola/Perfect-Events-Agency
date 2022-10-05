@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Employee { //employee constructor class
     private int employeeID;
@@ -12,12 +13,13 @@ public class Employee { //employee constructor class
 
     private double employeeBalance;
 
+    Random random = new Random();
 
     //constructor method for employee class
 
 
-    public Employee(int employeeID, String firstName, String lastName, double bill, double salary, ArrayList<EventID> managedEvent, double employeeBalance) {
-        this.employeeID = employeeID;
+    public Employee(String firstName, String lastName, double bill, double salary, ArrayList<EventID> managedEvent, double employeeBalance) {
+        this.employeeID = random.nextInt(100000);
         this.firstName = firstName;
         this.lastName = lastName;
         this.bill = bill;

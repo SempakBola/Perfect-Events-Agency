@@ -7,11 +7,11 @@ public class Tracker {
 
     private int remainingTasks;
     private final String[] tasksNames = {"Book event", "Book venue", "Choose menu", "Enter Details","Pay for Booking"};
-    private final ArrayList<String> tasks = new ArrayList<>();
     Logistics_Manager logistics_manager = new Logistics_Manager();
+    private ArrayList<String> tasks = new ArrayList<>(Arrays.asList(tasksNames));
 
 
-    private Tracker(){
+    Tracker(){
 
     }
 
@@ -22,7 +22,7 @@ public class Tracker {
 
     public int AvailableTask(){
 
-        ArrayList<String> tasks = new ArrayList<>(Arrays.asList(tasksNames));
+
         if(logistics_manager.optionalserviceused()){
             tasks.add("Book optional service");
         }
@@ -33,7 +33,6 @@ public class Tracker {
 
 
     public void updateProgress(String taskName){
-
         if(remainingTasks == 0){
             System.out.println("All tasks are completed");
         }else{
@@ -48,5 +47,13 @@ public class Tracker {
         }
         int completionPercentage = (AvailableTask()/totalnumberofTasks)*100;
         System.out.println("number of tasks remaining "+ AvailableTask() + ". " + completionPercentage + "% is completed");
+    }
+
+    public ArrayList<String> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(ArrayList<String> tasks) {
+        this.tasks = tasks;
     }
 }

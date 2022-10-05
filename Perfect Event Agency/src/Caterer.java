@@ -6,12 +6,14 @@ public class Caterer extends Employee { //Caterer class that is responsible for 
     //constructor class for the caterer
 
 
-    public Caterer(int employeeID, String firstName, String lastName, double bill, double salary, ArrayList<EventID> managedEvent, double employeeBalance) {
-        super(employeeID, firstName, lastName, bill, salary, managedEvent, employeeBalance);
+    public Caterer(String firstName, String lastName, double bill, double salary, ArrayList<EventID> managedEvent, double employeeBalance) {
+        super(firstName, lastName, bill, salary, managedEvent, employeeBalance);
         super.setPosition("Caterer");
     }
 
     public Caterer() { //empty constructor for flexiblilty.
+        super.setPosition("Caterer");
+
     }
 
     public void arrangeFoodandBeverages(){ //method that operates the caterer operation

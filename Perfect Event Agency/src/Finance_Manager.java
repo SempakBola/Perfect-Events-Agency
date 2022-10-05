@@ -3,14 +3,13 @@ import java.util.ArrayList;
 public class Finance_Manager extends Employee {
 
    private ArrayList<Cost_Plan> costPlans = new ArrayList<>();
-    private  double company_balance = 100000;
 
     private float workingEmployeeSplit;
 
     EventID eventID = new EventID();
 
-    public Finance_Manager(int employeeID, String firstName, String lastName, double bill, double salary, ArrayList<EventID> managedEvent, double employeeBalance) {
-        super(employeeID, firstName, lastName, bill, salary, managedEvent, employeeBalance);
+    public Finance_Manager(String firstName, String lastName, double bill, double salary, ArrayList<EventID> managedEvent, double employeeBalance) {
+        super(firstName, lastName, bill, salary, managedEvent, employeeBalance);
         super.setPosition("Finance_Manager");
     }
 
@@ -37,17 +36,21 @@ public class Finance_Manager extends Employee {
         return workingEmployeeSplit;
     }
 
-    public void allocateMoney(int employeeID, double amount){
-        double cost = eventID.getBooking().getTotalCost();
-        amount = (company_balance - cost) * employeeDistribution();
-        if(amount<0){
-            amount = 0;
-        }
-        super.setEmployeeBalance(employeeID, amount);
+    public void allocateMoney(int employeeID){
+        double amount = 0;
+       for(Cost_Plan cost_plan: costPlans) {
+           amount = cost_plan.getEventID().getBooking().ServiceFee() * employeeDistribution();
 
+       }
+        super.setEmployeeBalance(employeeID, amount);
     }
 
-    public void paySalary(int employeeID, double amount){
+    public void paySalary(int employeeID){
+        double amount = 0;
+        for(Cost_Plan cost_plan: costPlans) {
+            amount = cost_plan.getProfit() * employeeDistribution();
+
+        }
         super.setSalary(employeeID,amount);
     }
 
