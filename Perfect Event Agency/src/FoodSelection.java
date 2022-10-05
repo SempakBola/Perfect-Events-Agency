@@ -1,12 +1,14 @@
 import java.util.Random;
 
 public class FoodSelection {
+    private int foodID;
     private String foodandBeveragePackage;
     private double price;
 
-    public FoodSelection(String foodandBeveragePackage, double price) {
+    public FoodSelection(String foodandBeveragePackage, double price, int foodID) {
         this.foodandBeveragePackage = foodandBeveragePackage;
         this.price = price;
+        this.foodID = foodID;
     }
 
     public FoodSelection() {

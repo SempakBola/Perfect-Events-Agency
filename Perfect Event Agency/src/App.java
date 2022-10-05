@@ -13,19 +13,19 @@ public class App {
         int choice=0;
         //test data
         ArrayList<Venue> venues = new ArrayList<Venue>();
-        venues.add(new Venue("The Ballroom", 100, 15000, true));
-        venues.add(new Venue("The Grand Hall", 50, 5000, true));
-        venues.add(new Venue("The Grand Ballroom", 120, 8000, true));
-        venues.add(new Venue("The Westin", 200, 20000, true));
-        venues.add(new Venue("The Hilton", 30, 2000, true));
-        venues.add(new Venue("The Marriott", 150, 10000, true));
-        venues.add(new Venue("The Sheraton", 15, 1000, true));
+        venues.add(new Venue("The Ballroom", 100, 15000, true,1));
+        venues.add(new Venue("The Grand Hall", 50, 5000, true,2));
+        venues.add(new Venue("The Grand Ballroom", 120, 8000, true,3));
+        venues.add(new Venue("The Westin", 200, 20000, true,4));
+        venues.add(new Venue("The Hilton", 30, 2000, true,5));
+        venues.add(new Venue("The Marriott", 150, 10000, true,6));
+        venues.add(new Venue("The Sheraton", 15, 1000, true,7));
 
         ArrayList<FoodSelection> foodSelections = new ArrayList<FoodSelection>();
-        foodSelections.add(new FoodSelection("Food Plan A", 1000));
-        foodSelections.add(new FoodSelection("Food Plan B", 2000));
-        foodSelections.add(new FoodSelection("Food Plan C", 3000));
-        foodSelections.add(new FoodSelection("Food Plan D", 4000));
+        foodSelections.add(new FoodSelection("Food Plan A", 1000,1));
+        foodSelections.add(new FoodSelection("Food Plan B", 2000, 2));
+        foodSelections.add(new FoodSelection("Food Plan C", 3000, 3));
+        foodSelections.add(new FoodSelection("Food Plan D", 4000, 4));
 
         ArrayList<Packages> packages = new ArrayList<Packages>();
         packages.add(new Packages(1, "Package A FROM $1100",15));
@@ -314,7 +314,7 @@ public class App {
                 do {
                     System.out.println("\n1. View Packages"+"\n2. Book Event"+"\n3. Track Progress"+"\n4. Create Query"+
                     "\n5. Make Complaint"+"\n6. Request Refund and Cancel"+"\n7. Change Booking"+
-                    "\n8. Check Balance"+"\n9. Deposit Money"+"\n10. View Profile"+"\n11. Back");
+                    "\n8. Check Balance"+"\n9. Deposit Money"+"\n10. View Profile"+"\n11. Book Inspection"+"\n12. Back");
                     sub_choice6 = sc1.nextInt();
                     switch (sub_choice6) {
                         case 1:
@@ -424,11 +424,13 @@ public class App {
                             app.printSeperator();
                             customer.customerDetails();
                             break;
+                        case 11:
+                            //Book Inspection
                         default:
                             System.out.println("Invalid choice");
                             break;
                     }
-                } while (sub_choice6!=11);
+                } while (sub_choice6!=12);
             }
         } while (choice!=3);{
             

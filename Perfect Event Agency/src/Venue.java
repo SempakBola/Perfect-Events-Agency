@@ -2,6 +2,7 @@ import java.util.Random;
 import java.util.ArrayList;
 
 public class Venue {
+    private int venueID;
     private String name;
     private int capacity;
     private double price;
@@ -10,7 +11,8 @@ public class Venue {
     private ArrayList<String> availableTimesForInspection = new ArrayList<String>();
 
 
-    public Venue(String name, int capacity, double price, boolean availability) {
+    public Venue(String name, int capacity, double price, boolean availability, int venueID) {
+        this.venueID = venueID;
         this.name = name;
         this.capacity = capacity;
         this.price = price;
@@ -64,6 +66,14 @@ public class Venue {
 
     public void setAvailability(boolean availability) {
         this.availability = availability;
+    }
+
+    public int getVenueID() {
+        return venueID;
+    }
+
+    public void setVenueID(int venueID) {
+        this.venueID = venueID;
     }
 
 

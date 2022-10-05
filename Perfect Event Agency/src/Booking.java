@@ -41,7 +41,7 @@ public class Booking {
         return venue;
     }
 
-    public void selectVenue(Venue venue) {
+    public void selectVenue(ArrayList<Venue> venueList, String venueName) {
         this.venue = venue;
         this.totalCost += venue.getPrice();
 
