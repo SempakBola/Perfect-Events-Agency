@@ -76,6 +76,22 @@ public class Venue {
         this.venueID = venueID;
     }
 
+    public ArrayList<String> getAvailableDatesForInspection() {
+        return availableDatesForInspection;
+    }
+
+    public void setAvailableDatesForInspection(ArrayList<String> availableDatesForInspection) {
+        this.availableDatesForInspection = availableDatesForInspection;
+    }
+
+    public ArrayList<String> getAvailableTimesForInspection() {
+        return availableTimesForInspection;
+    }
+
+    public void setAvailableTimesForInspection(ArrayList<String> availableTimesForInspection) {
+        this.availableTimesForInspection = availableTimesForInspection;
+    }
+
     public void showInspectionDateandTime() {
         System.out.println("Available Dates for Inspection: ");
         for (int i = 0; i < availableDatesForInspection.size(); i++) {

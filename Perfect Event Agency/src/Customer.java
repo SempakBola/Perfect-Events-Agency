@@ -201,6 +201,13 @@ public class Customer{
         }
     }
 
+    //view all venues
+    public void viewAllVenues(ArrayList<Venue> venues) {
+        for (Venue venue : venues) {
+            venue.str();
+        }
+    }
+
     public void createBooking(Customer customer,Booking booking, String paymentMethod, String firstName, String lastName, String dob,
     String address, int phoneNumber) {
         setFirstName(firstName);
@@ -243,6 +250,24 @@ public class Customer{
         return balance;
     }
 
+    public void bookInspection( ArrayList<Venue> venues, int venueID) {
+        for (Venue venue: venues){
+            if (venue.getVenueID()==venueID){
+                venue.showInspectionDateandTime();
+                System.out.println("Select the date you want to book(enter the number): ");
+                Scanner sc = new Scanner(System.in);
+                int dateNum = sc.nextInt()-1;
+                String date= venue.getAvailableDatesForInspection().get(dateNum);
+                System.out.println("Select the time you want to book(enter the number): ");
+                int timeNum = sc.nextInt()-1;
+                String time= venue.getAvailableTimesForInspection().get(timeNum);
+
+                Inspection inspection = new Inspection(date, time, venue);
+                inspections.add(inspection);
+            }
+        }
+    }
+
     public void trackEvent(int event) {
         for (EventID eventID : events) {
             if (eventID.getEventID() == event) {
@@ -251,6 +276,8 @@ public class Customer{
             }
         }
     }
+
+
 
     // public void changeBooking(Customer customer, int eventID,Booking booking, String paymentMethod) {
     //     //loop through the list and look for the matching eventID

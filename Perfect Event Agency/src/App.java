@@ -484,6 +484,11 @@ public class App {
                             break;
                         case 11:
                             //Book Inspection
+                            customer.viewAllVenues(venues);
+                            System.out.println("Enter the venue id number you want to book an inspection for: ");
+                            int venueId2=sc1.nextInt();
+                            customer.bookInspection(venues, venueId2);
+
                         default:
                             System.out.println("Invalid choice");
                             break;
