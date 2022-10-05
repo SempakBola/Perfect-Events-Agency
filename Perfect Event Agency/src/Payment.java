@@ -30,4 +30,9 @@ public class Payment {
         EventID eventID = new EventID(booking,payment);
         return eventID;
     }
+
+    public void str(){
+        System.out.println("Payment method: " + paymentMethod);
+        System.out.println("Amount: " + amount);
+    }
 }

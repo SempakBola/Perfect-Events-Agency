@@ -10,13 +10,6 @@ public class Packages {
         this.capacity = capacity;
     }
 
-    public void showAvailableVenues(ArrayList<Venue> venues) {
-        for (Venue venue : venues) {
-            if (venue.getCapacity() >= getCapacity() && venue.isAvailability()==true) {
-                venue.str();
-            }
-        }
-    }
         
 
     //getter and setter methods

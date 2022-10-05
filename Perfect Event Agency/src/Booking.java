@@ -6,18 +6,20 @@ public class Booking {
     private FoodSelection foodSelection;
     private Options options;
     private double totalCost;
+    private int attendees;
 
 
     public Booking() {
         this.totalCost = 0;
     };
 
-    public Booking(Packages packages, Venue venue, FoodSelection foodSelection, Options options) {
+    public Booking(Packages packages, Venue venue, FoodSelection foodSelection, Options options, int attendees) {
         this.packages = packages;
         this.venue = venue;
         this.foodSelection = foodSelection;
         this.options = options;
         this.totalCost = 0;
+        this.attendees = attendees;
 
     }
 
@@ -26,8 +28,12 @@ public class Booking {
         return packages;
     }
 
-    public void selectPackage(Packages selection) {
-        this.packages = selection;
+    public void selectPackage(ArrayList<Packages> packagesList, int package_num) {
+        for (Packages p : packagesList) {
+            if (p.getPackage_num() == package_num) {
+                this.packages = p;
+            }
+        }
 
     }
 
@@ -66,6 +72,14 @@ public class Booking {
     }
 
 
+    public int getAttendees() {
+        return attendees;
+    }
+
+    public void setAttendees(int attendees) {
+        this.attendees = attendees;
+    }
+
     public void setTotalCost(int totalCost) {
         this.totalCost = totalCost;
     }
@@ -80,6 +94,7 @@ public class Booking {
 
     public void str(){
         packages.str();
+        System.out.println("Number of Attendees: " + getAttendees());
         System.out.println("Venue: " + venue.getName());
         System.out.println("Food: " + foodSelection.getFoodandBeveragePackage());
         System.out.println("Options: " + options.toString());

@@ -320,91 +320,22 @@ public class App {
                         case 1:
                             //View Packages
                             //ENTER CODE HERE
-                            app.printSeperator();
-                            for (int i = 0; i < packages.size(); i++) {
-                                packages.get(i).str();
-                            }
+                            customer.viewPackages(packages);
                             break;
                         case 2:
-                            //Book Event
+                            //Create Booking
                             //ENTER CODE HERE
-                            Booking booking = new Booking();
+
+                            Booking booking =new Booking();
+
                             //selecting package
-                            app.printSeperator();
-                            for (int i = 0; i < packages.size(); i++) {
-                                packages.get(i).str();
-                            }
-                            System.out.println("Enter the package number you want to book");
-                            booking.selectPackage(packages.get(sc1.nextInt()-1));
-                            
-                            app.printSeperator();
-                            //selecting venue
-                            System.out.println("Enter the number of guests: ");
-                            int numberOfGuests = sc1.nextInt();
-                            for (int i=0; i<venues.size(); i++){
-                                if (venues.get(i).getCapacity()>=numberOfGuests && venues.get(i).isAvailability()==true){
-                                    System.out.println(i+1);
-                                    customer.viewVenue(venues.get(i));
-                                }
-                            }
-                            System.out.println("Enter the venue number you want to book");
-                            booking.selectVenue(venues.get(sc1.nextInt()-1));
+                            customer.viewPackages(packages);
+                            System.out.println("Enter the package id number you want to book");
+                            int packageId=sc1.nextInt();
+                            booking.selectPackage(packages,packageId);
 
-                            app.printSeperator();
-                            //enter food selection
-                            for (int i=0;i<foodSelections.size();i++){
-                                System.out.println(i+1);
-                                customer.viewFood(foodSelections.get(i));
-                            }
-                            System.out.println("Enter the food number you want to book");
-                            booking.foodSelection(foodSelections.get(sc1.nextInt()-1));
+                            //entering the number of attendees
 
-                            app.printSeperator();
-                            //selecting options
-                            Options option = new Options();
-                            System.out.println("Do you want to hire a band? (Y/N)");
-                            if (sc.next().toUpperCase().equals("Y")){
-                                option.setIsHireBand(true);
-                            }
-
-                            System.out.println("Do you want to have flower decorations? (Y/N)");
-                            if (sc.next().toUpperCase().equals("Y")){
-                                option.setIsFlowerDecoration(true);
-                            }
-
-                            System.out.println("Do you want to have sound system? (Y/N)");
-                            if (sc.next().toUpperCase().equals("Y")){
-                                option.setIsSoundSystem(true);
-                            }
-
-                            app.printSeperator();
-
-                            booking.selectOptions(option);
-                            //to ensure that the code doesnt skip the input
-                            sc.nextLine();
-                            //entering customer details
-                            System.out.println("Enter your first name: ");
-                            customer.setFirstName(sc.nextLine());
-                            System.out.println("Enter your last name: ");
-                            customer.setLastName(sc.nextLine());
-                            System.out.println("Enter your dob: ");
-                            customer.setDob(sc.nextLine());
-                            System.out.println("Enter your address: ");
-                            customer.setAddress(sc.nextLine());
-
-                            //entering payment details
-                            System.out.println("Select your payment method: \n1. Credit card\n 2.Debit card\n 3. Net banking (Enter String)" );
-                            int payment_choice=sc.nextInt();
-                            String paymentMethod="";
-                            if (payment_choice==1){
-                                paymentMethod="Credit card";
-                            } else if (payment_choice==2){
-                                paymentMethod="Debit card";
-                            } else if (payment_choice==3){
-                                paymentMethod="Net banking";
-                            }
-                            app.printSeperator();
-                            customer.createBooking(customer, booking, paymentMethod);
                             break;
                         case 3:
                             //Track Progress

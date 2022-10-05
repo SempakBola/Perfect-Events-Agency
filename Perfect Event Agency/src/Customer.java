@@ -13,6 +13,7 @@ public class Customer{
     private ArrayList<Refund> refunds;
     private ArrayList<EventID> events;
     private ArrayList<Queries> queries;
+    private ArrayList<Inspection> inspections;
 
     public Customer(){
         this.balance=1000;
@@ -20,6 +21,7 @@ public class Customer{
         this.refunds = new ArrayList<Refund>();
         this.events = new ArrayList<EventID>();
         this.queries = new ArrayList<Queries>();
+        this.inspections = new ArrayList<Inspection>();
     };
 
     public Customer(String firstName, String lastName, String dob, String address) {
@@ -32,6 +34,7 @@ public class Customer{
         this.refunds = new ArrayList<Refund>();
         this.events = new ArrayList<EventID>();
         this.queries = new ArrayList<Queries>();
+        this.inspections = new ArrayList<Inspection>();
     }
 
     //getters
@@ -71,6 +74,12 @@ public class Customer{
         return balance;
     }
 
+    public ArrayList<Inspection> getInspections() {
+        return inspections;
+    }
+
+
+
     //setters
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -92,6 +101,7 @@ public class Customer{
         this.balance = balance;
     }
 
+
     //adders
     public void addComplaint(Complaint complaint) {
         this.complaints.add(complaint);
@@ -109,6 +119,11 @@ public class Customer{
         this.queries.add(query);
     }
 
+    public void addInspection(Inspection inspection) {
+        this.inspections.add(inspection);
+    }
+
+    
     //create query
     public void createQuery(String details) {
         Queries query = new Queries(details);
@@ -137,26 +152,28 @@ public class Customer{
     public void viewEvents() {
         for (EventID event : events) {
             System.out.println("Event ID: " + event.getEventID());
-            System.out.println("Payment Method: " + event.getPayment().getPaymentMethod());
-            System.out.println("Amount Paid: " + event.getPayment().getAmount());
+            event.getPayment().str();
             event.getBooking().str();
             System.out.println("----------------");
         }
     }
 
     // view packages
-    public void viewPackage(Packages selectedPackage, ArrayList<Venue> venues) {
-        selectedPackage.showAvailableVenues(venues);
+    public void viewPackages(ArrayList<Packages>packages){
+        for (Packages pack : packages) {
+            pack.str();
+            System.out.println("----------------");
+        }
     }
 
     //view venues
-    public void viewVenue(Venue selectedVenue) {
-        System.out.println(selectedVenue.getName());
-        System.out.println(selectedVenue.getPrice());
-        System.out.println(selectedVenue.getCapacity());
-        System.out.println(selectedVenue.isAvailability());
+    public void showAvailableVenues(ArrayList<Venue> venues, Booking booking) {
+        for (Venue venue : venues) {
+            if (venue.getCapacity() >= booking.getPackages().getCapacity() && venue.isAvailability()==true) {
+                venue.str();
+            }
+        }
     }
-
     //view food Selection
     public void viewFood(FoodSelection selectedFood) {
         System.out.println(selectedFood.getFoodandBeveragePackage());
