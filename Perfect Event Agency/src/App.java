@@ -32,6 +32,14 @@ public class App {
         packages.add(new Packages(2, "Package B FROM $6000 ",50));
         packages.add(new Packages(3, "Package C FROM $11000",150));
 
+        ArrayList<String> paymentMethods = new ArrayList<String>();
+        paymentMethods.add("Credit Card");
+        paymentMethods.add("Debit Card");
+        paymentMethods.add("AfterPay");
+        paymentMethods.add("PayPal");
+        paymentMethods.add("Online Banking");
+
+
         App app = new App();
         Customer customer = new Customer();
 
@@ -351,9 +359,52 @@ public class App {
                             booking.SelectFood(foodSelections, foodId);
 
                             //select options
+                            Options option = new Options();
+                            System.out.println("Do you want a soundsystem? (y/n)");
+                            String soundSystem=sc1.next();
+                            if(soundSystem.equals("y")){
+                                option.setIsSoundSystem(true);
+                            }
+                            System.out.println("Do you want a musical band? (y/n)");
+                            String musicalBand=sc1.next();
+                            if(musicalBand.equals("y")){
+                                option.setIsHireBand(true);
+                            }
+                            System.out.println("Do you want flower decorations? (y/n)");
+                            String flowers=sc1.next();
+                            if(flowers.equals("y")){
+                                option.setIsFlowerDecoration(true);
+                            }
+                            booking.selectOptions(option);
+                            
+                            //create booking
+                            System.out.println("Enter your first name: ");
+                            String firstName=sc1.next();
+                            System.out.println("Enter your last name: ");
+                            String lastName=sc1.next();
+                            System.out.println("Enter your date of birth: ");
+                            String dob=sc1.next();
+                            System.out.println("Enter your address: ");
+                            String address=sc1.next();
+                            System.out.println("Enter your phone number: ");
+                            int phone=sc1.nextInt();
+                            System.out.println("Select a payment method (enter number): \n1. Credit Card \n2. Debit Card \n3. Net Banking");
+                            int paymentMethod=sc1.nextInt();
+                            switch (paymentMethod) {
+                                case 1:
+                                    customer.createBooking(customer,booking, "Credit Card", 
+                                    firstName, lastName, dob, address, phone);
+                                    break;
+                                case 2:
+                                customer.createBooking(customer,booking, "Debit Card", 
+                                    firstName, lastName, dob, address, phone);
+                                    break;
 
-                            
-                            
+                                case 3:
+                                customer.createBooking(customer,booking, "Net Banking", 
+                                    firstName, lastName, dob, address, phone);
+                                    break;
+                            }
 
                             break;
                         case 3:
@@ -380,41 +431,29 @@ public class App {
                             //Make Complaint
                             //ENTER CODE HERE
                             app.printSeperator();
-                            if (customer.getEvents().size()!=0){
-                                customer.viewEvents();
-                                System.out.println("Enter Event ID: ");
-                                int eventID = sc1.nextInt();
-                                for (int i=0; i<customer.getEvents().size(); i++){
-                                if (customer.getEvents().get(i).getEventID()==eventID){
-                                    System.out.println("Enter your complaint: ");
-                                    sc.nextLine();
-                                    customer.makeComplaint(customer.getEvents().get(i), sc1.nextLine());
-                                }
-                            }
-                            
-                            }
-                            else{
-                                System.out.println("You have not booked any events yet");
+                            if (customer.viewEvents()==true){
+                                System.out.println("Enter the event number you want to make a complaint for: ");
+                                int eventNumber = sc1.nextInt();
+                                System.out.println("Enter your complaint: ");
+                                customer.makeComplaint(eventNumber, sc1.nextLine());
                             }
                             break;
                         case 6:
                             //Request Refund and Cancel
                             //ENTER CODE HERE
                             app.printSeperator();
-                            if (customer.getEvents().size()!=0){
-                                customer.viewEvents();
-                                System.out.println("Enter Event ID: ");
-                                int eventID1 = sc1.nextInt();
-                                sc.nextLine();
-                                String details =sc1.nextLine();
-                                for (int i=0; i<customer.getEvents().size(); i++){
-                                if (customer.getEvents().get(i).getEventID()==eventID1){
-                                    customer.requestRefund(customer,customer.getEvents().get(i), details);
+                            if (customer.viewEvents()==true){
+                                System.out.println("Enter the event number you want to cancel: ");
+                                int eventNumber = sc1.nextInt();
+                                System.out.println("Enter the details to your refund: ");
+                                String details= sc.nextLine();
+                                for (EventID event: customer.getEvents()){
+                                    if (event.getEventID()==eventNumber){
+                                        customer.requestRefund(customer, event,details);
+                                    }
+
                                 }
-                            }
-                            }
-                            else{
-                                System.out.println("You have no events to cancel");
+                                
                             }
                             
                             break;

@@ -5,6 +5,7 @@ public class Customer{
     private String lastName;
     private String dob;
     private String address;
+    private int phoneNumber;
 
     //for testing purposes only
     private float balance;
@@ -24,11 +25,12 @@ public class Customer{
         this.inspections = new ArrayList<Inspection>();
     };
 
-    public Customer(String firstName, String lastName, String dob, String address) {
+    public Customer(String firstName, String lastName, String dob, String address, int phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dob = dob;
         this.address = address;
+        this.phoneNumber = phoneNumber;
         this.balance=1000;
         this.complaints = new ArrayList<Complaint>();
         this.refunds = new ArrayList<Refund>();
@@ -78,6 +80,10 @@ public class Customer{
         return inspections;
     }
 
+    public int getPhoneNumber() {
+        return phoneNumber;
+    }
+
 
 
     //setters
@@ -99,6 +105,10 @@ public class Customer{
 
     public void setBalance(float balance) {
         this.balance = balance;
+    }
+
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
 
@@ -149,13 +159,23 @@ public class Customer{
     }
 
     //view events
-    public void viewEvents() {
-        for (EventID event : events) {
-            System.out.println("Event ID: " + event.getEventID());
-            event.getPayment().str();
-            event.getBooking().str();
-            System.out.println("----------------");
+    public boolean viewEvents() {
+        boolean isThereEvents= false;
+        if (events.size()==0){
+            System.out.println("You don't have any events booked yet.");
         }
+
+        else{
+            for (EventID event : events) {
+                System.out.println("Event ID: " + event.getEventID());
+                event.getPayment().str();
+                event.getBooking().str();
+                System.out.println("----------------");
+                isThereEvents=true;
+            }
+        }
+        return isThereEvents;
+        
     }
 
     // view packages
@@ -181,7 +201,13 @@ public class Customer{
         }
     }
 
-    public void createBooking(Customer customer,Booking booking, String paymentMethod) {
+    public void createBooking(Customer customer,Booking booking, String paymentMethod, String firstName, String lastName, String dob,
+    String address, int phoneNumber) {
+        setFirstName(firstName);
+        setLastName(lastName);
+        setDob(dob);
+        setAddress(address);
+        setPhoneNumber(phoneNumber);
         events.add(booking.createPayment(customer, paymentMethod, booking));
     }
 
@@ -195,9 +221,14 @@ public class Customer{
         refunds.add(refund);
     }
 
-    public void makeComplaint(EventID event, String details) {
-        Complaint complaint = new Complaint(event, details);
-        complaints.add(complaint);
+    public void makeComplaint(int eventID, String details) {
+        viewEvents();
+        for (EventID e : events) {
+            if (e.getEventID() == eventID) {
+                Complaint complaint = new Complaint(e, details);
+                complaints.add(complaint);
+            }
+        }
     }
 
     public void viewComplaints() {
@@ -221,22 +252,22 @@ public class Customer{
         }
     }
 
-    public void changeBooking(Customer customer, int eventID,Booking booking, String paymentMethod) {
-        //loop through the list and look for the matching eventID
-        for (int i = 0; i < events.size(); i++) {
-            if (events.get(i).getEventID()==eventID){
-                //if found, refund the payment
-                setBalance((float) events.get(i).getPayment().getAmount()+getBalance());
-                //create new booking
-                createBooking(customer, booking, paymentMethod);
-                //remove old booking
-                events.remove(i);
-            }
-            else{
-                System.out.println("Event not found");
-            }
-        }
-    }
+    // public void changeBooking(Customer customer, int eventID,Booking booking, String paymentMethod) {
+    //     //loop through the list and look for the matching eventID
+    //     for (int i = 0; i < events.size(); i++) {
+    //         if (events.get(i).getEventID()==eventID){
+    //             //if found, refund the payment
+    //             setBalance((float) events.get(i).getPayment().getAmount()+getBalance());
+    //             //create new booking
+    //             createBooking(customer, booking, paymentMethod);
+    //             //remove old booking
+    //             events.remove(i);
+    //         }
+    //         else{
+    //             System.out.println("Event not found");
+    //         }
+    //     }
+    // }
 
 
 
