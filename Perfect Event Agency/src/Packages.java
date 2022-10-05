@@ -39,9 +39,9 @@ public class Packages {
     }
 
     public void str() {
-        System.out.println("Package Number: " + package_num);
-        System.out.println("Package Details: " + details);
-        System.out.println("Package Capacity: " + capacity);
+        System.out.println("Package Number: " + getPackage_num());
+        System.out.println("Package Details: " + getDetails());
+        System.out.println("Package Capacity: " + getCapacity());
 
     }
 

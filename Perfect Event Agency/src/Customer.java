@@ -123,7 +123,7 @@ public class Customer{
         this.inspections.add(inspection);
     }
 
-    
+
     //create query
     public void createQuery(String details) {
         Queries query = new Queries(details);
@@ -175,18 +175,16 @@ public class Customer{
         }
     }
     //view food Selection
-    public void viewFood(FoodSelection selectedFood) {
-        System.out.println(selectedFood.getFoodandBeveragePackage());
-        System.out.println(selectedFood.getPrice());
+    public void viewFood(ArrayList<FoodSelection> food) {
+        for (FoodSelection f : food) {
+            f.str();
+        }
     }
 
     public void createBooking(Customer customer,Booking booking, String paymentMethod) {
         events.add(booking.createPayment(customer, paymentMethod, booking));
     }
 
-    public int checkProgress(EventID event) {
-        return event.getProgress();
-    }
 
     public void requestRefund(Customer customer,EventID eventID, String details) {
         Refund refund = new Refund(eventID, details);

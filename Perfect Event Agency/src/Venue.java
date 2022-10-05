@@ -76,11 +76,25 @@ public class Venue {
         this.venueID = venueID;
     }
 
+    public void showInspectionDateandTime() {
+        System.out.println("Available Dates for Inspection: ");
+        for (int i = 0; i < availableDatesForInspection.size(); i++) {
+            System.out.println(i);
+            System.out.println(availableDatesForInspection.get(i));
+        }
+        System.out.println("Available Times for Inspection: ");
+        for (int i = 0; i < availableTimesForInspection.size(); i++) {
+            System.out.println(i);
+            System.out.println(availableTimesForInspection.get(i));
+        }
+    }
+
 
     public void str() {
-        System.out.println("Venue Name: " + name);
-        System.out.println("Venue Capacity: " + capacity);
-        System.out.println("Venue Price: " + price);
-        System.out.println("Venue Availability: " + availability);
+        System.out.println("Venue ID: " + getVenueID());
+        System.out.println("Venue Name: " + getName());
+        System.out.println("Venue Capacity: " + getCapacity());
+        System.out.println("Venue Price: " + getPrice());
+        System.out.println("Venue Availability: " + isAvailability());
     }
 }

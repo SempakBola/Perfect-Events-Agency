@@ -335,6 +335,25 @@ public class App {
                             booking.selectPackage(packages,packageId);
 
                             //entering the number of attendees
+                            System.out.println("Enter the number of attendees: ");
+                            booking.setAttendees(sc1.nextInt());
+
+                            //selecting venue
+                            customer.showAvailableVenues(venues, booking);
+                            System.out.println("Enter the venue id number you want to book: ");
+                            int venueId=sc1.nextInt();
+                            booking.selectVenue(venues,venueId);
+
+                            //selecting food and beverage
+                            customer.viewFood(foodSelections);
+                            System.out.println("Enter the food id number you want to book: ");
+                            int foodId=sc1.nextInt();
+                            booking.SelectFood(foodSelections, foodId);
+
+                            //select options
+
+                            
+                            
 
                             break;
                         case 3:

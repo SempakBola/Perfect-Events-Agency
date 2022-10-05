@@ -33,6 +33,9 @@ public class Booking {
             if (p.getPackage_num() == package_num) {
                 this.packages = p;
             }
+            else {
+                System.out.println("Package not found");
+            }
         }
 
     }
@@ -41,9 +44,17 @@ public class Booking {
         return venue;
     }
 
-    public void selectVenue(ArrayList<Venue> venueList, String venueName) {
-        this.venue = venue;
-        this.totalCost += venue.getPrice();
+    public void selectVenue(ArrayList<Venue> venueList, int venueID) {
+        for (Venue v : venueList) {
+            if (v.getVenueID() == venueID) {
+                this.venue = v;
+                this.totalCost += v.getPrice();
+            }
+            else {
+                System.out.println("Venue not found");
+            }
+        }
+        
 
     }
 
@@ -51,9 +62,16 @@ public class Booking {
         return foodSelection;
     }
 
-    public void foodSelection(FoodSelection foodSelection) {
-       this.foodSelection = foodSelection;
-        this.totalCost+=foodSelection.getPrice();
+    public void SelectFood(ArrayList<FoodSelection> foodSelection, int foodID) {
+        for (FoodSelection f : foodSelection) {
+            if (f.getFoodID() == foodID) {
+                this.foodSelection = f;
+                this.totalCost += f.getPrice();
+            }
+            else {
+                System.out.println("Food not found");
+            }
+        }
 
     }
 

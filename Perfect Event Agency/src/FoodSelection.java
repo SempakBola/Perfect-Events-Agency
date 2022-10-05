@@ -31,9 +31,18 @@ public class FoodSelection {
         this.price = price;
     }
 
+    public int getFoodID() {
+        return foodID;
+    }
+
+    public void setFoodID(int foodID) {
+        this.foodID = foodID;
+    }
+
     public void str() {
-        System.out.println("Food and Beverage Package: " + foodandBeveragePackage);
-        System.out.println("Price: " + price);
+        System.out.println("FoodID: " + getFoodID());
+        System.out.println("Food and Beverage Package: " + getFoodandBeveragePackage());
+        System.out.println("Price: " + getPrice());
     }
 
     
