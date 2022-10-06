@@ -9,7 +9,7 @@ public class Logistics_Manager extends Employee{
     private  boolean optionalServiceRequested;
     EventID eventID = new EventID();
     Options options = new Options();
-   HashMap<EventID,ArrayList<String>> LogisticManagerTasks = new HashMap<>();
+   HashMap<Integer,ArrayList<String>> LogisticManagerTasks = new HashMap<>();
 
 
     //constructor method
@@ -24,21 +24,21 @@ public class Logistics_Manager extends Employee{
         super.setPosition("Logistic_Manager");
     }
     public void hireMusicBand(EventID eventID){
-        String[] tasks = { "talk to members of the band","Get the equipment for the band", "Check the mics and instruments", "rehearsel"};
+        String[] tasks = { "talk to members of the band","Get the equipment for the band", "Check the mics and instruments", "rehearsal"};
         ArrayList<String> hirebandTasks = new ArrayList<>(Arrays.asList(tasks));
-        LogisticManagerTasks.put(eventID,hirebandTasks);
+        LogisticManagerTasks.put(eventID.getEventID(),hirebandTasks);
         optionalServiceRequested = true;
     }
     public void orderFlowers(EventID eventID){
         String[] tasks = {"Choose flowers", "buy flower vase", "Place flowers around the venue"};
         ArrayList<String> orderFlowerTasks = new ArrayList<>(Arrays.asList(tasks));
-        LogisticManagerTasks.put(eventID,orderFlowerTasks);
+        LogisticManagerTasks.put(eventID.getEventID(),orderFlowerTasks);
         optionalServiceRequested = true;
     }
     public void hireSoundSystem(EventID eventID){
         String[] tasks = {"Buy sound system", "Check sound", "Arrange speakers", "Arrange music"};
-        ArrayList<String> hireSoundSystem = new ArrayList<>(Arrays.asList(tasks));
-        LogisticManagerTasks.put(eventID,hireSoundSystem);
+        ArrayList<String> hireSoundSystemTasks = new ArrayList<>(Arrays.asList(tasks));
+        LogisticManagerTasks.put(eventID.getEventID(),hireSoundSystemTasks);
         optionalServiceRequested = true;
     }
 
