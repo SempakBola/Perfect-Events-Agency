@@ -41,11 +41,8 @@ public class Event_Manager extends Employee{ //event manager class
         }
     }
 
-    public void bookVenue(String venue){
-        List<Venue> selectedVenue = venues.stream().filter(f->f.getName().equalsIgnoreCase(venue)).collect(Collectors.toList());
-        for (EventID eventID1: eventID){
-            eventID1.getBooking().selectVenue((Venue) selectedVenue);
-        }
+    public void bookVenue(){
+
     }
 
 

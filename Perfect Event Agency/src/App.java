@@ -83,39 +83,50 @@ public class App {
 
                                         for (EventID event : eventID) {
                                             while (!validAnswer) {
-                                                System.out.println("Event id: (" + event.getEventID() + ") Queries:  " + event.getQueries());
-                                                System.out.println("Would you like to reply? Answer YES or NO");
-                                                String confirmReplyQuery = sc.nextLine();
-                                                if (confirmReplyQuery.toLowerCase().equals("YES")) {
-                                                    validAnswer = true;
-                                                    System.out.println("Enter reply");
-                                                    String replyQuery = sc.nextLine();
-
-                                                    while (!correctEventID) {
-                                                        System.out.println("Enter the event id for the reply");
-                                                        int replyEventID = sc.nextInt();
-                                                        if (replyEventID == event.getEventID()) {
-                                                            event_manager.handleQuery(replyEventID, replyQuery);
-                                                            correctEventID = true;
-                                                            break;
-                                                        } else {
-                                                            System.out.println("Incorrect Event ID. Try again");
-                                                            sc.nextLine();
-                                                        }
+                                                while (!validAnswer) {
+                                                    for(Complaint complaint: customer.getComplaints()){
+                                                        System.out.println("EventID: "+ complaint.getEventID().getEventID() +
+                                                                "Complaints: " + complaint.getDetails());
                                                     }
-                                                } else if (confirmReplyQuery.toLowerCase().equals("No")) {
-                                                    validAnswer = true;
-                                                    break;
-                                                } else {
-                                                    System.out.println("Answer a valid answer");
-                                                    sc.nextLine();
+                                                    System.out.println("Would you like to reply? Answer YES or NO");
+                                                    String confirmReplyQuery = sc.nextLine();
+                                                    if (confirmReplyQuery.toLowerCase().equals("YES")) {
+                                                        validAnswer = true;
+                                                        System.out.println("Enter reply");
+                                                        String replyQuery = sc.nextLine();
+
+                                                        while (!correctEventID) {
+                                                            System.out.println("Enter the event id for the reply");
+                                                            int replyEventID = sc.nextInt();
+                                                            for (Complaint complaint : customer.getComplaints()) {
+                                                                if (replyEventID == complaint.getEventID().getEventID()){
+                                                                    event_manager.handleQuery(replyEventID, replyQuery);
+                                                                    correctEventID = true;
+                                                                    break;
+                                                                } else{
+                                                                    System.out.println("Incorrect Event ID. Try again");
+                                                                    sc.nextLine();
+                                                                }
+                                                            }
+                                                        }
+                                                    } else if (confirmReplyQuery.toLowerCase().equals("No")) {
+                                                        validAnswer = true;
+                                                        break;
+                                                    } else {
+                                                        System.out.println("Answer a valid answer");
+                                                        sc.nextLine();
+                                                    }
                                                 }
                                             }
                                         }
                                     case 2:
                                         for (EventID event : eventID) {
                                             while (!validAnswer) {
-                                                System.out.println("Event id: (" + event.getEventID() + ") Complaints:  " + event.getComplaint());
+                                               for(Queries queries: customer.getQueries()){
+                                                   System.out.println("QueryID: " + queries.getQueryID()
+                                                   + "Query: " + queries.getDetails());
+
+                                               }
                                                 System.out.println("Would you like to reply? Answer YES or NO");
                                                 String confirmReplyQuery = sc.nextLine();
                                                 if (confirmReplyQuery.toLowerCase().equals("YES")) {
@@ -123,15 +134,17 @@ public class App {
                                                     System.out.println("Enter reply");
                                                     String replyComplaints = sc.nextLine();
                                                     while (!correctEventID) {
-                                                        System.out.println("Enter the event id for the reply");
-                                                        int replyEventID = sc.nextInt();
-                                                        if (replyEventID == event.getEventID()) {
-                                                            event_manager.handleComplaints(replyEventID, replyComplaints);
-                                                            correctEventID = true;
-                                                            break;
-                                                        } else {
-                                                            System.out.println("Incorrect Event ID. Try again");
-                                                            sc.nextLine();
+                                                        System.out.println("Enter the query id for the reply");
+                                                        int replyQueryID = sc.nextInt();
+                                                        for(Queries queries: customer.getQueries()){
+                                                            if (replyQueryID == queries.getQueryID()) {
+                                                                event_manager.handleQuery(replyQueryID, replyComplaints);
+                                                                correctEventID = true;
+                                                                break;
+                                                            } else {
+                                                                System.out.println("Incorrect Event ID. Try again");
+                                                                sc.nextLine();
+                                                            }
                                                         }
                                                     }
                                                 } else if (confirmReplyQuery.toLowerCase().equals("No")) {
@@ -147,26 +160,7 @@ public class App {
                                         }
                                     case 3:
                                         //Book Venue
-                                        HashMap<Integer, String> displayVenue = new HashMap<>();
-                                        boolean correctNumber = false;
-                                        int count = 1;
-                                        for (Venue venue : venues) {
-                                            displayVenue.put(count, venue.getName());
-                                            System.out.println(count + ". " + venue.getName());
-                                            count++;
-                                        }
-                                        while (!correctNumber) {
-                                            System.out.println("\n" + "Select venue based on number: ");
-                                            int chosenVenueNumber = sc.nextInt();
-                                            if (displayVenue.containsKey(chosenVenueNumber)) {
-                                                correctNumber = true;
-                                                event_manager.bookVenue(displayVenue.get(chosenVenueNumber));
-                                                break;
-                                            } else {
-                                                System.out.println("Enter a valid number");
-                                                sc.nextInt();
-                                            }
-                                        }
+
                                         break;
                                     case 4:
                                         //Handle Changes

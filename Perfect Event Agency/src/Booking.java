@@ -126,5 +126,4 @@ public class Booking {
         System.out.println("Service Fee: " + ServiceFee());
         System.out.println("Total Cost: " + totalCost);
     }
-
 }
