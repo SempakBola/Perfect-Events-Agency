@@ -9,9 +9,6 @@ public class EventID {
     private boolean isDone;
     private Tracker tracker;
 
-    // private Complaint complaint;
-
-    // private Queries queries;
 
     public EventID(Booking booking, Payment payment) {
         this.booking = booking;
