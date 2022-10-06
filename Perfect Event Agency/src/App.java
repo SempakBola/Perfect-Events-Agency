@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class App {
@@ -80,10 +79,7 @@ public class App {
                                 sub_choice2 = sc.nextInt();
                                 switch (sub_choice2) {
                                     case 1:
-
-                                        for (EventID event : eventID) {
-                                            while (!validAnswer) {
-                                                while (!validAnswer) {
+                                        while (!validAnswer) {
                                                     for(Complaint complaint: customer.getComplaints()){
                                                         System.out.println("EventID: "+ complaint.getEventID().getEventID() +
                                                                 "Complaints: " + complaint.getDetails());
@@ -117,10 +113,7 @@ public class App {
                                                         sc.nextLine();
                                                     }
                                                 }
-                                            }
-                                        }
                                     case 2:
-                                        for (EventID event : eventID) {
                                             while (!validAnswer) {
                                                for(Queries queries: customer.getQueries()){
                                                    System.out.println("QueryID: " + queries.getQueryID()
@@ -157,7 +150,6 @@ public class App {
 
 
                                             }
-                                        }
                                     case 3:
                                         //Book Venue
 
@@ -348,17 +340,46 @@ public class App {
                                 switch (sub_choice4) {
                                     case 1:
                                         //Hire Musical Band
-                                       logistics_manager.hireMusicBand();
-                                        System.out.println("Create Logistics Plan");
-                                        break;
+                                        boolean validMusicBandEventID = false;
+                                        System.out.println("Enter the eventid to hire music band");
+                                        int musicEvemtID = sc.nextInt();
+                                        while (!validMusicBandEventID){
+                                            for(EventID event: customer.getEvents()){
+                                                if(musicEvemtID == event.getEventID()){
+                                                    validMusicBandEventID = true;
+                                                    logistics_manager.hireMusicBand(event);
+                                                    break;
+                                                }
+                                            }
+                                        }
+
                                     case 2:
-                                        //Hire Sound System
-                                        logistics_manager.hireSoundSystem();
-                                        break;
+                                        boolean validSoundSystemEventID = false;
+                                        System.out.println("Enter the eventid to hire music band");
+                                        int soundEventID = sc.nextInt();
+                                        while (!validSoundSystemEventID){
+                                            for(EventID event: customer.getEvents()){
+                                                if(soundEventID == event.getEventID()){
+                                                    validSoundSystemEventID = true;
+                                                    logistics_manager.hireSoundSystem(event);
+                                                    break;
+                                                }
+                                            }
+                                        }
                                     case 3:
                                         //Order Flowers
-                                       logistics_manager.orderFlowers();
-                                        break;
+                                        boolean validorderFlowerEventID = false;
+                                        System.out.println("Enter the eventid to hire music band");
+                                        int flowerEventID = sc.nextInt();
+                                        while (!validorderFlowerEventID){
+                                            for(EventID event: customer.getEvents()){
+                                                if(flowerEventID == event.getEventID()){
+                                                    validorderFlowerEventID = true;
+                                                    logistics_manager.orderFlowers(event);
+                                                    break;
+                                                }
+                                            }
+                                        }
                                     case 4:
                                         //Track Progress
                                         tracker.checkProgress();
