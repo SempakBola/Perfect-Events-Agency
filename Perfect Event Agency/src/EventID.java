@@ -6,8 +6,8 @@ public class EventID {
     private int eventID;
     private Booking booking;
     private Payment payment;
-    private int progress;
     private boolean isDone;
+    private Tracker tracker;
 
     // private Complaint complaint;
 
@@ -16,7 +16,7 @@ public class EventID {
     public EventID(Booking booking, Payment payment) {
         this.booking = booking;
         this.payment = payment;
-        this.progress = 0;
+        this.tracker = new Tracker();
         this.isDone = false;
         Random rand = new Random();
         this.eventID = rand.nextInt(1000000);
@@ -50,13 +50,7 @@ public class EventID {
         this.payment = payment;
     }
 
-    public int getProgress() {
-        return progress;
-    }
-
-    public void setProgress(int progress) {
-        this.progress = progress;
-    }
+    
 
     public boolean isDone() {
         return isDone;
@@ -66,19 +60,4 @@ public class EventID {
         isDone = done;
     }
 
-    // public Complaint getComplaint() {
-    //     return complaint;
-    // }
-
-    // public void setComplaint(Complaint complaint) {
-    //     this.complaint = complaint;
-    // }
-
-    // public Queries getQueries() {
-    //     return queries;
-    // }
-
-    // public void setQueries(Queries queries) {
-    //     this.queries = queries;
-    // }
 }

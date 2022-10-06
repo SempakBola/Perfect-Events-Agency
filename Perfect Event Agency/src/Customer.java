@@ -268,14 +268,7 @@ public class Customer{
         }
     }
 
-    public void trackEvent(int event) {
-        for (EventID eventID : events) {
-            if (eventID.getEventID() == event) {
-                System.out.println("Event ID: " + eventID.getEventID());
-                System.out.println("Progress: " + eventID.getProgress());
-            }
-        }
-    }
+    
 
 
 
