@@ -2,6 +2,7 @@ import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Tracker {
 
@@ -55,5 +56,24 @@ public class Tracker {
 
     public void setTasks(ArrayList<String> tasks) {
         this.tasks = tasks;
+    }
+
+    public  void UpdateProgress(Scanner sc) {
+        boolean validTask = false;
+        while (!validTask) {
+            System.out.println("Which task would you like to remove: ");
+            String removeTask = sc.nextLine();
+            for (String checkTracker : getTasks()) {
+                if (removeTask == checkTracker) {
+                    updateProgress(removeTask);
+                    checkProgress();
+                    validTask = true;
+                    break;
+                } else {
+                    System.out.println("Please select a valid task");
+                }
+
+            }
+        }
     }
 }

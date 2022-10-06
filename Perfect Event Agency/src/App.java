@@ -174,15 +174,15 @@ public class App {
                                         break;
                                     case 5:
                                         //Track Progress
-                                        //ENTER CODE HERE
+                                        tracker.checkProgress();
                                         break;
                                     case 6:
                                         //Update Progress
-                                        //ENTER CODE HERE
+                                        tracker.UpdateProgress(sc);
                                         break;
                                     case 7:
                                         //Generate Bill
-                                        //ENTER CODE HERE
+                                        event_manager.getVenueBill();
                                         break;
                                     default:
                                         System.out.println("Invalid choice");
@@ -227,7 +227,34 @@ public class App {
                                         break;
                                     case 2:
                                         //Change Cost Plan
-                                        //ENTER CODE HERE
+                                        System.out.println("Would you like to change an EventID from the costplan?" + "\n"+
+                                                "Enter YES or NO");
+                                        String changeCostPlan = sc.nextLine();
+                                        switch (changeCostPlan.toLowerCase()){
+                                            case "yes":
+                                                System.out.println("Enter Costplan ID to change");
+                                                boolean correctCostplanID = false;
+                                                int costplanidChangning = sc.nextInt();
+                                                while (!correctCostplanID){
+                                                    for(Cost_Plan cost_plan: finance_manager.getCostPlans()){
+                                                        if(costplanidChangning == cost_plan.getCostPlanID()){
+                                                            System.out.println("Enter new event id for this costplan");
+                                                            int newEventID = sc.nextInt();
+                                                            cost_plan.getEventID().setEventID(newEventID);
+                                                        }else{
+                                                            System.out.println("Incorrect ID. Try again");
+                                                            sc.nextLine();
+                                                        }
+                                                    }
+                                                }
+
+                                                break;
+                                            case "no":
+                                                break;
+                                            default:
+                                                System.out.println("Invalid answer");
+                                                break;
+                                        }
                                         break;
                                     case 3:
                                         //Allocate Money
@@ -271,8 +298,7 @@ public class App {
                                         break;
                                     case 6:
                                         //Update Progress
-                                        String removeTasks = sc.nextLine();
-                                        app.updateProgress(removeTasks);
+                                        tracker.UpdateProgress(sc);
                                         break;
                                     case 7:
                                         //Update Packages
@@ -328,25 +354,24 @@ public class App {
                                 switch (sub_choice4) {
                                     case 1:
                                         //Hire Musical Band
-                                        //ENTER CODE HERE
+                                       logistics_manager.hireMusicBand();
                                         System.out.println("Create Logistics Plan");
                                         break;
                                     case 2:
                                         //Hire Sound System
-                                        //ENTER CODE HERE
+                                        logistics_manager.hireSoundSystem();
                                         break;
                                     case 3:
                                         //Order Flowers
-                                        //ENTER CODE HERE
+                                       logistics_manager.orderFlowers();
                                         break;
                                     case 4:
                                         //Track Progress
-                                      tracker.checkProgress();
+                                        tracker.checkProgress();
                                         break;
                                     case 5:
                                         //Update Progress
-                                        String removeTask  =sc.nextLine();
-                                        app.updateProgress(removeTask);
+                                        tracker.UpdateProgress(sc);
                                         break;
                                     case 6:
                                         //Generate Bill
@@ -368,7 +393,7 @@ public class App {
                                 switch (sub_choice5) {
                                     case 1:
                                         //Arrange Food and Beverage
-                                        //ENTER CODE HERE
+                                        caterer.arrangeFoodandBeverages();
                                         System.out.println("Create Menu");
                                         break;
                                     case 2:
@@ -377,8 +402,7 @@ public class App {
                                         break;
                                     case 3:
                                         //Update Progress
-                                        String removeTasks = sc.nextLine();
-                                        app.updateProgress(removeTasks);
+                                        tracker.UpdateProgress(sc);
                                         break;
                                     case 4:
                                         //Generate Bill
@@ -591,24 +615,6 @@ public class App {
         }
     }
 
-    public void updateProgress(String removeTask) {
-        Tracker tracker = new Tracker();
-        boolean validTask = false;
-        System.out.println("Remaining tasks: " + tracker.getTasks());
-        while (!validTask) {
-            System.out.println("Which task would you like to remove: ");
-            for (String checkTracker : tracker.getTasks()) {
-                if (removeTask == checkTracker) {
-                    tracker.updateProgress(removeTask);
-                    tracker.checkProgress();
-                    validTask = true;
-                    break;
-                } else {
-                    System.out.println("Please select a valid task");
-                }
 
-            }
-        }
 
-    }
 }
