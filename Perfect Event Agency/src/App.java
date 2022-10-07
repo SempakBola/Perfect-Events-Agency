@@ -530,15 +530,7 @@ public class App {
                         case 3:
                             //Track Progress
                             //ENTER CODE HERE
-                            app.printSeperator();
-                            if (customer.getEvents().size()==0){
-                                System.out.println("You have not booked any events yet");
-                            } else {
-                                customer.viewEvents();
-                                System.out.println("Enter the event number you want to track");
-                                int eventNumber = sc1.nextInt();
-                                customer.trackEvent(eventNumber);
-                            }
+                           
                             break;
                         case 4:
                             //Create Query
@@ -581,6 +573,7 @@ public class App {
                             //Change Booking
                             //ENTER CODE HERE
                             app.printSeperator();
+                            
                             break;
                         case 8:
                             //check balance

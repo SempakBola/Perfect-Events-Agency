@@ -201,6 +201,8 @@ public class Customer{
         }
     }
 
+    
+
     //view all venues
     public void viewAllVenues(ArrayList<Venue> venues) {
         for (Venue venue : venues) {
@@ -272,22 +274,47 @@ public class Customer{
 
 
 
-    // public void changeBooking(Customer customer, int eventID,Booking booking, String paymentMethod) {
-    //     //loop through the list and look for the matching eventID
-    //     for (int i = 0; i < events.size(); i++) {
-    //         if (events.get(i).getEventID()==eventID){
-    //             //if found, refund the payment
-    //             setBalance((float) events.get(i).getPayment().getAmount()+getBalance());
-    //             //create new booking
-    //             createBooking(customer, booking, paymentMethod);
-    //             //remove old booking
-    //             events.remove(i);
-    //         }
-    //         else{
-    //             System.out.println("Event not found");
-    //         }
-    //     }
-    // }
+    public void changeBooking(int eventID, ArrayList<FoodSelection> foodSelections){
+        System.out.println("You can only change the options and the food selection.");
+        viewEvents();
+        System.out.println("Enter the event ID of the booking that you want to change: ");
+        Scanner sc = new Scanner(System.in);
+        int eventID1 = sc.nextInt();
+        for (EventID e : events) {
+            if (e.getEventID() == eventID1) {
+                System.out.println("Here are the details of your booking: ");
+                e.getBooking().str();
+                System.out.println("Do you want to change the food selection? (Enter the number) \n1.Yes \n2.No  ");
+                int foodSelection = sc.nextInt();
+                if (foodSelection==1){
+                    System.out.println("The current food selection you have right now is: ");
+                    e.getBooking().getFoodSelection().str();
+                    System.out.println("Here are the list of the food packages that we offer: ");
+                    viewFood(foodSelections);
+                    System.out.println("Enter the number of the food package you want to change to: ");
+                    int foodSelectionNum = sc.nextInt()-1;
+                    e.getBooking().SelectFood(foodSelections, foodSelectionNum);
+                }
+                System.out.println("Do you want to change the optional services of you boooking? (Enter the number) \n1.Yes \n2.No");
+                int optionalServices = sc.nextInt();
+                if (optionalServices==1){
+                    System.out.println("The current optional services you have right now is: ");
+                    e.getBooking().getOptions().str();
+                    do {
+                        System.out.println("Choose which option you want to change: \n1.Flower Decoration \n2.Sound System \n3.Musical band \n4. Done" );
+                        int optionNum = sc.nextInt();
+                        if (optionNum==1){
+                            e.getBooking().getOptions().setIsFlowerDecoration(false);
+                        }
+
+                    } while optionN;
+
+                    
+
+                }
+            }
+        }
+    }
 
 
 

@@ -4,7 +4,7 @@ import java.util.HashMap;
 public class Caterer extends Employee { //Caterer class that is responsible for the arrangement of food and beverages
     EventID eventID = new EventID();
     FoodSelection foodSelection = new FoodSelection();
-    HashMap<EventID,>
+    HashMap<EventID>
 
     //constructor class for the caterer
 
