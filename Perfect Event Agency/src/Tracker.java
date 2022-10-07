@@ -21,7 +21,6 @@ public class Tracker {
     }
 
     private ArrayList<String> tasks(int eventID){ //contains all the task needed by all the manager
-
         for (EventID eventID1: customer.getEvents()){
             if(eventID == eventID1.getEventID()){
                 ArrayList<String> eventManagerTasks = event_manager.getEventManagerTasks().get(eventID);
@@ -51,12 +50,7 @@ public class Tracker {
         }
     }
         public void checkProgress (int eventID) {
-            int totalnumberofTasks = 6;
-            if (logistics_manager.optionalserviceused()) {
-                totalnumberofTasks++;
-            }
-            int completionPercentage = (AvailableTask(eventID) / totalnumberofTasks) * 100;
-            System.out.println("number of tasks remaining " + AvailableTask(eventID) + ". " + completionPercentage + "% is completed");
+            System.out.println("number of tasks remaining " + AvailableTask(eventID));
         }
 
 
