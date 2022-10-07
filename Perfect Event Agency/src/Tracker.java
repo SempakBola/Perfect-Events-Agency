@@ -9,6 +9,8 @@ public class Tracker {
     Caterer caterer = new Caterer();
     Customer customer = new Customer();
 
+    private static ArrayList<String> tasks = new ArrayList<>();
+
 
     Tracker(){
 
@@ -18,68 +20,58 @@ public class Tracker {
         return new Tracker();
     }
 
-    private HashMap<Integer, ArrayList<String>> tasks(){ //contains all the task needed by all the manager
-        /* Map<Integer, ArrayList<String>> merge1 = //merges the event manager task and caterer task together to create a new map(Merge1).
-                 //code from:https://www.baeldung.com/java-hashmap-remove-entry
-                Stream.concat(event_manager.getEventManagerTasks().entrySet().stream(), caterer.getCatererTask().entrySet().stream())
-                        .collect(Collectors.toMap(
-                                Map.Entry::getKey,
-                                Map.Entry::getValue,
-                                (v1, v2) -> v1+","+v2));
-        Map<Integer, ArrayList<String>> merge2 = //merges the first map with the logistics manager
-                Stream.concat(logistics_manager.getLogisticManagerTasks().entrySet().stream(), merge1.entrySet().stream())
-                        .collect(Collectors.toMap(
-                                Map.Entry::getKey,
-                                Map.Entry::getValue,
-                                (v1, v2) -> v1+","+v2));
+    private ArrayList<String> tasks(int eventID){ //contains all the task needed by all the manager
 
-         return (HashMap<Integer, ArrayList<String>>) merge2;*/
+        for (EventID eventID1: customer.getEvents()){
+            if(eventID == eventID1.getEventID()){
+                ArrayList<String> eventManagerTasks = event_manager.getEventManagerTasks().get(eventID);
+                ArrayList<String> catererTasks = caterer.getCatererTask().get(eventID);
+                ArrayList<String> logisticManagerTasks = logistics_manager.getLogisticManagerTasks().get(eventID);
+                tasks.addAll(eventManagerTasks);
+                tasks.addAll(catererTasks);
+                tasks.addAll(logisticManagerTasks);
+            }
+        }
+
+        return tasks;
     }
 
 
-    public int AvailableTask(){
+    public int AvailableTask(int EventID){
+        return tasks(EventID).size();
     }
 
 
-    public void taskRemover(Integer eventID, String replaceTask) {
-        if (AvailableTask() == 0) {
+    public void taskRemover(int eventID, String replaceTask) {
+        if (AvailableTask(eventID) == 0) {
             System.out.println("All tasks are completed");
         } else {
-            for (EventID eventID1 : customer.getEvents()) {
-                if (eventID == eventID1.getEventID()) {
-                    String oldTask = tasks().get(eventID);
-                    String newTasks = oldTask.replace(replaceTask,"");
-                    tasks().put(eventID,newTasks);
-                } else {
-                    System.out.println("Incorrect ID");
-                }
-            }
+            tasks(eventID).remove(replaceTask);
 
         }
     }
-        public void checkProgress () {
+        public void checkProgress (int eventID) {
             int totalnumberofTasks = 6;
             if (logistics_manager.optionalserviceused()) {
                 totalnumberofTasks++;
             }
-            int completionPercentage = (AvailableTask() / totalnumberofTasks) * 100;
-            System.out.println("number of tasks remaining " + AvailableTask() + ". " + completionPercentage + "% is completed");
+            int completionPercentage = (AvailableTask(eventID) / totalnumberofTasks) * 100;
+            System.out.println("number of tasks remaining " + AvailableTask(eventID) + ". " + completionPercentage + "% is completed");
         }
 
 
-        public void UpdateProgress (Scanner sc){
+        public void UpdateProgress (int EventID, Scanner sc){
             boolean validEventID = false;
             while (!validEventID) {
                 System.out.println("Enter the event ID for the task to be removed ");
                 int selectedEventID = sc.nextInt();
-                for (Map.Entry<Integer, String> entry : tasks().entrySet()) {
-                    Integer key = entry.getKey();
-                    if (selectedEventID == key) {
+                for (EventID eventID: customer.getEvents()) {
+                    if (selectedEventID == eventID.getEventID()) {
                         validEventID = true;
                         System.out.println("Enter  the task to be removed ");
                         String removeTask = sc.nextLine();
                         taskRemover(selectedEventID, removeTask);
-                        checkProgress();
+                        checkProgress(EventID);
                         break;
                     } else {
                         System.out.println("Please select a valid task");
