@@ -1,10 +1,12 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Caterer extends Employee { //Caterer class that is responsible for the arrangement of food and beverages
     EventID eventID = new EventID();
     FoodSelection foodSelection = new FoodSelection();
-    HashMap<EventID,>
+    private static HashMap<Integer,String>  catererTask = new HashMap<>();
+    Customer customer = new Customer();
 
     //constructor class for the caterer
 
@@ -19,16 +21,47 @@ public class Caterer extends Employee { //Caterer class that is responsible for 
 
     }
 
-    public void arrangeFoodandBeverages(){ //method that operates the caterer operation
+    public void arrangeFoodandBeverages(EventID eventID){ //method that operates the caterer operation
+        String[] tasks = {"Buy Food", "Buy Drinks","Arrange Food and Drinks on table"};
+        for(EventID eventID1: customer.getEvents()) {
+            if(eventID == eventID1) {
+                catererTask.put(eventID.getEventID(), Arrays.toString(tasks));
+            }else {
+                System.out.println("incorrect eventID");
+            }
+        }
+    }
+
+    public void arrangeCutlery(EventID eventID){
+        String[] tasks = {"Buy utensils", "Buy plates", "Arrange Plates"};
+        for(EventID eventID1: customer.getEvents()) {
+            if (eventID == eventID1) {
+                catererTask.put(eventID1.getEventID(), Arrays.toString(tasks));
+            }else{
+                System.out.println("Incorrect eventID");
+            }
+        }
 
     }
 
-    public void arrangeCutlery(){
+    public void pickupFood(EventID eventID){
+        String[] tasks = {"Order Food", "Pickup food", "Deliver Food"};
+        for(EventID eventID1: customer.getEvents()) {
+            if(eventID == eventID1) {
+                catererTask.put(eventID1.getEventID(), Arrays.toString(tasks));
+            }else {
+                System.out.println("incorrect EventID");
+            }
+        }
 
     }
 
-    public void pickupFood(){
+    public HashMap<Integer, String> getCatererTask() {
+        return catererTask;
+    }
 
+    public void setCatererTask(HashMap<Integer, String> catererTask) {
+        Caterer.catererTask = catererTask;
     }
 
     public void getMenuBill(){

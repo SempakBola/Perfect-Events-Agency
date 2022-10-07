@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,7 +11,8 @@ public class Event_Manager extends Employee{ //event manager class
     Complaint complaint = new Complaint();
 
     Queries queries = new Queries();
-
+    Customer customer = new Customer();
+    private static HashMap<Integer, String> eventManagerTasks = new HashMap<>();
 
     //constructor method
 
@@ -41,8 +44,15 @@ public class Event_Manager extends Employee{ //event manager class
         }
     }
 
-    public void bookVenue(){
-
+    public void bookVenue(EventID eventID){
+        String[] tasks = {"Book venue", "Clean place", " Set up seating arrangement", "place tables and chairs"};
+        for(EventID eventID1: customer.getEvents()) {
+            if(eventID == eventID1) {
+                eventManagerTasks.put(eventID.getEventID(), Arrays.toString(tasks));
+            }else {
+                System.out.println("incorrect Event ID");
+            }
+        }
     }
 
 
@@ -53,6 +63,11 @@ public class Event_Manager extends Employee{ //event manager class
         }
     }
 
+    public HashMap<Integer, String> getEventManagerTasks() {
+        return eventManagerTasks;
+    }
 
-
+    public void setEventManagerTasks(HashMap<Integer, String> eventManagerTasks) {
+        this.eventManagerTasks = eventManagerTasks;
+    }
 }
