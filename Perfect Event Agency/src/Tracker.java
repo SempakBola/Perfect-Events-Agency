@@ -1,5 +1,6 @@
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Tracker {
 
@@ -19,9 +20,20 @@ public class Tracker {
     }
 
     private HashMap<Integer, String> tasks(){
-        caterer.getCatererTask().forEach((k, v) -> logistics_manager.getLogisticManagerTasks().merge(k, v, String::concat));
-        event_manager.getEventManagerTasks().forEach((k, v) -> caterer.getCatererTask().merge(k, v, String::concat));
-        return new HashMap<>(event_manager.getEventManagerTasks());
+         Map<Integer, String> merge1 =
+                Stream.concat(event_manager.getEventManagerTasks().entrySet().stream(), caterer.getCatererTask().entrySet().stream())
+                        .collect(Collectors.toMap(
+                                Map.Entry::getKey,
+                                Map.Entry::getValue,
+                                (v1, v2) -> v1+", "+v2));
+        Map<Integer, String> merge2 =
+                Stream.concat(logistics_manager.getLogisticManagerTasks().entrySet().stream(), merge1.entrySet().stream())
+                        .collect(Collectors.toMap(
+                                Map.Entry::getKey,
+                                Map.Entry::getValue,
+                                (v1, v2) -> v1+", "+v2));
+
+         return (HashMap<Integer, String>) merge2;
     }
 
 
