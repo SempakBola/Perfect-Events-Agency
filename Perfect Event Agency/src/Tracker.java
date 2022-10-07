@@ -1,15 +1,15 @@
-import java.awt.*;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Tracker {
 
-    private int remainingTasks;
-    private final String[] tasksNames = {"Book event", "Book venue", "Choose menu", "Enter Details","Pay for Booking"};
     Logistics_Manager logistics_manager = new Logistics_Manager();
-    private ArrayList<String> tasks = new ArrayList<>(Arrays.asList(tasksNames));
+    Event_Manager event_manager = new Event_Manager();
+    Caterer caterer = new Caterer();
+    Customer customer = new Customer();
+
+    private static ArrayList<String> tasks = new ArrayList<>();
 
 
     Tracker(){
@@ -20,60 +20,62 @@ public class Tracker {
         return new Tracker();
     }
 
-
-    public int AvailableTask(){
-
-
-        if(logistics_manager.optionalserviceused()){
-            tasks.add("Book optional service");
-        }
-        remainingTasks = tasks.size();
-
-        return remainingTasks;
-    }
-
-
-    public void updateProgress(String taskName){
-        if(remainingTasks == 0){
-            System.out.println("All tasks are completed");
-        }else{
-            tasks.remove(taskName);
+    private ArrayList<String> tasks(int eventID){ //contains all the task needed by all the manager
+        for (EventID eventID1: customer.getEvents()){
+            if(eventID == eventID1.getEventID()){
+                ArrayList<String> eventManagerTasks = event_manager.getEventManagerTasks().get(eventID);
+                ArrayList<String> catererTasks = caterer.getCatererTask().get(eventID);
+                ArrayList<String> logisticManagerTasks = logistics_manager.getLogisticManagerTasks().get(eventID);
+                tasks.addAll(eventManagerTasks);
+                tasks.addAll(catererTasks);
+                tasks.addAll(logisticManagerTasks);
+            }
         }
 
-    }
-    public void checkProgress(){
-        int totalnumberofTasks = 6;
-        if(logistics_manager.optionalserviceused()){
-            totalnumberofTasks++;
-        }
-        int completionPercentage = (AvailableTask()/totalnumberofTasks)*100;
-        System.out.println("number of tasks remaining "+ AvailableTask() + ". " + completionPercentage + "% is completed");
-    }
-
-    public ArrayList<String> getTasks() {
         return tasks;
     }
 
-    public void setTasks(ArrayList<String> tasks) {
-        this.tasks = tasks;
+
+    public int AvailableTask(int EventID){
+        return tasks(EventID).size();
     }
 
-    public  void UpdateProgress(Scanner sc) {
-        boolean validTask = false;
-        while (!validTask) {
-            System.out.println("Which task would you like to remove: ");
-            String removeTask = sc.nextLine();
-            for (String checkTracker : getTasks()) {
-                if (removeTask == checkTracker) {
-                    updateProgress(removeTask);
-                    checkProgress();
-                    validTask = true;
-                    break;
-                } else {
-                    System.out.println("Please select a valid task");
-                }
 
-            }
+    public void taskRemover(int eventID, String replaceTask) {
+        if (AvailableTask(eventID) == 0) {
+            System.out.println("All tasks are completed");
+        } else {
+            tasks(eventID).remove(replaceTask);
+
         }
     }
-}
+        public void checkProgress (int eventID) {
+            System.out.println("number of tasks remaining " + AvailableTask(eventID));
+        }
+
+
+        public void UpdateProgress (int EventID, Scanner sc){
+            boolean validEventID = false;
+            while (!validEventID) {
+                System.out.println("Enter the event ID for the task to be removed ");
+                int selectedEventID = sc.nextInt();
+                for (EventID eventID: customer.getEvents()) {
+                    if (selectedEventID == eventID.getEventID()) {
+                        validEventID = true;
+                        System.out.println("Enter  the task to be removed ");
+                        String removeTask = sc.nextLine();
+                        taskRemover(selectedEventID, removeTask);
+                        checkProgress(EventID);
+                        break;
+                    } else {
+                        System.out.println("Please select a valid task");
+                    }
+
+                }
+            }
+        }
+
+
+    }
+
+

@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class App {
 
-    private static ArrayList<EventID> eventID = new ArrayList<>();
+    private static final ArrayList<EventID> eventID = new ArrayList<>();
 
     public void printSeperator() {
         System.out.println("------------------------------------------------------------");
@@ -152,7 +152,13 @@ public class App {
                                             }
                                     case 3:
                                         //Book Venue
-
+                                        System.out.println("Enter the event ID to book venue");
+                                        int bookVenueEventID = sc.nextInt();
+                                        for(EventID eventID1: customer.getEvents()){
+                                            if(bookVenueEventID == eventID1.getEventID()){
+                                                event_manager.bookVenue(eventID1);
+                                            }
+                                        }
                                         break;
                                     case 4:
                                         //Handle Changes
@@ -160,11 +166,15 @@ public class App {
                                         break;
                                     case 5:
                                         //Track Progress
-                                        tracker.checkProgress();
+                                        System.out.println("Enter eventID for the event you want to track");
+                                        int trackingEventID = sc.nextInt();
+                                        tracker.checkProgress(trackingEventID);
                                         break;
                                     case 6:
                                         //Update Progress
-                                        tracker.UpdateProgress(sc);
+                                        System.out.println("Enter eventID for the event you want to track");
+                                        int updatingEventID = sc.nextInt();
+                                        tracker.UpdateProgress(updatingEventID,sc);
                                         break;
                                     case 7:
                                         //Generate Bill
@@ -280,11 +290,15 @@ public class App {
                                         break;
                                     case 5:
                                         //Track Progress
-                                        tracker.checkProgress();
+                                        System.out.println("Enter eventID for the event you want to track");
+                                        int trackingEventID = sc.nextInt();
+                                        tracker.checkProgress(trackingEventID);
                                         break;
                                     case 6:
                                         //Update Progress
-                                        tracker.UpdateProgress(sc);
+                                        System.out.println("Enter eventID for the event you want to update");
+                                        int updatingEventID = sc.nextInt();
+                                        tracker.UpdateProgress(updatingEventID,sc);
                                         break;
                                     case 7:
                                         //Update Packages
@@ -343,21 +357,18 @@ public class App {
                                         boolean validMusicBandEventID = false;
                                         System.out.println("Enter the eventid to hire music band");
                                         int musicEvemtID = sc.nextInt();
-                                        while (!validMusicBandEventID){
                                             for(EventID event: customer.getEvents()){
                                                 if(musicEvemtID == event.getEventID()){
-                                                    validMusicBandEventID = true;
                                                     logistics_manager.hireMusicBand(event);
                                                     break;
                                                 }
                                             }
-                                        }
+
 
                                     case 2:
                                         boolean validSoundSystemEventID = false;
                                         System.out.println("Enter the eventid to hire music band");
                                         int soundEventID = sc.nextInt();
-                                        while (!validSoundSystemEventID){
                                             for(EventID event: customer.getEvents()){
                                                 if(soundEventID == event.getEventID()){
                                                     validSoundSystemEventID = true;
@@ -365,13 +376,12 @@ public class App {
                                                     break;
                                                 }
                                             }
-                                        }
+
                                     case 3:
                                         //Order Flowers
                                         boolean validorderFlowerEventID = false;
                                         System.out.println("Enter the eventid to hire music band");
                                         int flowerEventID = sc.nextInt();
-                                        while (!validorderFlowerEventID){
                                             for(EventID event: customer.getEvents()){
                                                 if(flowerEventID == event.getEventID()){
                                                     validorderFlowerEventID = true;
@@ -379,14 +389,18 @@ public class App {
                                                     break;
                                                 }
                                             }
-                                        }
+
                                     case 4:
                                         //Track Progress
-                                        tracker.checkProgress();
+                                        System.out.println("Enter eventID for the event you want to track");
+                                        int trackingEventID = sc.nextInt();
+                                        tracker.checkProgress(trackingEventID);
                                         break;
                                     case 5:
                                         //Update Progress
-                                        tracker.UpdateProgress(sc);
+                                        System.out.println("Enter eventID for the event you want to update");
+                                        int updatingEventID = sc.nextInt();
+                                        tracker.UpdateProgress(updatingEventID,sc);
                                         break;
                                     case 6:
                                         //Generate Bill
@@ -403,23 +417,55 @@ public class App {
                             int sub_choice5 = 0;
                             do {
                                 System.out.println("1. Arrange Food and Beverage" + "\n" +
-                                        "2. Track Progress" + "\n" + "3. Update Progress" + "\n" + "4. Generate Bill" + "\n5. Back");
+                                                "2. Arrange Cutlery" + "\n"  +
+                                                "3. Pick up food" + "\n" +
+                                        "4. Track Progress" + "\n" + "5. Update Progress" + "\n" + "6. Generate Bill" + "\n7. Back");
                                 sub_choice5 = sc.nextInt();
                                 switch (sub_choice5) {
                                     case 1:
                                         //Arrange Food and Beverage
-                                        caterer.arrangeFoodandBeverages();
-                                        System.out.println("Create Menu");
+                                        System.out.println("Enter the event ID for the food and beverages");
+                                        int foodandbevEventID = sc.nextInt();
+                                        for(EventID eventID1: customer.getEvents()){
+                                         if(foodandbevEventID == eventID1.getEventID()){
+                                             caterer.arrangeFoodandBeverages(eventID1);
+                                         }
+                                        }
                                         break;
                                     case 2:
-                                        //Track Progress
-                                        tracker.checkProgress();
+                                        //Arrange cutlery
+                                        System.out.println("Enter the event ID for the cutlery");
+                                        int arrangeCutleryID = sc.nextInt();
+                                        for(EventID eventID1: customer.getEvents()){
+                                            if(arrangeCutleryID == eventID1.getEventID()){
+                                                caterer.arrangeCutlery(eventID1);
+                                            }
+                                        }
                                         break;
+
                                     case 3:
-                                        //Update Progress
-                                        tracker.UpdateProgress(sc);
-                                        break;
+                                        //pick up food
+                                        System.out.println("Enter the event ID to pickup food");
+                                        int foodpickupEventID = sc.nextInt();
+                                        for(EventID eventID1: customer.getEvents()){
+                                            if(foodpickupEventID == eventID1.getEventID()){
+                                                caterer.pickupFood(eventID1);
+                                            }
+                                        }
+
                                     case 4:
+                                        //Track Progress
+                                        System.out.println("Enter eventID for the event you want to track");
+                                        int trackingEventID = sc.nextInt();
+                                        tracker.checkProgress(trackingEventID);
+                                        break;
+                                    case 5:
+                                        //Update Progress
+                                        System.out.println("Enter eventID for the event you want to update");
+                                        int updatingEventID = sc.nextInt();
+                                        tracker.UpdateProgress(updatingEventID,sc);
+                                        break;
+                                    case 6:
                                         //Generate Bill
                                         caterer.generateBill();
                                         break;
@@ -427,7 +473,7 @@ public class App {
                                         System.out.println("Invalid choice");
                                         break;
                                 }
-                            } while (sub_choice5 != 5);
+                            } while (sub_choice5 != 7);
                             break;
 
                         default:

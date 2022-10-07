@@ -1,6 +1,6 @@
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.util.HashMap;
 
 public class Event_Manager extends Employee{ //event manager class
 
@@ -9,7 +9,8 @@ public class Event_Manager extends Employee{ //event manager class
     Complaint complaint = new Complaint();
 
     Queries queries = new Queries();
-
+    Customer customer = new Customer();
+    private static HashMap<Integer, ArrayList<String>> eventManagerTasks = new HashMap<Integer, ArrayList<String>>();
 
     //constructor method
 
@@ -41,8 +42,16 @@ public class Event_Manager extends Employee{ //event manager class
         }
     }
 
-    public void bookVenue(){
-
+    public void bookVenue(EventID eventID){
+        String[] tasks = {"Book venue", "Clean place", " Set up seating arrangement", "place tables and chairs"};
+        ArrayList<String> allTasks = new ArrayList<>(Arrays.asList(tasks));
+        for(EventID eventID1: customer.getEvents()) {
+            if(eventID == eventID1) {
+                eventManagerTasks.put(eventID.getEventID(),allTasks);
+            }else {
+                System.out.println("incorrect Event ID");
+            }
+        }
     }
 
 
@@ -53,6 +62,11 @@ public class Event_Manager extends Employee{ //event manager class
         }
     }
 
+    public HashMap<Integer, ArrayList<String>> getEventManagerTasks() {
+        return eventManagerTasks;
+    }
 
-
+    public static void setEventManagerTasks(HashMap<Integer, ArrayList<String>> eventManagerTasks) {
+        Event_Manager.eventManagerTasks = eventManagerTasks;
+    }
 }
