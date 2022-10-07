@@ -9,7 +9,7 @@ public class Logistics_Manager extends Employee{
     private  boolean optionalServiceRequested;
     EventID eventID = new EventID();
     Options options = new Options();
-   private static HashMap<Integer,String> LogisticManagerTasks = new HashMap<>();
+   private static HashMap<Integer,ArrayList<String>> LogisticManagerTasks = new HashMap<>();
    Customer customer = new Customer();
 
 
@@ -26,36 +26,29 @@ public class Logistics_Manager extends Employee{
     }
     public void hireMusicBand(EventID eventID){
         String[] tasks = { "talk to members of the band","Get the equipment for the band", "Check the mics and instruments", "rehearsal"};
-        for(EventID eventID1: customer.getEvents()) {
-            if (eventID ==eventID1) {
-                LogisticManagerTasks.put(eventID1.getEventID(), Arrays.toString(tasks));
-            }else {
-                System.out.println("incorrect eventID");
-            }
-        }
+        taskSetter(eventID, tasks);
         optionalServiceRequested = true;
     }
     public void orderFlowers(EventID eventID){
         String[] tasks = {"Choose flowers", "buy flower vase", "Place flowers around the venue"};
-        for(EventID eventID1: customer.getEvents()) {
-            if (eventID ==eventID1) {
-                LogisticManagerTasks.put(eventID1.getEventID(), Arrays.toString(tasks));
-            }else {
-                System.out.println("incorrect eventID");
-            }
-        }
+        taskSetter(eventID, tasks);
         optionalServiceRequested = true;
     }
     public void hireSoundSystem(EventID eventID){
         String[] tasks = {"Buy sound system", "Check sound", "Arrange speakers", "Arrange music"};
+        taskSetter(eventID, tasks);
+        optionalServiceRequested = true;
+    }
+
+    private void taskSetter(EventID eventID, String[] tasks) {
+        ArrayList<String> allTasks = new ArrayList<>(Arrays.asList(tasks));
         for(EventID eventID1: customer.getEvents()) {
             if (eventID ==eventID1) {
-                LogisticManagerTasks.put(eventID1.getEventID(), Arrays.toString(tasks));
+                LogisticManagerTasks.put(eventID1.getEventID(), allTasks);
             }else {
                 System.out.println("incorrect eventID");
             }
-        };
-        optionalServiceRequested = true;
+        }
     }
 
     public boolean optionalserviceused(){
@@ -66,11 +59,11 @@ public class Logistics_Manager extends Employee{
         super.setBill(eventID.getBooking().getOptions().OptionCost());
     }
 
-    public HashMap<Integer, String> getLogisticManagerTasks() {
+    public  HashMap<Integer, ArrayList<String>> getLogisticManagerTasks() {
         return LogisticManagerTasks;
     }
 
-    public void setLogisticManagerTasks(HashMap<Integer, String> logisticManagerTasks) {
+    public static void setLogisticManagerTasks(HashMap<Integer, ArrayList<String>> logisticManagerTasks) {
         LogisticManagerTasks = logisticManagerTasks;
     }
 }
