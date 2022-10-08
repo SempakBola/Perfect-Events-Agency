@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class App {
 
@@ -69,7 +71,6 @@ public class App {
                     switch (sub_choice1) {
                         case 1:
                             boolean correctEventID = false;
-                            boolean validAnswer = false;
                             //EventManager
                             System.out.println("Welcome to Event Manager Portal");
                             int sub_choice2 = 0;
@@ -81,77 +82,54 @@ public class App {
                                 sub_choice2 = sc.nextInt();
                                 switch (sub_choice2) {
                                     case 1:
-                                        while (!validAnswer) {
-                                                    for(Complaint complaint: customer.getComplaints()){
-                                                        System.out.println("EventID: "+ complaint.getEventID().getEventID() +
-                                                                "Complaints: " + complaint.getDetails());
-                                                    }
+                                                   customer.getComplaints().forEach(System.out::println);
                                                     System.out.println("Would you like to reply? Answer YES or NO");
-                                                    String confirmReplyQuery = sc.nextLine();
-                                                    if (confirmReplyQuery.toLowerCase().equals("YES")) {
-                                                        validAnswer = true;
-                                                        System.out.println("Enter reply");
-                                                        String replyQuery = sc.nextLine();
-
-                                                        while (!correctEventID) {
-                                                            System.out.println("Enter the event id for the reply");
-                                                            int replyEventID = sc.nextInt();
-                                                            for (Complaint complaint : customer.getComplaints()) {
-                                                                if (replyEventID == complaint.getEventID().getEventID()){
-                                                                    event_manager.handleQuery(replyEventID, replyQuery);
-                                                                    correctEventID = true;
-                                                                    break;
-                                                                } else{
-                                                                    System.out.println("Incorrect Event ID. Try again");
-                                                                    sc.nextLine();
-                                                                }
+                                                    String confrimReplyComplaint = sc.nextLine();
+                                                   switch (confrimReplyComplaint.toLowerCase()){
+                                                       case "yes":
+                                                           System.out.println("Enter event id");
+                                                           int complaintEventID = sc.nextInt();
+                                                           List<Complaint> chosenEvent =
+                                                                   customer.getComplaints().stream().filter(f->f.getEventID().getEventID() == complaintEventID).collect(Collectors.toList());
+                                                            if(!chosenEvent.equals("")){
+                                                                System.out.println("Enter reply");
+                                                                String reply = sc.nextLine();
+                                                                event_manager.handleComplaints(complaintEventID,reply);
                                                             }
-                                                        }
-                                                    } else if (confirmReplyQuery.toLowerCase().equals("No")) {
-                                                        validAnswer = true;
-                                                        break;
-                                                    } else {
-                                                        System.out.println("Answer a valid answer");
-                                                        sc.nextLine();
-                                                    }
-                                                }
+                                                           break;
+                                                       case "no":
+                                                           break;
+                                                       default:
+                                                           System.out.println("Incorrect");
+                                                           break;
+                                                   }
+
                                     case 2:
-                                            while (!validAnswer) {
-                                               for(Queries queries: customer.getQueries()){
-                                                   System.out.println("QueryID: " + queries.getQueryID()
-                                                   + "Query: " + queries.getDetails());
-
-                                               }
-                                                System.out.println("Would you like to reply? Answer YES or NO");
-                                                String confirmReplyQuery = sc.nextLine();
-                                                if (confirmReplyQuery.toLowerCase().equals("YES")) {
-                                                    validAnswer = true;
+                                        customer.getQueries().forEach(System.out::println);
+                                        System.out.println("Would you like to reply? Answer YES or NO");
+                                        String confrimReplyQuery = sc.nextLine();
+                                        switch (confrimReplyQuery.toLowerCase()){
+                                            case "yes":
+                                                System.out.println("Enter event id");
+                                                int queriesEventID = sc.nextInt();
+                                                List<Queries> chosenEvent =
+                                                        customer.getQueries().stream().filter(f-> f.getQueryID() == queriesEventID).collect(Collectors.toList());
+                                                if(!chosenEvent.equals("")){
                                                     System.out.println("Enter reply");
-                                                    String replyComplaints = sc.nextLine();
-                                                    while (!correctEventID) {
-                                                        System.out.println("Enter the query id for the reply");
-                                                        int replyQueryID = sc.nextInt();
-                                                        for(Queries queries: customer.getQueries()){
-                                                            if (replyQueryID == queries.getQueryID()) {
-                                                                event_manager.handleQuery(replyQueryID, replyComplaints);
-                                                                correctEventID = true;
-                                                                break;
-                                                            } else {
-                                                                System.out.println("Incorrect Event ID. Try again");
-                                                                sc.nextLine();
-                                                            }
-                                                        }
-                                                    }
-                                                } else if (confirmReplyQuery.toLowerCase().equals("No")) {
-                                                    validAnswer = true;
-                                                    break;
-                                                } else {
-                                                    System.out.println("Enter a valid answer");
-                                                    sc.nextLine();
-                                                }
-
-
+                                                    String reply = sc.nextLine();
+                                                    event_manager.handleQuery(queriesEventID,reply);
+                                                }while(chosenEvent.equals("")){
+                                                System.out.println("Incorrect eventID");
+                                                 sc.nextInt();
                                             }
+                                                break;
+                                            case "no":
+                                                break;
+                                            default:
+                                                System.out.println("Incorrect");
+                                                break;
+                                        }
+
                                     case 3:
                                         //Book Venue
                                         System.out.println("Enter the event ID to book venue");
@@ -180,7 +158,10 @@ public class App {
                                         break;
                                     case 7:
                                         //Generate Bill
-                                        event_manager.getVenueBill();
+                                        System.out.println("Enter event id for bill");
+                                       int billEventID  = sc.nextInt();
+                                       event_manager.getVenueBill(billEventID);
+
                                         break;
                                     default:
                                         System.out.println("Invalid choice");
@@ -199,28 +180,24 @@ public class App {
                                 switch (sub_choice3) {
                                     case 1:
                                         //Create Cost Plan
-                                        boolean costPLanEventID = false;
-                                        while (!costPLanEventID) {
                                             System.out.println("Enter the eventID for the costPlan");
                                             int selectedEventID = sc.nextInt();
                                             for (Cost_Plan newCostplan : finance_manager.getCostPlans()) {
                                                 for (EventID eventID1 : eventID) {
                                                     if (selectedEventID != newCostplan.getEventID().getEventID() || eventID1.getEventID() == selectedEventID) {
                                                         System.out.println("Valid Event id.");
-                                                        costPLanEventID = true;
                                                         finance_manager.getCostPlans().add(new Cost_Plan(eventID.get(selectedEventID)));
                                                         break;
                                                     }
-                                                    if (selectedEventID == newCostplan.getEventID().getEventID()) {
+                                                    while (selectedEventID == newCostplan.getEventID().getEventID()) {
                                                         System.out.println("Event id already has a costplan");
                                                         sc.nextLine();
-                                                    } else {
+                                                    }while(selectedEventID != eventID1.getEventID()) {
                                                         System.out.println("Event id does not exist try again");
-                                                        sc.nextLine();
+                                                        selectedEventID = sc.nextInt();
                                                     }
                                                 }
                                             }
-                                        }
                                         System.out.println("Create Cost Plan");
                                         break;
                                     case 2:
@@ -263,7 +240,6 @@ public class App {
 
                                             int enteredEmployeeID = sc.nextInt();
                                             if (enteredEmployeeID == employee.getEmployeeID()) {
-                                                allocateEmployeeID = true;
                                                 finance_manager.allocateMoney(enteredEmployeeID);
                                                 break;
                                             } else {
@@ -406,7 +382,9 @@ public class App {
                                         break;
                                     case 6:
                                         //Generate Bill
-                                        logistics_manager.getLogBill();
+                                        System.out.println("Enter event id for bill");
+                                        int billEventID  = sc.nextInt();
+                                        logistics_manager.getLogBill(billEventID);
                                     default:
                                         System.out.println("Invalid choice");
                                         break;
@@ -469,7 +447,9 @@ public class App {
                                         break;
                                     case 6:
                                         //Generate Bill
-                                        caterer.generateBill();
+                                        System.out.println("Enter event id for bill");
+                                        int billEventID  = sc.nextInt();
+                                        caterer.getMenuBill(billEventID);
                                         break;
                                     default:
                                         System.out.println("Invalid choice");
