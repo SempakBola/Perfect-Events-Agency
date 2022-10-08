@@ -27,16 +27,19 @@ public class Logistics_Manager extends Employee{
         super.setPosition("Logistic_Manager");
     }
     public void hireMusicBand(int eventID){
+        options.setIsHireBand(true);
         String[] tasks = { "talk to members of the band","Get the equipment for the band", "Check the mics and instruments", "rehearsal"};
         taskSetter(eventID, tasks);
         optionalServiceRequested = true;
     }
     public void orderFlowers(int eventID){
+        options.setIsFlowerDecoration(true);
         String[] tasks = {"Choose flowers", "buy flower vase", "Place flowers around the venue"};
         taskSetter(eventID, tasks);
         optionalServiceRequested = true;
     }
     public void hireSoundSystem(int eventID){
+        options.setIsSoundSystem(true);
         String[] tasks = {"Buy sound system", "Check sound", "Arrange speakers", "Arrange music"};
         taskSetter(eventID, tasks);
         optionalServiceRequested = true;
@@ -59,15 +62,14 @@ public class Logistics_Manager extends Employee{
 
     public void getLogBill(int EventID){
         List<EventID> billLog = eventIDArrayList.stream().filter(f->f.getEventID() == EventID).collect(Collectors.toList());
-        for(EventID event: billLog) {
             if(!billLog.equals("")){
-                super.setBill(event.getBooking().getOptions().OptionCost());
+                billLog.forEach(f->setBill(f.getBooking().getOptions().OptionCost()));
                 System.out.println(getBill());
                 System.out.println("Bill generated");
             }else {
                 System.out.println("Incorrect ID");
             }
-        }
+
     }
 
     public  HashMap<Integer, ArrayList<String>> getLogisticManagerTasks() {

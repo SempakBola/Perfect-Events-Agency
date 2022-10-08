@@ -37,12 +37,10 @@ public class Options {
         return isFlowerDecoration;
     }
     public boolean isIsHireBand() {
-
         return isHireBand;
     }
 
     public boolean isIsFlowerDecoration() {
-
         return isFlowerDecoration;
     }
 
@@ -58,7 +56,7 @@ public class Options {
        if(isIsHireBand()){
            selectedOptionCost = costofBand;
        }
-       if (isIsHireBand()){
+       if (isIsFlowerDecoration()){
            selectedOptionCost = costofSoundSytem;
        }
        return  selectedOptionCost;

@@ -65,16 +65,14 @@ public class Event_Manager extends Employee{ //event manager class
     }
 
 
-    public void getVenueBill(int EventID){
-        List<EventID> billEvent = eventID.stream().filter(f->f.getEventID() == EventID).collect(Collectors.toList());
-        for(EventID event: billEvent) {
-            if(!billEvent.equals("")){
-                super.setBill(event.getBooking().getVenue().getPrice());
-                System.out.println(getBill());
-                System.out.println("Bill generated");
-            }else {
-                System.out.println("Incorrect ID");
-            }
+    public void getVenueBill(int EventID) {
+        List<EventID> billEvent = eventID.stream().filter(f -> f.getEventID() == EventID).collect(Collectors.toList());
+        if (!billEvent.equals("")) {
+            billEvent.forEach(f->setBill(f.getBooking().getVenue().getPrice()));
+            System.out.println(getBill());
+            System.out.println("Bill generated");
+        } else {
+            System.out.println("Incorrect ID");
         }
     }
 

@@ -73,7 +73,6 @@ public class Booking {
     public void selectOptions(Options options) {
         this.options = options;
         this.totalCost+=options.OptionCost();
-
     }
 
     public double getTotalCost() {
