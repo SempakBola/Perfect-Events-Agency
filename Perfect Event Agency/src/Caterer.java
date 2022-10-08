@@ -65,6 +65,7 @@ public class Caterer extends Employee { //Caterer class that is responsible for 
             if(!billMenue.equals("")){
                 super.setBill(event.getBooking().getFoodSelection().getPrice());
                 System.out.println(getBill());
+                System.out.println("Bill generated");
             }else {
                 System.out.println("Incorrect ID");
             }

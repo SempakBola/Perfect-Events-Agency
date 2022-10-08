@@ -42,6 +42,7 @@ public class App {
         Caterer caterer = new Caterer();
         Tracker tracker = new Tracker();
         Employee employee = new Employee();
+        Changes changes = new Changes();
 
         
 
@@ -95,6 +96,7 @@ public class App {
                                                                 System.out.println("Enter reply");
                                                                 String reply = sc.nextLine();
                                                                 event_manager.handleComplaints(complaintEventID,reply);
+                                                                System.out.println("Complaint reply sent");
                                                             }
                                                            break;
                                                        case "no":
@@ -118,6 +120,7 @@ public class App {
                                                     System.out.println("Enter reply");
                                                     String reply = sc.nextLine();
                                                     event_manager.handleQuery(queriesEventID,reply);
+                                                    System.out.println("Query reply sent");
                                                 }while(chosenEvent.equals("")){
                                                 System.out.println("Incorrect eventID");
                                                  sc.nextInt();
@@ -137,12 +140,23 @@ public class App {
                                         for(EventID eventID1: customer.getEvents()){
                                             if(bookVenueEventID == eventID1.getEventID()){
                                                 event_manager.bookVenue(eventID1);
+                                                System.out.println("venue task created");
                                             }
                                         }
                                         break;
                                     case 4:
                                         //Handle Changes
-                                        //ENTER CODE HERE
+                                        System.out.println("Enter event id for the changes");
+                                        int changedEventID = sc.nextInt();
+                                        if(changedEventID == changes.getEventID()){
+                                            event_manager.makeChanges(changedEventID);
+                                            System.out.println("changes added to tasks");
+                                        }
+                                        while (changedEventID != changes.getEventID()){
+                                            System.out.println("Incorrect id");
+                                            changedEventID = sc.nextInt();
+                                        }
+
                                         break;
                                     case 5:
                                         //Track Progress
@@ -187,7 +201,7 @@ public class App {
                                                     if (selectedEventID != newCostplan.getEventID().getEventID() || eventID1.getEventID() == selectedEventID) {
                                                         System.out.println("Valid Event id.");
                                                         finance_manager.getCostPlans().add(new Cost_Plan(eventID.get(selectedEventID)));
-                                                        break;
+                                                        System.out.println("costplan created");
                                                     }
                                                     while (selectedEventID == newCostplan.getEventID().getEventID()) {
                                                         System.out.println("Event id already has a costplan");
@@ -198,7 +212,6 @@ public class App {
                                                     }
                                                 }
                                             }
-                                        System.out.println("Create Cost Plan");
                                         break;
                                     case 2:
                                         //Change Cost Plan
@@ -208,20 +221,19 @@ public class App {
                                         switch (changeCostPlan.toLowerCase()){
                                             case "yes":
                                                 System.out.println("Enter Costplan ID to change");
-                                                boolean correctCostplanID = false;
                                                 int costplanidChangning = sc.nextInt();
-                                                while (!correctCostplanID){
+
                                                     for(Cost_Plan cost_plan: finance_manager.getCostPlans()){
                                                         if(costplanidChangning == cost_plan.getCostPlanID()){
                                                             System.out.println("Enter new event id for this costplan");
                                                             int newEventID = sc.nextInt();
                                                             cost_plan.getEventID().setEventID(newEventID);
-                                                        }else{
+                                                            System.out.println("costplan changed");
+                                                        }while (costplanidChangning != cost_plan.getCostPlanID()){
                                                             System.out.println("Incorrect ID. Try again");
-                                                            sc.nextLine();
+                                                            costplanidChangning = sc.nextInt();
                                                         }
                                                     }
-                                                }
 
                                                 break;
                                             case "no":
@@ -233,38 +245,31 @@ public class App {
                                         break;
                                     case 3:
                                         //Allocate Money
-                                        boolean allocateEmployeeID = false;
-                                        while (!allocateEmployeeID) {
                                             System.out.println("Money is auto-calculated and distributed from the revenue generated. " +
                                                     "\n" + "Enter the employeeID: ");
 
-                                            int enteredEmployeeID = sc.nextInt();
-                                            if (enteredEmployeeID == employee.getEmployeeID()) {
-                                                finance_manager.allocateMoney(enteredEmployeeID);
-                                                break;
-                                            } else {
+                                            int allocateEmployeeID = sc.nextInt();
+                                            if (allocateEmployeeID == employee.getEmployeeID()) {
+                                                finance_manager.allocateMoney(allocateEmployeeID);
+                                            } while (allocateEmployeeID != employee.getEmployeeID()){
                                                 System.out.println("Enter valid EmployeeID:");
-                                                sc.nextLine();
+                                                allocateEmployeeID = sc.nextInt();
                                             }
-                                        }
+
 
                                         break;
                                     case 4:
                                         //Pay Salary
-                                        boolean salaryEmployeeID = false;
-                                        while (!salaryEmployeeID) {
                                             System.out.println("Money is auto-calculated and distributed from the profit generated. " +
                                                     "\n" + "Enter the employeeID: ");
-                                            int enteredEmployeeID = sc.nextInt();
-                                            if (enteredEmployeeID == employee.getEmployeeID()) {
-                                                salaryEmployeeID = true;
-                                                finance_manager.paySalary(enteredEmployeeID);
-                                                break;
-                                            } else {
+                                            int salaryEmployeeID = sc.nextInt();
+                                            if (salaryEmployeeID == employee.getEmployeeID()) {
+                                                finance_manager.paySalary(salaryEmployeeID);
+                                                System.out.println("Employee paid");
+                                            } while(salaryEmployeeID !=employee.getEmployeeID()) {
                                                 System.out.println("Enter valid EmployeeID:");
-                                                sc.nextLine();
+                                                salaryEmployeeID =  sc.nextInt();
                                             }
-                                        }
                                         break;
                                     case 5:
                                         //Track Progress
@@ -281,12 +286,10 @@ public class App {
                                     case 7:
                                         //Update Packages
                                         boolean correctPackage = false;
-                                        while (!correctPackage) {
                                             System.out.println("Enter package number to change");
                                             int chosenPackage = sc.nextInt();
                                             for (Packages updatePackages : packages) {
                                                 if (chosenPackage == updatePackages.getPackage_num()) {
-                                                    correctPackage = true;
                                                     System.out.println("Capacity: " + updatePackages.getCapacity()
                                                             + "Details: " + updatePackages.getDetails());
                                                     System.out.println("Choose 1 to change Capacity or choose 2 for Details");
@@ -296,11 +299,13 @@ public class App {
                                                             System.out.println("Enter new capacity");
                                                             int newCapacity = sc.nextInt();
                                                             updatePackages.setCapacity(newCapacity);
+                                                            System.out.println("capacity updated");
                                                         }
                                                         case 2 -> {
                                                             System.out.println("Enter new details");
                                                             String newDetails = sc.nextLine();
                                                             updatePackages.setDetails(newDetails);
+                                                            System.out.println("details updated");
                                                         }
                                                         default -> {
                                                             System.out.println("Invalid choice");
@@ -311,8 +316,6 @@ public class App {
                                                     System.out.println("Invalid package number try again");
                                                     sc.nextLine();
                                                 }
-
-                                            }
                                             break;
                                         }
                                     default:
@@ -337,7 +340,8 @@ public class App {
                                             for(EventID event: customer.getEvents()){
                                                 if(musicEventID == event.getEventID()){
                                                     logistics_manager.hireMusicBand(event);
-                                                    break;
+                                                    System.out.println("Music Band task added");
+
                                                 } while (musicEventID != event.getEventID()){
                                                     System.out.println("incorrect event id");
                                                     musicEventID = sc.nextInt();
@@ -351,7 +355,7 @@ public class App {
                                             for(EventID event: customer.getEvents()){
                                                 if(soundEventID == event.getEventID()){
                                                     logistics_manager.hireSoundSystem(event);
-                                                    break;
+                                                    System.out.println("Sound System task added");
                                                 }
                                                 while (soundEventID != event.getEventID()){
                                                     System.out.println("incorrect event id");

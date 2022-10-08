@@ -63,6 +63,7 @@ public class Logistics_Manager extends Employee{
             if(!billLog.equals("")){
                 super.setBill(event.getBooking().getOptions().OptionCost());
                 System.out.println(getBill());
+                System.out.println("Bill generated");
             }else {
                 System.out.println("Incorrect ID");
             }

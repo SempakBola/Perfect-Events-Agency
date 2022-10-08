@@ -70,7 +70,6 @@ public class Tracker {
             else {
                 System.out.println("Number of outstanding tasks: " + AvailableTask(eventID) +
                         " Number of completed tasks " + CompletedTask());
-
                     System.out.println("Percentage completed: " + (CompletedTask() / AvailableTask(eventID)) * 100 + "%");
             }
         }

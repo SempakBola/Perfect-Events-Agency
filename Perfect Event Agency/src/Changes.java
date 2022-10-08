@@ -22,6 +22,10 @@ public class Changes {
         this.paymentChanges = 0;
     }
 
+    public Changes() {
+
+    }
+
     public int getEventID() {
         return eventID;
     }
