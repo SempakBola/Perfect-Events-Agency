@@ -3,11 +3,13 @@ import org.w3c.dom.events.Event;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Logistics_Manager extends Employee{
 
     private  boolean optionalServiceRequested;
-    EventID eventID = new EventID();
+    private ArrayList<EventID> eventIDArrayList = new ArrayList<>();
     Options options = new Options();
    private static HashMap<Integer,ArrayList<String>> LogisticManagerTasks = new HashMap<>();
    Customer customer = new Customer();
@@ -55,8 +57,16 @@ public class Logistics_Manager extends Employee{
         return optionalServiceRequested;
     }
 
-    public void getLogBill(){
-        super.setBill(eventID.getBooking().getOptions().OptionCost());
+    public void getLogBill(int EventID){
+        List<EventID> billLog = eventIDArrayList.stream().filter(f->f.getEventID() == EventID).collect(Collectors.toList());
+        for(EventID event: billLog) {
+            if(!billLog.equals("")){
+                super.setBill(event.getBooking().getOptions().OptionCost());
+                System.out.println(getBill());
+            }else {
+                System.out.println("Incorrect ID");
+            }
+        }
     }
 
     public  HashMap<Integer, ArrayList<String>> getLogisticManagerTasks() {

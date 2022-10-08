@@ -1,10 +1,12 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Event_Manager extends Employee{ //event manager class
 
-    ArrayList<EventID> eventID = new ArrayList<>();
+    private ArrayList<EventID> eventID = new ArrayList<>();
     ArrayList<Venue> venues = new ArrayList<>();
     Complaint complaint = new Complaint();
 
@@ -55,10 +57,15 @@ public class Event_Manager extends Employee{ //event manager class
     }
 
 
-    public void getVenueBill(){
-        for(EventID event: eventID) {
-            super.setBill(event.getBooking().getVenue().getPrice());
-            System.out.println(getBill());
+    public void getVenueBill(int EventID){
+        List<EventID> billEvent = eventID.stream().filter(f->f.getEventID() == EventID).collect(Collectors.toList());
+        for(EventID event: billEvent) {
+            if(!billEvent.equals("")){
+                super.setBill(event.getBooking().getVenue().getPrice());
+                System.out.println(getBill());
+            }else {
+                System.out.println("Incorrect ID");
+            }
         }
     }
 

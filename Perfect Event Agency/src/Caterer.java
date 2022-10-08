@@ -1,9 +1,11 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Caterer extends Employee { //Caterer class that is responsible for the arrangement of food and beverages
-    EventID eventID = new EventID();
+    private ArrayList<EventID> eventIDArrayList = new ArrayList<>();
     FoodSelection foodSelection = new FoodSelection();
     private HashMap<Integer,ArrayList<String>>  catererTask = new HashMap<>();
     Customer customer = new Customer();
@@ -57,8 +59,15 @@ public class Caterer extends Employee { //Caterer class that is responsible for 
         this.catererTask = catererTask;
     }
 
-    public void getMenuBill(){
-        super.setBill(eventID.getBooking().getFoodSelection().getPrice());
-        System.out.println(getBill());
+    public void getMenuBill(int EventID){
+        List<EventID> billMenue = eventIDArrayList.stream().filter(f->f.getEventID() == EventID).collect(Collectors.toList());
+        for(EventID event: billMenue) {
+            if(!billMenue.equals("")){
+                super.setBill(event.getBooking().getFoodSelection().getPrice());
+                System.out.println(getBill());
+            }else {
+                System.out.println("Incorrect ID");
+            }
+        }
     }
 }

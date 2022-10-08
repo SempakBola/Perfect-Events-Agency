@@ -9,7 +9,7 @@ public class Tracker {
     Caterer caterer = new Caterer();
     Customer customer = new Customer();
 
-    private static ArrayList<String> tasks = new ArrayList<>();
+    private static final ArrayList<String> tasks = new ArrayList<>();
 
 
     Tracker(){
