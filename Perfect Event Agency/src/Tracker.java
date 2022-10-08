@@ -12,6 +12,9 @@ public class Tracker {
     private static final ArrayList<String> tasks = new ArrayList<>();
 
 
+    private static final ArrayList<String> completedTasks = new ArrayList<>();
+
+
     Tracker(){
 
     }
@@ -40,17 +43,30 @@ public class Tracker {
         return tasks(EventID).size();
     }
 
+    public int CompletedTask(){return completedTasks.size();}
 
-    public void taskRemover(int eventID, String replaceTask) {
-        if (AvailableTask(eventID) == 0) {
-            System.out.println("All tasks are completed");
-        } else {
-            tasks(eventID).remove(replaceTask);
+
+    public void taskRemover(int eventID, String completedTask) {
+        if (AvailableTask(eventID) == 0 && CompletedTask() == 0) {
+            System.out.println("Tasks have not started");
+        }
+        if(AvailableTask(eventID) == 0 && CompletedTask() > 0){
+            System.out.println("All tasks completed");
+        }
+        else {
+            tasks(eventID).remove(completedTask);
+            completedTasks.add(completedTask);
 
         }
     }
         public void checkProgress (int eventID) {
-            System.out.println("number of tasks remaining " + AvailableTask(eventID));
+            if (AvailableTask(eventID) == 0 && CompletedTask() == 0) {
+                System.out.println("Tasks have not started");
+            }else {
+                System.out.println("Number of outstanding tasks: "+ AvailableTask(eventID) +
+                        " Number of completed tasks" + CompletedTask());
+                System.out.println("Percentage Completed: " + (CompletedTask()/AvailableTask(eventID)) * 100);
+            }
         }
 
 

@@ -332,42 +332,47 @@ public class App {
                                 switch (sub_choice4) {
                                     case 1:
                                         //Hire Musical Band
-                                        boolean validMusicBandEventID = false;
                                         System.out.println("Enter the eventid to hire music band");
-                                        int musicEvemtID = sc.nextInt();
+                                        int musicEventID = sc.nextInt();
                                             for(EventID event: customer.getEvents()){
-                                                if(musicEvemtID == event.getEventID()){
+                                                if(musicEventID == event.getEventID()){
                                                     logistics_manager.hireMusicBand(event);
                                                     break;
+                                                } while (musicEventID != event.getEventID()){
+                                                    System.out.println("incorrect event id");
+                                                    musicEventID = sc.nextInt();
                                                 }
                                             }
 
 
                                     case 2:
-                                        boolean validSoundSystemEventID = false;
-                                        System.out.println("Enter the eventid to hire music band");
+                                        System.out.println("Enter the eventid to hire sound  system");
                                         int soundEventID = sc.nextInt();
                                             for(EventID event: customer.getEvents()){
                                                 if(soundEventID == event.getEventID()){
-                                                    validSoundSystemEventID = true;
                                                     logistics_manager.hireSoundSystem(event);
                                                     break;
+                                                }
+                                                while (soundEventID != event.getEventID()){
+                                                    System.out.println("incorrect event id");
+                                                    soundEventID = sc.nextInt();
                                                 }
                                             }
 
                                     case 3:
                                         //Order Flowers
-                                        boolean validorderFlowerEventID = false;
-                                        System.out.println("Enter the eventid to hire music band");
+                                        System.out.println("Enter the eventid to hire order flowers");
                                         int flowerEventID = sc.nextInt();
                                             for(EventID event: customer.getEvents()){
                                                 if(flowerEventID == event.getEventID()){
-                                                    validorderFlowerEventID = true;
                                                     logistics_manager.orderFlowers(event);
-                                                    break;
+                                                    System.out.println("Flower task added");
+                                                }  while (flowerEventID != event.getEventID()){
+                                                    System.out.println("incorrect event id");
+                                                    flowerEventID = sc.nextInt();
                                                 }
                                             }
-
+                                        break;
                                     case 4:
                                         //Track Progress
                                         System.out.println("Enter eventID for the event you want to track");
