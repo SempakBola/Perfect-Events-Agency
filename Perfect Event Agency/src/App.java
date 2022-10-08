@@ -41,6 +41,8 @@ public class App {
         Tracker tracker = new Tracker();
         Employee employee = new Employee();
 
+        
+
         do {
             Scanner sc = new Scanner(System.in);
             System.out.println("Welcome to the Perfect Events Agency\n");
@@ -488,7 +490,7 @@ public class App {
                 do {
                     System.out.println("\n1. View Packages" + "\n2. Book Event" + "\n3. Track Progress" + "\n4. Create Query" +
                             "\n5. Make Complaint" + "\n6. Request Refund and Cancel" + "\n7. Change Booking" +
-                            "\n8. Check Balance" + "\n9. Deposit Money" + "\n10. View Profile" + "\n11. Back");
+                            "\n8. Check Balance" + "\n9. Deposit Money" + "\n10. View Profile" + "\n11. Inspect a Venue" +"\n12. Back");
                     sub_choice6 = sc1.nextInt();
                     switch (sub_choice6) {
                         case 1:
@@ -576,7 +578,16 @@ public class App {
                         case 3:
                             //Track Progress
                             //ENTER CODE HERE
-                           
+                            if(customer.viewEvents()==true){
+                                System.out.println("Enter eventID for the event you want to track: ");
+                                int trackingEventID = sc1.nextInt();
+                                for (EventID eventID1 : customer.getEvents()) {
+                                    if (trackingEventID == eventID1.getEventID()) {
+                                        eventID1.getTracker().checkProgress(trackingEventID);
+                                    }
+                                }
+                                break;
+                            }
                             break;
                         case 4:
                             //Create Query
@@ -619,8 +630,16 @@ public class App {
                             //Change Booking
                             //ENTER CODE HERE
                             app.printSeperator();
-                            
+                            if(customer.viewEvents()==true){
+                                System.out.println("Enter the event id you want to change");
+                                int eventID=sc.nextInt();
+                                customer.changeBooking(eventID, foodSelections);
                             break;
+                            }else{
+                                System.out.println("You have no events yet, please book one first.");
+                                break;
+                            }
+
                         case 8:
                             //check balance
                             //ENTER CODE HERE
@@ -647,17 +666,16 @@ public class App {
                             System.out.println("Enter the venue id number you want to book an inspection for: ");
                             int venueId2=sc1.nextInt();
                             customer.bookInspection(venues, venueId2);
-
+                            break;
                             
                         default:
                             System.out.println("Invalid choice");
                             break;
                     }
-                } while (sub_choice6 != 11);
+                } while (sub_choice6 != 12);
             }
         } while (choice != 3);
-        {
-        }
+        
     }
 
 

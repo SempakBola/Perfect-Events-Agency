@@ -102,6 +102,11 @@ public class Booking {
         this.totalCost = totalCost;
     }
 
+    public void changeFoodPrice(double newFoodPrice, double currentFoodPrice) {
+        this.totalCost -= currentFoodPrice;
+        this.totalCost += newFoodPrice;
+    }
+
     public EventID createPayment(Customer customer, String paymentMethod, Booking booking) {
         //create payment
         Payment payment = new Payment(paymentMethod, booking.getTotalCost());
@@ -122,7 +127,7 @@ public class Booking {
         System.out.println("Number of Attendees: " + getAttendees());
         System.out.println("Venue: " + venue.getName());
         System.out.println("Food: " + foodSelection.getFoodandBeveragePackage());
-        System.out.println("Options: " + options.toString());
+        getOptions().str();
         System.out.println("Service Fee: " + ServiceFee());
         System.out.println("Total Cost: " + totalCost);
     }

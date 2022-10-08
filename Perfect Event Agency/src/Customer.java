@@ -201,6 +201,16 @@ public class Customer{
         }
     }
 
+    //get eventID
+    public EventID getEventByID(int number) {
+        for (EventID eventID : events) {
+            if (eventID.getEventID() == number) {
+                return eventID;
+            }
+        }
+        return null;
+    }
+
     
 
     //view all venues
@@ -270,50 +280,97 @@ public class Customer{
         }
     }
 
-    
-
 
 
     public void changeBooking(int eventID, ArrayList<FoodSelection> foodSelections){
         System.out.println("You can only change the options and the food selection.");
         viewEvents();
-        System.out.println("Enter the event ID of the booking that you want to change: ");
         Scanner sc = new Scanner(System.in);
-        int eventID1 = sc.nextInt();
-        for (EventID e : events) {
-            if (e.getEventID() == eventID1) {
+        Changes change = new Changes(eventID);
+        
+        for (EventID e : getEvents()) {
+            double currentPayment = e.getPayment().getAmount();
+            double currentFoodPrice =e.getBooking().getFoodSelection().getPrice();
+            if (e.getEventID() == eventID) {
                 System.out.println("Here are the details of your booking: ");
                 e.getBooking().str();
                 System.out.println("Do you want to change the food selection? (Enter the number) \n1.Yes \n2.No  ");
                 int foodSelection = sc.nextInt();
-                if (foodSelection==1){
-                    System.out.println("The current food selection you have right now is: ");
-                    e.getBooking().getFoodSelection().str();
-                    System.out.println("Here are the list of the food packages that we offer: ");
+                if(foodSelection==1){
+                    change.setFoodSelectionChanged(true);
+                    System.out.println("Here are the available food options: ");
                     viewFood(foodSelections);
-                    System.out.println("Enter the number of the food package you want to change to: ");
-                    int foodSelectionNum = sc.nextInt()-1;
-                    e.getBooking().SelectFood(foodSelections, foodSelectionNum);
+                    System.out.println("------------------");
+                    System.out.println("Enter the number of the foodSelection that you want: ");
+                    int selection = sc.nextInt();
+                    e.getBooking().SelectFood(foodSelections, selection);
+                    double newFoodPrice = e.getBooking().getFoodSelection().getPrice();
+                    e.getBooking().changeFoodPrice(newFoodPrice, currentFoodPrice);
+                
                 }
-                System.out.println("Do you want to change the optional services of you boooking? (Enter the number) \n1.Yes \n2.No");
+                System.out.println("Do you want to change the optional services? (Enter the number) \n1.Yes \n2.No ");
                 int optionalServices = sc.nextInt();
-                if (optionalServices==1){
-                    System.out.println("The current optional services you have right now is: ");
-                    e.getBooking().getOptions().str();
+                if(optionalServices==1){
+                    change.setOptionalServicesChanged(true);
+                    Scanner sc5 = new Scanner(System.in);
+                    int subchoice10;
                     do {
-                        System.out.println("Choose which option you want to change: \n1.Flower Decoration \n2.Sound System \n3.Musical band \n4. Done" );
-                        int optionNum = sc.nextInt();
-                        if (optionNum==1){
-                            e.getBooking().getOptions().setIsFlowerDecoration(false);
+                        System.out.println("Here are the optional services that you chose: ");
+                        e.getBooking().getOptions().str();
+                        System.out.println("What changes would you like to make for the optional services? ");
+                        System.out.println("1. Change flower decorations ");
+                        System.out.println("2. Change musical band ");
+                        System.out.println("3. Change sound system ");
+                        System.out.println("4. Back ");
+                        subchoice10=sc5.nextInt();
+                        switch (subchoice10) {
+                            case 1:
+                                if (e.getBooking().getOptions().isIsFlowerDecoration()==false){
+                                    e.getBooking().getOptions().setIsFlowerDecoration(true);
+                                    System.out.println("Your flower decorations option is now set to true");
+                                }
+                                else {
+                                    e.getBooking().getOptions().setIsFlowerDecoration(false);
+                                    System.out.println("Your flower decorations option is now set to false ");
+                                }
+                                break;
+                            case 2:
+                                if (e.getBooking().getOptions().isIsHireBand()==false){
+                                    e.getBooking().getOptions().setIsHireBand(true);
+                                    System.out.println("Your MusicalBand option is now set to true");
+                                }
+                                else {
+                                    e.getBooking().getOptions().setIsHireBand(false);
+                                    System.out.println("Your MusicalBand option is now set to false ");
+                                }
+                                break;
+            
+                            case 3:
+            
+                                if (e.getBooking().getOptions().isIsSoundSystem()==false){
+                                    e.getBooking().getOptions().setIsSoundSystem(true);
+                                    System.out.println("Your SoundSystem option is now set to true");
+                                }
+                                else {
+                                    e.getBooking().getOptions().setIsSoundSystem(false);
+                                    System.out.println("Your SoundSystem option is now set to false ");
+                                }
+                                    break;
+            
+                            default:
+                                break;
                         }
-
-                    } while optionN;
-
-                    
-
+                        
+                    } while (subchoice10!=4);
+                
                 }
+                //compares the old price to the new price and adds it to the booking object
+                double newPayment=e.getBooking().getTotalCost();
+                double difference= newPayment-currentPayment;
+                change.setPrice(difference);
             }
         }
+        
     }
 
 

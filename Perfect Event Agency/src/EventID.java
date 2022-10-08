@@ -57,4 +57,8 @@ public class EventID {
         isDone = done;
     }
 
+    public Tracker getTracker() {
+        return tracker;
+    }
+
 }
