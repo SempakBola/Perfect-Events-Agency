@@ -50,7 +50,7 @@ public class Tracker {
         if (AvailableTask(eventID) == 0 && CompletedTask() == 0) {
             System.out.println("Tasks have not started");
         }
-        if(AvailableTask(eventID) == 0 && CompletedTask() > 0){
+       else if(AvailableTask(eventID) == 0 && CompletedTask() > 0){
             System.out.println("All tasks completed");
         }
         else {
@@ -62,10 +62,16 @@ public class Tracker {
         public void checkProgress (int eventID) {
             if (AvailableTask(eventID) == 0 && CompletedTask() == 0) {
                 System.out.println("Tasks have not started");
-            }else {
-                System.out.println("Number of outstanding tasks: "+ AvailableTask(eventID) +
-                        " Number of completed tasks" + CompletedTask());
-                System.out.println("Percentage Completed: " + (CompletedTask()/AvailableTask(eventID)) * 100);
+
+            }
+            else if (AvailableTask(eventID) == 0 && CompletedTask() > 0){
+                    System.out.println("All tasks completed");
+            }
+            else {
+                System.out.println("Number of outstanding tasks: " + AvailableTask(eventID) +
+                        " Number of completed tasks " + CompletedTask());
+
+                    System.out.println("Percentage completed: " + (CompletedTask() / AvailableTask(eventID)) * 100 + "%");
             }
         }
 
