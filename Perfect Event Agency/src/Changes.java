@@ -3,6 +3,10 @@ public class Changes {
     private boolean isFoodSelectionChanged;
     private boolean isOptionalServicesChanged;
     private double paymentChanges;
+    private FoodSelection oldFoodSelection;
+    private Options oldOptions;
+    private FoodSelection newFoodSelection;
+    private Options newOptions;
 
     public Changes(int eventID) {
         this.isFoodSelectionChanged = false;
@@ -44,6 +48,51 @@ public class Changes {
 
     public void setPrice(double price) {
         this.paymentChanges = price;
+    }
+
+    public FoodSelection getOldFoodSelection() {
+        return oldFoodSelection;
+    }
+
+    public void setOldFoodSelection(FoodSelection oldFoodSelection) {
+        this.oldFoodSelection = oldFoodSelection;
+    }
+
+    public Options getOldOptions() {
+        return oldOptions;
+    }
+
+    public void setOldOptions(Options oldOptions) {
+        this.oldOptions = oldOptions;
+    }
+
+    public FoodSelection getNewFoodSelection() {
+        return newFoodSelection;
+    }
+
+    public void setNewFoodSelection(FoodSelection newFoodSelection) {
+        this.newFoodSelection = newFoodSelection;
+    }
+
+    public Options getNewOptions() {
+        return newOptions;
+    }
+
+    public void setNewOptions(Options newOptions) {
+        this.newOptions = newOptions;
+    }
+
+    public void str(){
+        System.out.println("Event ID: " + getEventID());
+        System.out.println("Old Food Selection: ");
+        getOldFoodSelection().str();
+        System.out.println("New Food Selection: ");
+        getNewFoodSelection().str();
+        System.out.println("Old Optional Services: ");
+        getOldOptions().str();
+        System.out.println("New Optional Services: ");
+        getNewOptions().str();
+        System.out.println("Payment Changes: "+getPrice());
     }
 
 }

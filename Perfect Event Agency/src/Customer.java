@@ -170,6 +170,8 @@ public class Customer{
                 System.out.println("Event ID: " + event.getEventID());
                 event.getPayment().str();
                 event.getBooking().str();
+                event.getTracker().checkProgress(event.getEventID());
+
                 System.out.println("----------------");
                 isThereEvents=true;
             }
@@ -291,6 +293,10 @@ public class Customer{
         for (EventID e : getEvents()) {
             double currentPayment = e.getPayment().getAmount();
             double currentFoodPrice =e.getBooking().getFoodSelection().getPrice();
+            Options currentOption = e.getBooking().getOptions();
+            FoodSelection currentFood = e.getBooking().getFoodSelection();
+            change.setOldFoodSelection(currentFood);
+            change.setOldOptions(currentOption);
             if (e.getEventID() == eventID) {
                 System.out.println("Here are the details of your booking: ");
                 e.getBooking().str();
@@ -366,8 +372,13 @@ public class Customer{
                 }
                 //compares the old price to the new price and adds it to the booking object
                 double newPayment=e.getBooking().getTotalCost();
+                FoodSelection newFood=e.getBooking().getFoodSelection();
+                Options newOption=e.getBooking().getOptions();
+                change.setNewFoodSelection(newFood);
+                change.setNewOptions(newOption);
                 double difference= newPayment-currentPayment;
                 change.setPrice(difference);
+                e.addChanges(change);
             }
         }
         

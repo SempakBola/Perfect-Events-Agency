@@ -65,9 +65,9 @@ public class Options {
    }
 
     public void str(){
-        System.out.println("Hire Band: " + isHireBand);
-        System.out.println("Sound System: " + isSoundSystem);
-        System.out.println("Flower Decoration: " + isFlowerDecoration);
+        System.out.println("Hire Band: " + isIsHireBand());
+        System.out.println("Sound System: " + isIsSoundSystem());
+        System.out.println("Flower Decoration: " + isIsFlowerDecoration());
     }
 
 

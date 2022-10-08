@@ -48,4 +48,11 @@ public class Inspection {
     public void setVenue(Venue venue) {
         this.venue = venue;
     }
+
+    public void str(){
+        System.out.println("InspectionID: " + getInspectionID());
+        System.out.println("Inspection Date: " + getInspectionDate());
+        System.out.println("Inspection time: " + getInspectionTime());
+        System.out.println("Venue: " + getVenue());
+    }
 }

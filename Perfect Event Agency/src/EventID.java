@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -8,6 +9,7 @@ public class EventID {
     private Payment payment;
     private boolean isDone;
     private Tracker tracker;
+    private ArrayList<Changes> changes;
 
 
     public EventID(Booking booking, Payment payment) {
@@ -17,6 +19,7 @@ public class EventID {
         this.isDone = false;
         Random rand = new Random();
         this.eventID = rand.nextInt(1000000);
+        this.changes = new ArrayList<>();
     }
 
     public EventID() {
@@ -47,7 +50,18 @@ public class EventID {
         this.payment = payment;
     }
 
-    
+    public ArrayList<Changes> getChanges() {
+        return changes;
+    }
+
+    public void setChanges(ArrayList<Changes> changes) {
+        this.changes = changes;
+    }
+
+    public void addChanges(Changes change){
+            this.changes.add(change);
+    }
+
 
     public boolean isDone() {
         return isDone;
@@ -59,6 +73,12 @@ public class EventID {
 
     public Tracker getTracker() {
         return tracker;
+    }
+
+    public void showAllChanges() {
+        for (Changes change : this.changes) {
+            System.out.println(change.toString());
+        }
     }
 
 }
