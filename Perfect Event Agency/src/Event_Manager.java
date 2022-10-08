@@ -44,27 +44,20 @@ public class Event_Manager extends Employee{ //event manager class
         }
     }
 
-    public void bookVenue(EventID eventID){
+    public void bookVenue(int eventID){
         String[] tasks = {"Book venue", "Clean place", " Set up seating arrangement", "place tables and chairs"};
         taskSetter(eventID,tasks);
     }
 
     public void makeChanges(int eventID){
         String[] tasks = {"Booking has been changed"};
+        taskSetter(eventID,tasks);
+    }
+    private void taskSetter(int eventID, String[] tasks) {
         ArrayList<String> allTasks = new ArrayList<>(Arrays.asList(tasks));
         for(EventID eventID1: customer.getEvents()) {
             if (eventID ==eventID1.getEventID()) {
                 eventManagerTasks.put(eventID, allTasks);
-            }else {
-                System.out.println("incorrect eventID");
-            }
-        }
-    }
-    private void taskSetter(EventID eventID, String[] tasks) {
-        ArrayList<String> allTasks = new ArrayList<>(Arrays.asList(tasks));
-        for(EventID eventID1: customer.getEvents()) {
-            if (eventID ==eventID1) {
-                eventManagerTasks.put(eventID1.getEventID(), allTasks);
             }else {
                 System.out.println("incorrect eventID");
             }

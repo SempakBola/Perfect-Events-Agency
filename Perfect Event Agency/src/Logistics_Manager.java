@@ -26,27 +26,27 @@ public class Logistics_Manager extends Employee{
     public Logistics_Manager() {
         super.setPosition("Logistic_Manager");
     }
-    public void hireMusicBand(EventID eventID){
+    public void hireMusicBand(int eventID){
         String[] tasks = { "talk to members of the band","Get the equipment for the band", "Check the mics and instruments", "rehearsal"};
         taskSetter(eventID, tasks);
         optionalServiceRequested = true;
     }
-    public void orderFlowers(EventID eventID){
+    public void orderFlowers(int eventID){
         String[] tasks = {"Choose flowers", "buy flower vase", "Place flowers around the venue"};
         taskSetter(eventID, tasks);
         optionalServiceRequested = true;
     }
-    public void hireSoundSystem(EventID eventID){
+    public void hireSoundSystem(int eventID){
         String[] tasks = {"Buy sound system", "Check sound", "Arrange speakers", "Arrange music"};
         taskSetter(eventID, tasks);
         optionalServiceRequested = true;
     }
 
-    private void taskSetter(EventID eventID, String[] tasks) {
+    private void taskSetter(int eventID, String[] tasks) {
         ArrayList<String> allTasks = new ArrayList<>(Arrays.asList(tasks));
         for(EventID eventID1: customer.getEvents()) {
-            if (eventID ==eventID1) {
-                LogisticManagerTasks.put(eventID1.getEventID(), allTasks);
+            if (eventID ==eventID1.getEventID()) {
+                LogisticManagerTasks.put(eventID, allTasks);
             }else {
                 System.out.println("incorrect eventID");
             }

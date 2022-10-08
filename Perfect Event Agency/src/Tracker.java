@@ -56,7 +56,6 @@ public class Tracker {
         else {
             tasks(eventID).remove(completedTask);
             completedTasks.add(completedTask);
-
         }
     }
         public void checkProgress (int eventID) {

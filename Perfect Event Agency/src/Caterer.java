@@ -23,28 +23,28 @@ public class Caterer extends Employee { //Caterer class that is responsible for 
 
     }
 
-    public void arrangeFoodandBeverages(EventID eventID){ //method that operates the caterer operation
+    public void arrangeFoodandBeverages(int eventID){ //method that operates the caterer operation
         String[] tasks = {"Buy Food", "Buy Drinks","Arrange Food and Drinks on table"};
         taskSetter(eventID,tasks);
     }
 
-    public void arrangeCutlery(EventID eventID){
+    public void arrangeCutlery(int eventID){
         String[] tasks = {"Buy utensils", "Buy plates", "Arrange Plates"};
         taskSetter(eventID,tasks);
 
     }
 
-    public void pickupFood(EventID eventID){
+    public void pickupFood(int eventID){
         String[] tasks = {"Order Food", "Pickup food", "Deliver Food"};
        taskSetter(eventID,tasks);
 
     }
 
-    private void taskSetter(EventID eventID, String[] tasks) {
+    private void taskSetter(int eventID, String[] tasks) {
         ArrayList<String> allTasks = new ArrayList<>(Arrays.asList(tasks));
         for(EventID eventID1: customer.getEvents()) {
-            if (eventID ==eventID1) {
-                catererTask.put(eventID1.getEventID(), allTasks);
+            if (eventID ==eventID1.getEventID()) {
+                catererTask.put(eventID, allTasks);
             }else {
                 System.out.println("incorrect eventID");
             }

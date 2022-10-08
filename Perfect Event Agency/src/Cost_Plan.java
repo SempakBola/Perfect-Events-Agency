@@ -50,4 +50,16 @@ public class Cost_Plan {
         this.profit = revenue - totalCost;
         return  profit;
     }
+
+    @Override
+    public String toString() {
+        return "Cost_Plan{" +
+                "costPlanID=" + costPlanID +
+                ", eventID=" + eventID +
+                ", revenue=" + revenue +
+                ", profit=" + profit +
+                ", totalCost=" + totalCost +
+                ", rand=" + rand +
+                '}';
+    }
 }

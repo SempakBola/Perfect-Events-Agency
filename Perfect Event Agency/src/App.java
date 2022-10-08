@@ -44,6 +44,7 @@ public class App {
         Employee employee = new Employee();
         Changes changes = new Changes();
 
+
         Booking sampleBooking= new Booking();
         sampleBooking.selectPackage(packages, 1);
         sampleBooking.selectVenue(venues, 7);
@@ -94,7 +95,6 @@ public class App {
                     }
                     switch (sub_choice1) {
                         case 1:
-                            boolean correctEventID = false;
                             //EventManager
                             System.out.println("Welcome to Event Manager Portal");
                             int sub_choice2 = 0;
@@ -106,13 +106,14 @@ public class App {
                                 sub_choice2 = sc.nextInt();
                                 switch (sub_choice2) {
                                     case 1:
-                                                   customer.getComplaints().forEach(System.out::println);
+                                                   customer.viewComplaints();
                                                     System.out.println("Would you like to reply? Answer YES or NO");
-                                                    String confrimReplyComplaint = sc.nextLine();
+                                                    String confrimReplyComplaint = sc.next();
                                                    switch (confrimReplyComplaint.toLowerCase()){
                                                        case "yes":
                                                            System.out.println("Enter event id");
                                                            int complaintEventID = sc.nextInt();
+                                                           sc.nextLine();
                                                            List<Complaint> chosenEvent =
                                                                    customer.getComplaints().stream().filter(f->f.getEventID().getEventID() == complaintEventID).collect(Collectors.toList());
                                                             if(!chosenEvent.equals("")){
@@ -128,15 +129,16 @@ public class App {
                                                            System.out.println("Incorrect");
                                                            break;
                                                    }
-
+                                            break;
                                     case 2:
-                                        customer.getQueries().forEach(System.out::println);
+                                        customer.viewQueries();
                                         System.out.println("Would you like to reply? Answer YES or NO");
-                                        String confrimReplyQuery = sc.nextLine();
+                                        String confrimReplyQuery = sc.next();
                                         switch (confrimReplyQuery.toLowerCase()){
                                             case "yes":
                                                 System.out.println("Enter event id");
                                                 int queriesEventID = sc.nextInt();
+                                                sc.nextLine();
                                                 List<Queries> chosenEvent =
                                                         customer.getQueries().stream().filter(f-> f.getQueryID() == queriesEventID).collect(Collectors.toList());
                                                 if(!chosenEvent.equals("")){
@@ -160,12 +162,14 @@ public class App {
                                         //Book Venue
                                         System.out.println("Enter the event ID to book venue");
                                         int bookVenueEventID = sc.nextInt();
-                                        for(EventID eventID1: customer.getEvents()){
-                                            if(bookVenueEventID == eventID1.getEventID()){
-                                                event_manager.bookVenue(eventID1);
-                                                System.out.println("venue task created");
-                                            }
+                                        List<EventID> venueEvent = customer.getEvents().stream().filter(f->f.getEventID()==bookVenueEventID).collect(Collectors.toList());
+                                        if(!venueEvent.equals("")){
+                                            event_manager.bookVenue(bookVenueEventID);
+                                            System.out.println("venue added to the task");
+                                        }else{
+                                            System.out.println("Incorrect eventID");
                                         }
+
                                         break;
                                     case 4:
                                         //Handle Changes
@@ -219,50 +223,38 @@ public class App {
                                         //Create Cost Plan
                                             System.out.println("Enter the eventID for the costPlan");
                                             int selectedEventID = sc.nextInt();
-                                            for (Cost_Plan newCostplan : finance_manager.getCostPlans()) {
-                                                for (EventID eventID1 : eventID) {
-                                                    if (selectedEventID != newCostplan.getEventID().getEventID() || eventID1.getEventID() == selectedEventID) {
-                                                        System.out.println("Valid Event id.");
-                                                        finance_manager.getCostPlans().add(new Cost_Plan(eventID.get(selectedEventID)));
-                                                        System.out.println("costplan created");
-                                                    }
-                                                    while (selectedEventID == newCostplan.getEventID().getEventID()) {
-                                                        System.out.println("Event id already has a costplan");
-                                                        sc.nextLine();
-                                                    }while(selectedEventID != eventID1.getEventID()) {
-                                                        System.out.println("Event id does not exist try again");
-                                                        selectedEventID = sc.nextInt();
-                                                    }
-                                                }
-                                            }
+                                           List<EventID> chosenEventID = eventID.stream().filter(f->f.getEventID() == selectedEventID).collect(Collectors.toList());
+                                           List<Cost_Plan> chosenCostplan = finance_manager.getCostPlans().stream().filter(f->f.getEventID().getEventID() == selectedEventID).collect(Collectors.toList());
+                                           if(!chosenEventID.equals("") && chosenCostplan.equals("")){
+                                               System.out.println("Costplan created");
+                                               Cost_Plan cost_plan = new Cost_Plan((EventID) chosenEventID);
+                                               System.out.println(cost_plan);
+                                           }if (chosenEventID.equals("")) {
+                                               System.out.println("event id does not exist");
+                                           }if (!chosenCostplan.equals("")) {
+                                                System.out.println("Costplan already exists");
+                                                System.out.println(chosenCostplan);
+
+                                    }
                                         break;
                                     case 2:
                                         //Change Cost Plan
-                                        System.out.println("Would you like to change an EventID from the costplan?" + "\n"+
-                                                "Enter YES or NO");
-                                        String changeCostPlan = sc.nextLine();
-                                        switch (changeCostPlan.toLowerCase()){
-                                            case "yes":
-                                                System.out.println("Enter Costplan ID to change");
+                                        System.out.println(
+                                                "Enter 1 to deleted. Enter 2 to go back");
+                                        int changeCostPlanChoice = sc.nextInt();
+                                        switch (changeCostPlanChoice){
+                                            case 1:
+                                                System.out.println("Enter enterID for the cost plan to be delete");
                                                 int costplanidChangning = sc.nextInt();
-
-                                                    for(Cost_Plan cost_plan: finance_manager.getCostPlans()){
-                                                        if(costplanidChangning == cost_plan.getCostPlanID()){
-                                                            System.out.println("Enter new event id for this costplan");
-                                                            int newEventID = sc.nextInt();
-                                                            cost_plan.getEventID().setEventID(newEventID);
-                                                            System.out.println("costplan changed");
-                                                        }while (costplanidChangning != cost_plan.getCostPlanID()){
-                                                            System.out.println("Incorrect ID. Try again");
-                                                            costplanidChangning = sc.nextInt();
-                                                        }
-                                                    }
-
+                                                List<Cost_Plan> changeCostplan = finance_manager.getCostPlans().stream().filter(f->f.getEventID().getEventID() == costplanidChangning).collect(Collectors.toList());
+                                                System.out.println(changeCostplan);
+                                                if(!changeCostplan.equals("")){
+                                                   finance_manager.getCostPlans().remove(changeCostplan);
+                                                }else{
+                                                    System.out.println("CosplanID does not exist");
+                                                }
                                                 break;
-                                            case "no":
-                                                break;
-                                            default:
-                                                System.out.println("Invalid answer");
+                                            case 2:
                                                 break;
                                         }
                                         break;
@@ -311,39 +303,34 @@ public class App {
                                         boolean correctPackage = false;
                                             System.out.println("Enter package number to change");
                                             int chosenPackage = sc.nextInt();
-                                            for (Packages updatePackages : packages) {
-                                                if (chosenPackage == updatePackages.getPackage_num()) {
-                                                    System.out.println("Capacity: " + updatePackages.getCapacity()
-                                                            + "Details: " + updatePackages.getDetails());
+                                                List<Packages> updatePackages = packages.stream().filter(f->f.getPackage_num() == chosenPackage).collect(Collectors.toList());
+                                                if (!updatePackages.equals("")) {
+                                                    System.out.println(updatePackages);
                                                     System.out.println("Choose 1 to change Capacity or choose 2 for Details");
                                                     int chosenUpdate = sc.nextInt();
                                                     switch (chosenUpdate) {
                                                         case 1 -> {
                                                             System.out.println("Enter new capacity");
                                                             int newCapacity = sc.nextInt();
-                                                            updatePackages.setCapacity(newCapacity);
+                                                            for(Packages updateCapacity: updatePackages){
+                                                                updateCapacity.setCapacity(newCapacity);
+                                                            }
                                                             System.out.println("capacity updated");
                                                         }
                                                         case 2 -> {
                                                             System.out.println("Enter new details");
                                                             String newDetails = sc.nextLine();
-                                                            updatePackages.setDetails(newDetails);
+                                                            for(Packages updateDetails: updatePackages){
+                                                                updateDetails.setDetails(newDetails);
+                                                            }
                                                             System.out.println("details updated");
-                                                        }
-                                                        default -> {
-                                                            System.out.println("Invalid choice");
-
                                                         }
                                                     }
                                                 } else {
                                                     System.out.println("Invalid package number try again");
-                                                    sc.nextLine();
                                                 }
                                             break;
-                                        }
-                                    default:
-                                        System.out.println("Invalid choice");
-                                        break;
+
                                 }
                             } while (sub_choice3 != 8);
                             break;
@@ -360,45 +347,36 @@ public class App {
                                         //Hire Musical Band
                                         System.out.println("Enter the eventid to hire music band");
                                         int musicEventID = sc.nextInt();
-                                            for(EventID event: customer.getEvents()){
-                                                if(musicEventID == event.getEventID()){
-                                                    logistics_manager.hireMusicBand(event);
-                                                    System.out.println("Music Band task added");
-
-                                                } while (musicEventID != event.getEventID()){
-                                                    System.out.println("incorrect event id");
-                                                    musicEventID = sc.nextInt();
-                                                }
-                                            }
-
-
+                                        List<EventID> musicevent = customer.getEvents().stream().filter(f->f.getEventID() == musicEventID).collect(Collectors.toList());
+                                        if(!musicevent.equals("")){
+                                            logistics_manager.hireMusicBand((musicEventID));
+                                            System.out.println("Music Band task added");
+                                        }else{
+                                            System.out.println("Event id doesnt exist");
+                                        }
+                                        break;
                                     case 2:
                                         System.out.println("Enter the eventid to hire sound  system");
                                         int soundEventID = sc.nextInt();
-                                            for(EventID event: customer.getEvents()){
-                                                if(soundEventID == event.getEventID()){
-                                                    logistics_manager.hireSoundSystem(event);
-                                                    System.out.println("Sound System task added");
-                                                }
-                                                while (soundEventID != event.getEventID()){
-                                                    System.out.println("incorrect event id");
-                                                    soundEventID = sc.nextInt();
-                                                }
-                                            }
-
+                                        List<EventID> soundevent = customer.getEvents().stream().filter(f->f.getEventID() == soundEventID).collect(Collectors.toList());
+                                        if(!soundevent.equals("")){
+                                            logistics_manager.hireSoundSystem(soundEventID);
+                                            System.out.println("Sound system task added");
+                                        }else{
+                                            System.out.println("Event id doesnt exist");
+                                        }
+                                        break;
                                     case 3:
                                         //Order Flowers
-                                        System.out.println("Enter the eventid to hire order flowers");
+                                        System.out.println("Enter the eventid to order flowers");
                                         int flowerEventID = sc.nextInt();
-                                            for(EventID event: customer.getEvents()){
-                                                if(flowerEventID == event.getEventID()){
-                                                    logistics_manager.orderFlowers(event);
-                                                    System.out.println("Flower task added");
-                                                }  while (flowerEventID != event.getEventID()){
-                                                    System.out.println("incorrect event id");
-                                                    flowerEventID = sc.nextInt();
-                                                }
-                                            }
+                                        List<EventID> flowerevent = customer.getEvents().stream().filter(f->f.getEventID() == flowerEventID).collect(Collectors.toList());
+                                        if(!flowerevent.equals("")){
+                                            logistics_manager.hireSoundSystem(flowerEventID);
+                                            System.out.println("Flowers task added added");
+                                        }else{
+                                            System.out.println("Event id doesnt exist");
+                                        }
                                         break;
                                     case 4:
                                         //Track Progress
@@ -417,8 +395,6 @@ public class App {
                                         System.out.println("Enter event id for bill");
                                         int billEventID  = sc.nextInt();
                                         logistics_manager.getLogBill(billEventID);
-                                    default:
-                                        System.out.println("Invalid choice");
                                         break;
                                 }
                             } while (sub_choice4 != 7);
@@ -438,20 +414,24 @@ public class App {
                                         //Arrange Food and Beverage
                                         System.out.println("Enter the event ID for the food and beverages");
                                         int foodandbevEventID = sc.nextInt();
-                                        for(EventID eventID1: customer.getEvents()){
-                                         if(foodandbevEventID == eventID1.getEventID()){
-                                             caterer.arrangeFoodandBeverages(eventID1);
-                                         }
+                                        List<EventID> foodandbevEvent = customer.getEvents().stream().filter(f->f.getEventID() == foodandbevEventID).collect(Collectors.toList());
+                                        if(!foodandbevEvent.equals("")){
+                                            caterer.arrangeFoodandBeverages(foodandbevEventID);
+                                            System.out.println("food and beverages task added");
+                                        }else{
+                                            System.out.println("Event id doesnt exist");
                                         }
                                         break;
                                     case 2:
                                         //Arrange cutlery
                                         System.out.println("Enter the event ID for the cutlery");
                                         int arrangeCutleryID = sc.nextInt();
-                                        for(EventID eventID1: customer.getEvents()){
-                                            if(arrangeCutleryID == eventID1.getEventID()){
-                                                caterer.arrangeCutlery(eventID1);
-                                            }
+                                        List<EventID> arrangecutleryEvent = customer.getEvents().stream().filter(f->f.getEventID() == arrangeCutleryID).collect(Collectors.toList());
+                                        if(!arrangecutleryEvent.equals("")){
+                                            caterer.arrangeCutlery(arrangeCutleryID);
+                                            System.out.println("cutlery task added");
+                                        }else{
+                                            System.out.println("Event id doesnt exist");
                                         }
                                         break;
 
@@ -459,10 +439,12 @@ public class App {
                                         //pick up food
                                         System.out.println("Enter the event ID to pickup food");
                                         int foodpickupEventID = sc.nextInt();
-                                        for(EventID eventID1: customer.getEvents()){
-                                            if(foodpickupEventID == eventID1.getEventID()){
-                                                caterer.pickupFood(eventID1);
-                                            }
+                                        List<EventID> foodpickEvent = customer.getEvents().stream().filter(f->f.getEventID() == foodpickupEventID).collect(Collectors.toList());
+                                        if(!foodpickEvent.equals("")){
+                                            caterer.pickupFood(foodpickupEventID);
+                                            System.out.println("pickup food task added");
+                                        }else{
+                                            System.out.println("Event id doesnt exist");
                                         }
 
                                     case 4:
@@ -680,10 +662,7 @@ public class App {
                             int venueId2=sc1.nextInt();
                             customer.bookInspection(venues, venueId2);
                             break;
-                            
-                        default:
-                            System.out.println("Invalid choice");
-                            break;
+
                     }
                 } while (sub_choice6 != 12);
             }
