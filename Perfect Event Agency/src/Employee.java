@@ -17,9 +17,8 @@ public class Employee { //employee constructor class
 
     //constructor method for employee class
 
-
     public Employee(String firstName, String lastName, double bill, double salary, ArrayList<EventID> managedEvent, double employeeBalance) {
-        this.employeeID = random.nextInt(100000);
+        this.employeeID = random.nextInt(100000); //id is auto-generated;
         this.firstName = firstName;
         this.lastName = lastName;
         this.bill = bill;
@@ -80,15 +79,6 @@ public class Employee { //employee constructor class
             Salary = salary;
         }
     }
-
-    public void generateBill(){
-
-    }
-
-    public void updateProgress(){
-
-    }
-
     public ArrayList<EventID> getManagedEvent() {
         return managedEvent;
     }
@@ -101,7 +91,7 @@ public class Employee { //employee constructor class
         return employeeBalance;
     }
 
-    public void setEmployeeBalance(int employeeID, double employeeBalance) {
+    public void setEmployeeBalance(int employeeID, double employeeBalance) { //changes employee salary based on their id
         if (this.employeeID == employeeID){
             this.employeeBalance = employeeBalance;
         }
