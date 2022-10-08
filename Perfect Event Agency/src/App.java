@@ -44,7 +44,30 @@ public class App {
         Employee employee = new Employee();
         Changes changes = new Changes();
 
+        Booking sampleBooking= new Booking();
+        sampleBooking.selectPackage(packages, 1);
+        sampleBooking.selectVenue(venues, 7);
+        sampleBooking.SelectFood(foodSelections, 4);
+        Options sampleOptions = new Options();
+        sampleBooking.selectOptions(sampleOptions);
+        sampleBooking.setAttendees(12);
+        sampleBooking.ServiceFee();
+
+        customer.createBooking(customer, sampleBooking, "Debit",
+         "Frank", "Ocean", "14 feb 2099","44 random street",21314452 );
+
+        customer.createQuery("test query");
         
+        EventID sampleEventID = customer.getEvents().get(0);
+
+        Refund sampleRefund = new Refund(sampleEventID, "Not satisfied");
+        customer.addRefund(sampleRefund);
+
+        Complaint sampleComplaint = new Complaint(sampleEventID, "Not good as expected");
+        customer.addComplaint(sampleComplaint);
+        
+        Inspection sampleInspection = new Inspection("27/06/2022", "13:00",sampleEventID.getBooking().getVenue());
+        customer.addInspection(sampleInspection);
 
         do {
             Scanner sc = new Scanner(System.in);
@@ -545,6 +568,7 @@ public class App {
                             String address=sc1.next();
                             System.out.println("Enter your phone number: ");
                             int phone=sc1.nextInt();
+                            booking.ServiceFee();
                             System.out.println("Select a payment method (enter number): \n1. Credit Card \n2. Debit Card \n3. Net Banking");
                             int paymentMethod=sc1.nextInt();
                             switch (paymentMethod) {

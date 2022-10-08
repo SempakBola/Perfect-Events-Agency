@@ -77,7 +77,7 @@ public class EventID {
 
     public void showAllChanges() {
         for (Changes change : this.changes) {
-            System.out.println(change.toString());
+            change.str();
         }
     }
 

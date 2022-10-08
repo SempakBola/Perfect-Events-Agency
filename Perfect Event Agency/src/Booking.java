@@ -33,9 +33,6 @@ public class Booking {
             if (p.getPackage_num() == package_num) {
                 this.packages = p;
             }
-            else {
-                System.out.println("Package not found");
-            }
         }
 
     }
@@ -49,9 +46,6 @@ public class Booking {
             if (v.getVenueID() == venueID) {
                 this.venue = v;
                 this.totalCost += v.getPrice();
-            }
-            else {
-                System.out.println("Venue not found");
             }
         }
         
@@ -67,9 +61,6 @@ public class Booking {
             if (f.getFoodID() == foodID) {
                 this.foodSelection = f;
                 this.totalCost += f.getPrice();
-            }
-            else {
-                System.out.println("Food not found");
             }
         }
 
@@ -120,6 +111,7 @@ public class Booking {
         this.totalCost += fee;
         return fee;
     }
+
 
 
     public void str(){

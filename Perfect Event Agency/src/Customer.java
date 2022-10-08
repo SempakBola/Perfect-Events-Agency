@@ -171,7 +171,7 @@ public class Customer{
                 event.getPayment().str();
                 event.getBooking().str();
                 event.getTracker().checkProgress(event.getEventID());
-
+                event.showAllChanges();
                 System.out.println("----------------");
                 isThereEvents=true;
             }
@@ -257,6 +257,12 @@ public class Customer{
             System.out.println("Event ID: " + complaint.getEventID().getEventID());
             System.out.println("Details: " + complaint.getDetails());
             System.out.println("Reply: " + complaint.getReply());
+        }
+    }
+
+    public void viewInspections() {
+        for (Inspection inspection : inspections) {
+            inspection.str();
         }
     }
 
@@ -403,6 +409,11 @@ public class Customer{
         System.out.println("-------------------------");
         System.out.println("REFUNDS");
         viewRefunds();
+        System.out.println("-------------------------");
+        System.out.println("INSPECTIONS");
+        viewInspections();
+        System.out.println("-------------------------");
+        
 
     }
 }

@@ -15,7 +15,7 @@ public class Changes {
         this.paymentChanges = 0;
     }
 
-    public Changes (int eventId,boolean isFoodSelectionChanged, boolean isOptionalServicesChanged) {
+    public Changes (int eventId, boolean isFoodSelectionChanged, boolean isOptionalServicesChanged) {
         this.eventID = eventId;
         this.isFoodSelectionChanged = isFoodSelectionChanged;
         this.isOptionalServicesChanged = isOptionalServicesChanged;
@@ -87,15 +87,20 @@ public class Changes {
     }
 
     public void str(){
+        System.out.println("--------------------------------");
         System.out.println("Event ID: " + getEventID());
         System.out.println("Old Food Selection: ");
         getOldFoodSelection().str();
+        System.out.println("--------------------------------");
         System.out.println("New Food Selection: ");
         getNewFoodSelection().str();
+        System.out.println("--------------------------------");
         System.out.println("Old Optional Services: ");
         getOldOptions().str();
+        System.out.println("--------------------------------");
         System.out.println("New Optional Services: ");
         getNewOptions().str();
+        System.out.println("--------------------------------");
         System.out.println("Payment Changes: "+getPrice());
     }
 
