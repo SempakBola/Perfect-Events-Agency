@@ -171,6 +171,7 @@ public class Customer{
                 event.getPayment().str();
                 event.getBooking().str();
                 event.getTracker().checkProgress(event.getEventID());
+                System.out.println("CHANGES: "); 
                 event.showAllChanges();
                 System.out.println("----------------");
                 isThereEvents=true;
@@ -384,6 +385,12 @@ public class Customer{
                 change.setNewOptions(newOption);
                 double difference= newPayment-currentPayment;
                 change.setPrice(difference);
+                if (difference<0){
+                    setBalance((float) Math.abs(difference)+getBalance());
+                }
+                else if(difference>0){
+                    setBalance((float) (getBalance()-Math.abs(difference)));
+                }
                 e.addChanges(change);
             }
         }

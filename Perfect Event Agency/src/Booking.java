@@ -99,7 +99,7 @@ public class Booking {
 
     public EventID createPayment(Customer customer, String paymentMethod, Booking booking) {
         //create payment
-        Payment payment = new Payment(paymentMethod, booking.getTotalCost());
+        Payment payment = new Payment(paymentMethod, getTotalCost());
         //create eventID
         return payment.createEventID(customer, booking, payment);
     }

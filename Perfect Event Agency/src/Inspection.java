@@ -53,6 +53,6 @@ public class Inspection {
         System.out.println("InspectionID: " + getInspectionID());
         System.out.println("Inspection Date: " + getInspectionDate());
         System.out.println("Inspection time: " + getInspectionTime());
-        System.out.println("Venue: " + getVenue());
+        getVenue().str();
     }
 }

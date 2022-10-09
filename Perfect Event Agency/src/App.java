@@ -525,17 +525,17 @@ public class App {
                             Options option = new Options();
                             System.out.println("Do you want a soundsystem? (y/n)");
                             String soundSystem=sc1.next();
-                            if(soundSystem.equals("y")){
+                            if(soundSystem.toLowerCase().equals("y")){
                                 option.setIsSoundSystem(true);
                             }
                             System.out.println("Do you want a musical band? (y/n)");
                             String musicalBand=sc1.next();
-                            if(musicalBand.equals("y")){
+                            if(musicalBand.toLowerCase().equals("y")){
                                 option.setIsHireBand(true);
                             }
                             System.out.println("Do you want flower decorations? (y/n)");
                             String flowers=sc1.next();
-                            if(flowers.equals("y")){
+                            if(flowers.toLowerCase().equals("y")){
                                 option.setIsFlowerDecoration(true);
                             }
                             booking.selectOptions(option);
