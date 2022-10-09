@@ -1,13 +1,7 @@
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Tracker { //class used to track the progress of the tasks
 
-    Logistics_Manager logistics_manager = new Logistics_Manager();
-    Event_Manager event_manager = new Event_Manager();
-    Caterer caterer = new Caterer();
-    Customer customer = new Customer();
 
     private   ArrayList<String> tasks = new ArrayList<>(); //arraylist of all available tasks
     private   ArrayList<String> completedTasks = new ArrayList<>(); //arraylist of all completed tasks
@@ -28,8 +22,9 @@ public class Tracker { //class used to track the progress of the tasks
                 Optional.ofNullable(eventManagerTasks).ifPresent(tasks::addAll);
                 Optional.ofNullable(catererTasks).ifPresent(tasks::addAll);
                 Optional.ofNullable(logisticManagerTasks).ifPresent(tasks::addAll);
+
+                //this section removes all duplicate values and reads them to the tasks arraylist
                 Set<String> set = new HashSet<>(tasks);
-                //this section removes all duplicate values and readds them to the tasks arraylist
                 tasks.clear();
                 tasks.addAll(set);
             }
@@ -38,21 +33,19 @@ public class Tracker { //class used to track the progress of the tasks
     }
 
 
-    public int AvailableTask(int EventID,Customer customer){ //gets the size of all available task
-        List<String> uniquetasks = tasks(EventID,customer).stream().distinct().toList();
-        //if task added multiple times does not inflate the arraylist
-        return uniquetasks.size();
+    public int AvailableTask(){ //gets the size of all available task
+        return tasks.size();
     }
 
     public int CompletedTask(){return completedTasks.size();} //gets the size of all completed task
 
 
     public void taskRemover(int eventID, String completedTask,Customer customer) { //removes task method based on eventid and taskname
-        if (AvailableTask(eventID,customer) == 0 && CompletedTask() == 0) {
+        if (AvailableTask() == 0 && CompletedTask() == 0) {
             //makes sure that both completed task and available task have been used in order to remove task
             System.out.println("Tasks have not started");
         }
-       else if(AvailableTask(eventID,customer) == 0 && CompletedTask() > 0){
+       else if(AvailableTask() == 0 && CompletedTask() > 0){
            //if completed task are more than 0 and available task are finished means that all task completed
             System.out.println("All tasks completed");
         }
@@ -63,17 +56,17 @@ public class Tracker { //class used to track the progress of the tasks
         }
     }
         public void checkProgress (int eventID,Customer customer) { //method that check the progress based of the event id
-            if (AvailableTask(eventID,customer) == 0 && CompletedTask() == 0) {
+            if (AvailableTask() == 0 && CompletedTask() == 0) {
                 System.out.println("Tasks have not started");
 
             }
-            else if (AvailableTask(eventID,customer) == 0 && CompletedTask() > 0){
+            else if (AvailableTask() == 0 && CompletedTask() > 0){
                     System.out.println("All tasks completed");
             }
             else {
-                System.out.println("Number of outstanding tasks: " + AvailableTask(eventID,customer) +
+                System.out.println("Number of outstanding tasks: " + AvailableTask() +
                         " Number of completed tasks " + CompletedTask());
-                    System.out.println("Percentage completed: " + (CompletedTask() / AvailableTask(eventID,customer)) * 100 + "%");
+                    System.out.println("Percentage completed: " + (CompletedTask() / AvailableTask()) * 100 + "%");
             }
         }
 
