@@ -48,7 +48,7 @@ public class Options {
         return isSoundSystem;
     }
 
-   public double OptionCost(){
+   public double OptionCost(){ //calculates the cost of options based on the selected option
         double selectedOptionCost = 0;
         if(isIsFlowerDecoration()){
             selectedOptionCost = costofFlowers;

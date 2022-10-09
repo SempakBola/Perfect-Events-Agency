@@ -55,7 +55,7 @@ public class Tracker { //class used to track the progress of the tasks
             //when the task is removed from the available, it is simultaneously added to completed
         }
     }
-        public void checkProgress (int eventID,Customer customer) { //method that check the progress based of the event id
+        public void checkProgress () { //method that check the progress based of the event id
             if (AvailableTask() == 0 && CompletedTask() == 0) {
                 System.out.println("Tasks have not started");
 
@@ -66,7 +66,6 @@ public class Tracker { //class used to track the progress of the tasks
             else {
                 System.out.println("Number of outstanding tasks: " + AvailableTask() +
                         " Number of completed tasks " + CompletedTask());
-                    System.out.println("Percentage completed: " + (CompletedTask() / AvailableTask()) * 100 + "%");
             }
         }
 
