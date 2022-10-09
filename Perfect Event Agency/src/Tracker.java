@@ -13,21 +13,21 @@ public class Tracker { //class used to track the progress of the tasks
     private   ArrayList<String> completedTasks = new ArrayList<>(); //arraylist of all completed tasks
 
 
-    Tracker(){
+    Tracker(){ //empty constructor
 
     }
 
     private ArrayList<String> tasks(int eventID){ //contains all the task needed by all the manager
             List<EventID> listofTasks = customer.getEvents().stream().filter(f->f.getEventID() == eventID).toList();
-            //matcjes the event id to existing event id.
+            //matches the event id to existing event id.
             if(!listofTasks.equals("")){ //if the event id exist then the hashmaps are stored into the arraylist based on the event id
                 ArrayList<String> eventManagerTasks = Event_Manager.getEventManagerTasks().get(eventID);
                 ArrayList<String> catererTasks = Caterer.getCatererTask().get(eventID);
                 ArrayList<String> logisticManagerTasks = Logistics_Manager.getLogisticManagerTasks().get(eventID);
-                //makes sure null is accepted
-                Optional.ofNullable(eventManagerTasks).ifPresent(getTasks()::addAll);
-                Optional.ofNullable(catererTasks).ifPresent(getTasks()::addAll);
-                Optional.ofNullable(logisticManagerTasks).ifPresent(getTasks()::addAll);
+                //makes sure null is accepted as some arraylist won't have task added
+                Optional.ofNullable(eventManagerTasks).ifPresent(tasks::addAll);
+                Optional.ofNullable(catererTasks).ifPresent(tasks::addAll);
+                Optional.ofNullable(logisticManagerTasks).ifPresent(tasks::addAll);
             }
 
         return tasks;
@@ -35,7 +35,9 @@ public class Tracker { //class used to track the progress of the tasks
 
 
     public int AvailableTask(int EventID){ //gets the size of all available task
-        return tasks(EventID).size();
+        List<String> uniquetasks = tasks(EventID).stream().distinct().toList();
+        //if task added multiple times does not inflate the arraylist
+        return uniquetasks.size();
     }
 
     public int CompletedTask(){return completedTasks.size();} //gets the size of all completed task
@@ -52,7 +54,8 @@ public class Tracker { //class used to track the progress of the tasks
         }
         else {
             tasks(eventID).remove(completedTask);
-            completedTasks.add(completedTask); //when the task is removed from the available, it is simultaneously added to completed
+            completedTasks.add(completedTask);
+            //when the task is removed from the available, it is simultaneously added to completed
         }
     }
         public void checkProgress (int eventID) { //method that check the progress based of the event id
@@ -64,7 +67,6 @@ public class Tracker { //class used to track the progress of the tasks
                     System.out.println("All tasks completed");
             }
             else {
-                System.out.println(getTasks());
                 System.out.println("Number of outstanding tasks: " + AvailableTask(eventID) +
                         " Number of completed tasks " + CompletedTask());
                     System.out.println("Percentage completed: " + (CompletedTask() / AvailableTask(eventID)) * 100 + "%");
@@ -108,10 +110,13 @@ public class Tracker { //class used to track the progress of the tasks
         this.completedTasks = completedTasks;
     }
 
+
+
+    //to string method
     @Override
     public String toString() {
         return "Tracker{" +
-                "tasks=" + tasks +
+                "tasks=" + tasks + "\n" +
                 '}';
     }
 }

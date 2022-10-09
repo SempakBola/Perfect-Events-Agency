@@ -174,11 +174,9 @@ public class App {
                                             event_manager.makeChanges(changedEventID);
                                             System.out.println("changes added to tasks");
                                         }
-                                        while (changedEventID != changes.getEventID()){
-                                            System.out.println("Incorrect id");
-                                            changedEventID = sc.nextInt();
+                                        if (changedEventID != changes.getEventID()){
+                                            System.out.println("event id does not need changes");
                                         }
-
                                         break;
                                     case 5:
                                         //Track Progress
@@ -581,7 +579,7 @@ public class App {
                             //Make Complaint
                             //ENTER CODE HERE
                             app.printSeperator();
-                            if (customer.viewEvents()==true){
+                            if (customer.viewEvents()){
                                 System.out.println("Enter the event number you want to make a complaint for: ");
                                 int eventNumber = sc1.nextInt();
                                 System.out.println("Enter your complaint: ");
@@ -592,7 +590,7 @@ public class App {
                             //Request Refund and Cancel
                             //ENTER CODE HERE
                             app.printSeperator();
-                            if (customer.viewEvents()==true){
+                            if (customer.viewEvents()){
                                 System.out.println("Enter the event number you want to cancel: ");
                                 int eventNumber = sc1.nextInt();
                                 System.out.println("Enter the details to your refund: ");
@@ -611,7 +609,7 @@ public class App {
                             //Change Booking
                             //ENTER CODE HERE
                             app.printSeperator();
-                            if(customer.viewEvents()==true){
+                            if(customer.viewEvents()){
                                 System.out.println("Enter the event id you want to change");
                                 int eventID=sc.nextInt();
                                 customer.changeBooking(eventID, foodSelections);
