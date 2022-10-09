@@ -39,6 +39,7 @@ public class Customer{
         this.inspections = new ArrayList<Inspection>();
     }
 
+
     //getters
     public String getFirstName() {
         return firstName;
@@ -170,7 +171,7 @@ public class Customer{
                 System.out.println("Event ID: " + event.getEventID());
                 event.getPayment().str();
                 event.getBooking().str();
-                event.getTracker().checkProgress(event.getEventID());
+                event.getTracker().checkProgress(event.getEventID(),Customer.this);
                 System.out.println("CHANGES: "); 
                 event.showAllChanges();
                 System.out.println("----------------");

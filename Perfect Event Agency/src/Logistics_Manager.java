@@ -62,16 +62,16 @@ public class Logistics_Manager extends Employee{ //logistic manager class that c
         return optionalServiceRequested;
     }
 
-    public void getLogBill(int EventID){ //method that gets the bill for the logistic manager
-        List<EventID> billLog = eventIDArrayList.stream().filter(f -> f.getEventID() == EventID).collect(Collectors.toList());
+    public void getLogBill(int EventID, Customer customer){ //method that gets the bill for the logistic manager
         //filters the list to match the event ids
-            if(!billLog.equals("")){ // checks if the list is not empty ie the event id exist
-                billLog.forEach(f->setBill(f.getBooking().getOptions().OptionCost()));
-                //sets the bill to the cost of the options used
-                System.out.println(getBill());
-                System.out.println("Bill generated");
-            }else {
-                System.out.println("Incorrect ID");
+            for(EventID eventID: customer.getEvents()){
+                if(EventID == eventID.getEventID()){
+                    super.setBill(eventID.getBooking().getOptions().OptionCost());
+                    System.out.println(super.getBill());
+                }if(!optionalServiceRequested){
+                    super.setBill(0.00);
+                    System.out.println("No optional service request");
+                }
             }
 
     }

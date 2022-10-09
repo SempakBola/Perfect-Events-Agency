@@ -7,11 +7,11 @@ import java.util.stream.Collectors;
 public class Event_Manager extends Employee{ //event manager class
 
     private ArrayList<EventID> eventID = new ArrayList<>();
-    ArrayList<Venue> venues = new ArrayList<>();
+
     Complaint complaint = new Complaint();
 
     Queries queries = new Queries();
-    Customer customer = new Customer();
+
     private static HashMap<Integer, ArrayList<String>> eventManagerTasks = new HashMap<Integer, ArrayList<String>>();
 
     taskSetter taskSetter = new taskSetter();
@@ -59,16 +59,16 @@ public class Event_Manager extends Employee{ //event manager class
         String[] tasks = {"Booking has been changed"};
         taskSetter.setter(eventID,tasks,getEventManagerTasks());
     }
-    public void getVenueBill(int EventID) { //venue bill method
-        List<EventID> billEvent = eventID.stream().filter(f -> f.getEventID() == EventID).collect(Collectors.toList());
-        //matches the event id
-        if (!billEvent.equals("")) {
-            billEvent.forEach(f->setBill(f.getBooking().getVenue().getPrice())); //uses a for each loop to add the price to the bill
-            System.out.println(getBill());
-            System.out.println("Bill generated");
-        } else {
-            System.out.println("Incorrect ID");
-        }
+    public void getVenueBill(int EventID, Customer customer) { //venue bill method
+      for(EventID eventID1: customer.getEvents()){
+          if(EventID == eventID1.getEventID()){
+             super.setBill(eventID1.getBooking().getVenue().getPrice());
+              System.out.println(super.getBill());
+              System.out.println("Bill generated");
+          }else{
+              System.out.println("Incorrect event ID");
+          }
+      }
     }
 
 
