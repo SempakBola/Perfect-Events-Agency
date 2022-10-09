@@ -15,6 +15,9 @@ public class Cost_Plan {
 
     public Cost_Plan(EventID eventID) {
         this.costPlanID = rand.nextInt(100000);
+        double totalcost = this.totalCost;
+        double revenue = this.revenue;
+        double profit = this.profit;
     }
 
     public Cost_Plan() { //empty constructor
@@ -37,20 +40,23 @@ public class Cost_Plan {
         this.eventID = eventID;
     }
 
-    public double getRevenue(){
+    public double getRevenue(){ //revenue calc method that calculates revenue from the service fee
         this.revenue  = totalCost+ eventID.getBooking().ServiceFee();
         return  revenue;
     }
-    public double getTotalCost(){
+    public double getTotalCost(){ //based of the total cost in the booking class
         this.totalCost = eventID.getBooking().getTotalCost();
         return totalCost;
     }
 
-    public double getProfit(){
-        this.profit = revenue - totalCost;
+    public double getProfit(){ //calc method. subtracts two other methods
+        this.profit = getRevenue() - getTotalCost();
         return  profit;
     }
 
+
+
+    //to string method
     @Override
     public String toString() {
         return "Cost_Plan{" +

@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Caterer extends Employee { //Caterer class that is responsible for the arrangement of food and beverages
-    private ArrayList<EventID> eventIDArrayList = new ArrayList<>();
-    FoodSelection foodSelection = new FoodSelection();
-    private HashMap<Integer,ArrayList<String>>  catererTask = new HashMap<>();
+
+    private static HashMap<Integer,ArrayList<String>>  catererTask = new HashMap<>();
     Customer customer = new Customer();
+    taskSetter taskSetter = new taskSetter();
 
     //constructor class for the caterer
 
@@ -18,49 +18,42 @@ public class Caterer extends Employee { //Caterer class that is responsible for 
         super.setPosition("Caterer");
     }
 
-    public Caterer() { //empty constructor for flexiblilty.
+    public Caterer() { //empty constructor.
         super.setPosition("Caterer");
 
     }
 
-    public void arrangeFoodandBeverages(int eventID){ //method that operates the caterer operation
+    public void arrangeFoodandBeverages(int eventID){ //method that adds the food and beverages to caterer tasks
         String[] tasks = {"Buy Food", "Buy Drinks","Arrange Food and Drinks on table"};
-        taskSetter(eventID,tasks);
+        taskSetter.setter(eventID,tasks,getCatererTask()); //uses task setter to add to the caterer hashmap
     }
 
-    public void arrangeCutlery(int eventID){
+    public void arrangeCutlery(int eventID){ //method that adds the arrange cutlery to caterer tasks
         String[] tasks = {"Buy utensils", "Buy plates", "Arrange Plates"};
-        taskSetter(eventID,tasks);
+        taskSetter.setter(eventID,tasks,getCatererTask());
 
     }
 
-    public void pickupFood(int eventID){
+    public void pickupFood(int eventID){ //method that adds the pickup food to caterer tasks
         String[] tasks = {"Order Food", "Pickup food", "Deliver Food"};
-       taskSetter(eventID,tasks);
+        taskSetter.setter(eventID,tasks,getCatererTask());
 
     }
 
-    private void taskSetter(int eventID, String[] tasks) {
-        ArrayList<String> allTasks = new ArrayList<>(Arrays.asList(tasks));
-        for(EventID eventID1: customer.getEvents()) {
-            if (eventID ==eventID1.getEventID()) {
-                catererTask.put(eventID, allTasks);
-            }else {
-                System.out.println("incorrect eventID");
-            }
-        }
-    }
-
-    public  HashMap<Integer, ArrayList<String>> getCatererTask() {
+    //setter and getter
+    public  static HashMap<Integer, ArrayList<String>> getCatererTask() {
         return catererTask;
     }
 
     public  void setCatererTask(HashMap<Integer, ArrayList<String>> catererTask) {
-        this.catererTask = catererTask;
+        Caterer.catererTask = catererTask;
     }
 
+
+    //bill to get the menu cost from the customer class
     public void getMenuBill(int EventID){
-        List<EventID> billMenue = eventIDArrayList.stream().filter(f->f.getEventID() == EventID).collect(Collectors.toList());
+        List<EventID> billMenue = customer.getEvents().stream().filter(f->f.getEventID() == EventID).collect(Collectors.toList());
+        //matches the given event id with the existing event id
             if(!billMenue.equals("")){
                 billMenue.forEach(f->setBill(f.getBooking().getFoodSelection().getPrice()));
                 System.out.println(getBill());

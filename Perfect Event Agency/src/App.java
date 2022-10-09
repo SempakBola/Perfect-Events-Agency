@@ -101,7 +101,7 @@ public class App {
                             do {
                                 //input event manager functions
                                 //ENTER CODE HERE. Make changes to the options below if needed
-                                System.out.println("1. Handle Query" + "\n" + "2. Handle Complaints" + "\n" + "3. Book Venue" + "\n" +
+                                System.out.println("1. Handle Complain" + "\n" + "2. Handle Query" + "\n" + "3. Book Venue" + "\n" +
                                         "4. Handle Changes" + "\n" + "5. Track Progress" + "\n" + "6. Update Progress" + "\n7. Generate Bill" + "\n8.Back");
                                 sub_choice2 = sc.nextInt();
                                 switch (sub_choice2) {
@@ -125,9 +125,6 @@ public class App {
                                                            break;
                                                        case "no":
                                                            break;
-                                                       default:
-                                                           System.out.println("Incorrect");
-                                                           break;
                                                    }
                                             break;
                                     case 2:
@@ -136,19 +133,18 @@ public class App {
                                         String confrimReplyQuery = sc.next();
                                         switch (confrimReplyQuery.toLowerCase()){
                                             case "yes":
-                                                System.out.println("Enter event id");
+                                                System.out.println("Enter query id");
                                                 int queriesEventID = sc.nextInt();
                                                 sc.nextLine();
                                                 List<Queries> chosenEvent =
                                                         customer.getQueries().stream().filter(f-> f.getQueryID() == queriesEventID).collect(Collectors.toList());
                                                 if(!chosenEvent.equals("")){
                                                     System.out.println("Enter reply");
-                                                    String reply = sc.nextLine();
+                                                    String reply = sc.next();
                                                     event_manager.handleQuery(queriesEventID,reply);
                                                     System.out.println("Query reply sent");
-                                                }while(chosenEvent.equals("")){
+                                                }if(chosenEvent.equals("")) {
                                                 System.out.println("Incorrect eventID");
-                                                 sc.nextInt();
                                             }
                                                 break;
                                             case "no":
@@ -157,7 +153,7 @@ public class App {
                                                 System.out.println("Incorrect");
                                                 break;
                                         }
-
+                                        break;
                                     case 3:
                                         //Book Venue
                                         System.out.println("Enter the event ID to book venue");
@@ -169,7 +165,6 @@ public class App {
                                         }else{
                                             System.out.println("Incorrect eventID");
                                         }
-
                                         break;
                                     case 4:
                                         //Handle Changes
@@ -193,9 +188,7 @@ public class App {
                                         break;
                                     case 6:
                                         //Update Progress
-                                        System.out.println("Enter eventID for the event you want to track");
-                                        int updatingEventID = sc.nextInt();
-                                        tracker.UpdateProgress(updatingEventID,sc);
+                                        tracker.UpdateProgress(sc);
                                         break;
                                     case 7:
                                         //Generate Bill
@@ -203,9 +196,6 @@ public class App {
                                        int billEventID  = sc.nextInt();
                                        event_manager.getVenueBill(billEventID);
 
-                                        break;
-                                    default:
-                                        System.out.println("Invalid choice");
                                         break;
                                 }
                             } while (sub_choice2 != 8);
@@ -249,7 +239,7 @@ public class App {
                                                 List<Cost_Plan> changeCostplan = finance_manager.getCostPlans().stream().filter(f->f.getEventID().getEventID() == costplanidChangning).collect(Collectors.toList());
                                                 System.out.println(changeCostplan);
                                                 if(!changeCostplan.equals("")){
-                                                   finance_manager.getCostPlans().remove(changeCostplan);
+                                                   finance_manager.getCostPlans().forEach(f->f.setEventID(null));
                                                     System.out.println("costplan removed");
                                                 }else{
                                                     System.out.println("CosplanID does not exist");
@@ -295,20 +285,18 @@ public class App {
                                         break;
                                     case 6:
                                         //Update Progress
-                                        System.out.println("Enter eventID for the event you want to update");
-                                        int updatingEventID = sc.nextInt();
-                                        tracker.UpdateProgress(updatingEventID,sc);
+                                        tracker.UpdateProgress(sc);
                                         break;
                                     case 7:
                                         //Update Packages
-                                        boolean correctPackage = false;
-                                            System.out.println("Enter package number to change");
+                                        System.out.println("Enter package number to change");
                                             int chosenPackage = sc.nextInt();
                                                 List<Packages> updatePackages = packages.stream().filter(f->f.getPackage_num() == chosenPackage).collect(Collectors.toList());
                                                 if (!updatePackages.equals("")) {
-                                                    System.out.println(updatePackages);
+                                                    updatePackages.forEach(f->f.str());
                                                     System.out.println("Choose 1 to change Capacity or choose 2 for Details");
                                                     int chosenUpdate = sc.nextInt();
+                                                    sc.nextLine();
                                                     switch (chosenUpdate) {
                                                         case 1 -> {
                                                             System.out.println("Enter new capacity");
@@ -387,9 +375,7 @@ public class App {
                                         break;
                                     case 5:
                                         //Update Progress
-                                        System.out.println("Enter eventID for the event you want to update");
-                                        int updatingEventID = sc.nextInt();
-                                        tracker.UpdateProgress(updatingEventID,sc);
+                                        tracker.UpdateProgress(sc);
                                         break;
                                     case 6:
                                         //Generate Bill
@@ -419,6 +405,7 @@ public class App {
                                         if(!foodandbevEvent.equals("")){
                                             caterer.arrangeFoodandBeverages(foodandbevEventID);
                                             System.out.println("food and beverages task added");
+                                            System.out.println(Caterer.getCatererTask());
                                         }else{
                                             System.out.println("Event id doesnt exist");
                                         }
@@ -456,9 +443,7 @@ public class App {
                                         break;
                                     case 5:
                                         //Update Progress
-                                        System.out.println("Enter eventID for the event you want to update");
-                                        int updatingEventID = sc.nextInt();
-                                        tracker.UpdateProgress(updatingEventID,sc);
+                                        tracker.UpdateProgress(sc);
                                         break;
                                     case 6:
                                         //Generate Bill
