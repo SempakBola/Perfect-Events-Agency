@@ -173,7 +173,7 @@ public class Customer{
                 System.out.println("Event ID: " + event.getEventID());
                 event.getPayment().str();
                 event.getBooking().str();
-                event.getTracker().checkProgress(event.getEventID(),Customer.this);
+                event.getTracker().checkProgress();
                 System.out.println("CHANGES: "); 
                 event.showAllChanges();
                 System.out.println("----------------");

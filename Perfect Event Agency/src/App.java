@@ -5,8 +5,6 @@ import java.util.stream.Collectors;
 
 public class App {
 
-    private static final ArrayList<EventID> eventID = new ArrayList<>();
-
     public void printSeperator() {
         System.out.println("------------------------------------------------------------");
     }
@@ -190,7 +188,7 @@ public class App {
                                         //Track Progress
                                         System.out.println("Enter eventID for the event you want to track");
                                         int trackingEventID = sc.nextInt();
-                                        tracker.checkProgress(trackingEventID,customer); //uses the tracking class method to get the list of tasks
+                                        tracker.checkProgress(); //uses the tracking class method to get the list of tasks
                                         break;
                                     case 6:
                                         //Update Progress
@@ -286,7 +284,7 @@ public class App {
                                                 int paySalaryEventID = sc.nextInt();
                                                 for(EventID eventID1: customer.getEvents()){
                                                     if(paySalaryEventID == eventID1.getEventID()){
-                                                        finance_manager.allocateMoney(salaryEmployeeID,paySalaryEventID);
+                                                        finance_manager.paySalary(salaryEmployeeID,eventID1);
                                                         System.out.println("customer paid");
                                                     }
                                                 }
@@ -299,7 +297,7 @@ public class App {
                                         //Track Progress
                                         System.out.println("Enter eventID for the event you want to track");
                                         int trackingEventID = sc.nextInt();
-                                        tracker.checkProgress(trackingEventID,customer);
+                                        tracker.checkProgress();
                                         break;
                                     case 6:
                                         //Update Progress
@@ -395,7 +393,7 @@ public class App {
                                         //Track Progress
                                         System.out.println("Enter eventID for the event you want to track");
                                         int trackingEventID = sc.nextInt();
-                                        tracker.checkProgress(trackingEventID,customer);
+                                        tracker.checkProgress();
                                         break;
                                     case 5:
                                         //Update Progress
@@ -463,7 +461,7 @@ public class App {
                                         //Track Progress
                                         System.out.println("Enter eventID for the event you want to track");
                                         int trackingEventID = sc.nextInt();
-                                        tracker.checkProgress(trackingEventID,customer);
+                                        tracker.checkProgress();
                                         break;
                                     case 5:
                                         //Update Progress
@@ -593,8 +591,7 @@ public class App {
                                 //iterate through events array
                                 for (EventID eventID1 : customer.getEvents()) {
                                     if (trackingEventID == eventID1.getEventID()) {
-                                        //get tracker and call the checkprogress method from the tracker
-                                        eventID1.getTracker().checkProgress(trackingEventID,customer);
+                                        eventID1.getTracker().checkProgress();
                                     }
                                 }
                                 break;
