@@ -18,7 +18,7 @@ public class Tracker { //class used to track the progress of the tasks
     }
 
     private ArrayList<String> tasks(int eventID){ //contains all the task needed by all the manager
-            List<EventID> listofTasks = customer.getEvents().stream().filter(f->f.getEventID() == eventID).toList();
+            List<EventID> listofTasks = customer.getEvents().stream().filter(f->f.getEventID() == eventID).collect(Collectors.toList());
             //matcjes the event id to existing event id.
             if(!listofTasks.equals("")){ //if the event id exist then the hashmaps are stored into the arraylist based on the event id
                 ArrayList<String> eventManagerTasks = Event_Manager.getEventManagerTasks().get(eventID);
@@ -75,7 +75,7 @@ public class Tracker { //class used to track the progress of the tasks
         public void UpdateProgress (Scanner sc){ //utility method that is used multiple times in the app.java main method
                 System.out.println("Enter the event ID for the task to be removed ");
                 int selectedEventID = sc.nextInt();
-                List<EventID> listofTasks = customer.getEvents().stream().filter(f->f.getEventID() == selectedEventID).toList();
+                List<EventID> listofTasks = customer.getEvents().stream().filter(f->f.getEventID() == selectedEventID).collect(Collectors.toList());
             if (listofTasks != null) {
                 System.out.println("Enter task to remove");
                 String removeTask = sc.next();

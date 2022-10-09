@@ -383,6 +383,8 @@ public class Customer{
                 Options newOption=e.getBooking().getOptions();
                 change.setNewFoodSelection(newFood);
                 change.setNewOptions(newOption);
+                System.out.println("current payment: "+currentPayment);
+                System.out.println("new payment: "+newPayment);
                 double difference= newPayment-currentPayment;
                 change.setPrice(difference);
                 if (difference<0){

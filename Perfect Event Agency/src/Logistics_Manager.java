@@ -63,7 +63,7 @@ public class Logistics_Manager extends Employee{ //logistic manager class that c
     }
 
     public void getLogBill(int EventID){ //method that gets the bill for the logistic manager
-        List<EventID> billLog = eventIDArrayList.stream().filter(f -> f.getEventID() == EventID).toList();
+        List<EventID> billLog = eventIDArrayList.stream().filter(f -> f.getEventID() == EventID).collect(Collectors.toList());
         //filters the list to match the event ids
             if(!billLog.equals("")){ // checks if the list is not empty ie the event id exist
                 billLog.forEach(f->setBill(f.getBooking().getOptions().OptionCost()));
