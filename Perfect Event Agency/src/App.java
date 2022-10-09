@@ -550,6 +550,7 @@ public class App {
                             booking.selectOptions(option);
                             
                             //create booking
+                            //entering details and payment method
                             System.out.println("Enter your first name: ");
                             String firstName=sc1.next();
                             System.out.println("Enter your last name: ");
@@ -560,9 +561,12 @@ public class App {
                             String address=sc1.next();
                             System.out.println("Enter your phone number: ");
                             int phone=sc1.nextInt();
+                            //charge service fee
                             booking.setServiceFee(booking.ServiceFee());
                             System.out.println("Select a payment method (enter number): \n1. Credit Card \n2. Debit Card \n3. Net Banking");
                             int paymentMethod=sc1.nextInt();
+
+                            //switch for different payment methods
                             switch (paymentMethod) {
                                 case 1:
                                     customer.createBooking(customer,booking, "Credit Card", 
@@ -586,8 +590,10 @@ public class App {
                             if(customer.viewEvents()==true){
                                 System.out.println("Enter eventID for the event you want to track: ");
                                 int trackingEventID = sc1.nextInt();
+                                //iterate through events array
                                 for (EventID eventID1 : customer.getEvents()) {
                                     if (trackingEventID == eventID1.getEventID()) {
+                                        //get tracker and call the checkprogress method from the tracker
                                         eventID1.getTracker().checkProgress(trackingEventID,customer);
                                     }
                                 }
@@ -597,7 +603,7 @@ public class App {
                         case 4:
                             //Create Query
                             //ENTER CODE HERE
-                            sc.nextLine();
+                            sc.nextLine(); //for scanner bugs
                             System.out.println("Enter your query: ");
                             customer.createQuery(sc.nextLine());
                             break;
@@ -607,8 +613,10 @@ public class App {
                             app.printSeperator();
                             if (customer.viewEvents()){
                                 System.out.println("Enter the event number you want to make a complaint for: ");
+                                //input event id
                                 int eventNumber = sc1.nextInt();
                                 System.out.println("Enter your complaint: ");
+                                //enter details of complaint
                                 customer.makeComplaint(eventNumber, sc1.nextLine());
                             }
                             break;
@@ -618,9 +626,12 @@ public class App {
                             app.printSeperator();
                             if (customer.viewEvents()){
                                 System.out.println("Enter the event number you want to cancel: ");
+                                //input event id
                                 int eventNumber = sc1.nextInt();
                                 System.out.println("Enter the details to your refund: ");
+                                //enter details of refund
                                 String details= sc.nextLine();
+                                //iterate through events array
                                 for (EventID event: customer.getEvents()){
                                     if (event.getEventID()==eventNumber){
                                         customer.requestRefund(customer, event,details);

@@ -15,6 +15,7 @@ public class FoodSelection {
 
     }
 
+    //getters and setters
     public String getFoodandBeveragePackage() {
         return foodandBeveragePackage;
     }
@@ -39,6 +40,7 @@ public class FoodSelection {
         this.foodID = foodID;
     }
 
+    //string method
     public void str() {
         System.out.println("FoodID: " + getFoodID());
         System.out.println("Food and Beverage Package: " + getFoodandBeveragePackage());

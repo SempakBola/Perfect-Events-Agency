@@ -29,6 +29,7 @@ public class Booking {
         return packages;
     }
 
+    //selects the package from a list of packages and sets the package in the booking
     public void selectPackage(ArrayList<Packages> packagesList, int package_num) {
         for (Packages p : packagesList) {
             if (p.getPackage_num() == package_num) {
@@ -42,6 +43,7 @@ public class Booking {
         return venue;
     }
 
+    //selects the venue from a list of venues and sets the venue in the booking and updates the total cost
     public void selectVenue(ArrayList<Venue> venueList, int venueID) {
         for (Venue v : venueList) {
             if (v.getVenueID() == venueID) {
@@ -57,6 +59,7 @@ public class Booking {
         return foodSelection;
     }
 
+    // selects the food from a list of food and sets the food in the booking
     public void SelectFood(ArrayList<FoodSelection> foodSelection, int foodID) {
         for (FoodSelection f : foodSelection) {
             if (f.getFoodID() == foodID) {
@@ -71,6 +74,7 @@ public class Booking {
         return options;
     }
 
+    // select the options and adds the total cost of the options to the booking
     public void selectOptions(Options options) {
         this.options = options;
         this.totalCost+=options.OptionCost();
@@ -93,28 +97,30 @@ public class Booking {
         this.totalCost = totalCost;
     }
 
+    //deducting the current food price from the total price (used in the changes)
     public void removeFoodPrice(double currentFoodPrice) {
         this.totalCost -= currentFoodPrice;
     }
 
+    //making the payment and generating the event id
     public EventID createPayment(Customer customer, String paymentMethod, Booking booking) {
         //create payment
         Payment payment = new Payment(paymentMethod, getTotalCost());
         //create eventID
         return payment.createEventID(customer, booking, payment);
     }
-
+    //charging the service fee by adding the fixed base fee and percentage fee of the booking to the total cost
     public double ServiceFee(){
         double baseFee = 500.00;
         double fee = baseFee + (venue.getPrice()+foodSelection.getPrice()+options.OptionCost()) *0.1;
         this.totalCost += fee;
         return fee;
     }
-
+    //setter for the service fee
     public void setServiceFee(double fee){
         this.serviceFee = fee;
     }
-
+    //getter for the service fee
     public double getServiceFee(){
         return this.serviceFee;
     }

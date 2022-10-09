@@ -26,6 +26,7 @@ public class Changes {
 
     }
 
+    //getters and setters
     public int getEventID() {
         return eventID;
     }

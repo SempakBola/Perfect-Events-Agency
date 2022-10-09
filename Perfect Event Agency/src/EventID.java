@@ -26,6 +26,7 @@ public class EventID {
 
     }
 
+    //getter and setter methods
     public int getEventID() {
         return eventID;
     }
@@ -75,6 +76,7 @@ public class EventID {
         return tracker;
     }
 
+    //string method
     public void showAllChanges() {
         for (Changes change : this.changes) {
             change.str();

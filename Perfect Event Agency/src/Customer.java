@@ -162,7 +162,9 @@ public class Customer{
     //view events
     public boolean viewEvents() {
         boolean isThereEvents= false;
+        //checks if there are events
         if (events.size()==0){
+            //if there are no events print out
             System.out.println("You don't have any events booked yet.");
         }
 

@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Tracker { //class used to track the progress of the tasks
 
@@ -12,7 +13,7 @@ public class Tracker { //class used to track the progress of the tasks
     }
 
     private ArrayList<String> tasks(int eventID,Customer customer){ //contains all the task needed by all the manager
-            List<EventID> listofTasks = customer.getEvents().stream().filter(f->f.getEventID() == eventID).toList();
+            List<EventID> listofTasks = customer.getEvents().stream().filter(f->f.getEventID() == eventID).collect(Collectors.toList());
             //matches the event id to existing event id.
             if(!listofTasks.equals("")){ //if the event id exist then the hashmaps are stored into the arraylist based on the event id
                 ArrayList<String> eventManagerTasks = Event_Manager.getEventManagerTasks().get(eventID);
