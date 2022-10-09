@@ -2,7 +2,7 @@ public class Changes {
     private int eventID;
     private boolean isFoodSelectionChanged;
     private boolean isOptionalServicesChanged;
-    private double paymentChanges;
+    private double changeFee = 2000.00;
     private FoodSelection oldFoodSelection;
     private Options oldOptions;
     private FoodSelection newFoodSelection;
@@ -12,14 +12,14 @@ public class Changes {
         this.isFoodSelectionChanged = false;
         this.isOptionalServicesChanged = false;
         this.eventID=eventID;
-        this.paymentChanges = 0;
+        
     }
 
     public Changes (int eventId, boolean isFoodSelectionChanged, boolean isOptionalServicesChanged) {
         this.eventID = eventId;
         this.isFoodSelectionChanged = isFoodSelectionChanged;
         this.isOptionalServicesChanged = isOptionalServicesChanged;
-        this.paymentChanges = 0;
+        
     }
 
     public Changes() {
@@ -46,13 +46,10 @@ public class Changes {
         isOptionalServicesChanged = optionalServicesChanged;
     }
 
-    public double getPrice() {
-        return paymentChanges;
+    public double getChangeFee() {
+        return changeFee;
     }
 
-    public void setPrice(double price) {
-        this.paymentChanges = price;
-    }
 
     public FoodSelection getOldFoodSelection() {
         return oldFoodSelection;
@@ -101,7 +98,6 @@ public class Changes {
         System.out.println("New Optional Services: ");
         getNewOptions().str();
         System.out.println("--------------------------------");
-        System.out.println("Payment Changes: "+getPrice());
     }
 
 }

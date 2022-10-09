@@ -52,7 +52,8 @@ public class App {
         Options sampleOptions = new Options();
         sampleBooking.selectOptions(sampleOptions);
         sampleBooking.setAttendees(12);
-        sampleBooking.ServiceFee();
+        sampleBooking.setServiceFee(sampleBooking.ServiceFee());
+        System.out.println("Debug: " + sampleBooking.getTotalCost());
 
         customer.createBooking(customer, sampleBooking, "Debit",
          "Frank", "Ocean", "14 feb 2099","44 random street",21314452 );
@@ -534,7 +535,7 @@ public class App {
                             String address=sc1.next();
                             System.out.println("Enter your phone number: ");
                             int phone=sc1.nextInt();
-                            booking.ServiceFee();
+                            booking.setServiceFee(booking.ServiceFee());
                             System.out.println("Select a payment method (enter number): \n1. Credit Card \n2. Debit Card \n3. Net Banking");
                             int paymentMethod=sc1.nextInt();
                             switch (paymentMethod) {

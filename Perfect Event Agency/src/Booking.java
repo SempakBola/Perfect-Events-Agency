@@ -7,6 +7,7 @@ public class Booking {
     private Options options;
     private double totalCost;
     private int attendees;
+    private double serviceFee;
 
 
     public Booking() {
@@ -92,9 +93,8 @@ public class Booking {
         this.totalCost = totalCost;
     }
 
-    public void changeFoodPrice(double newFoodPrice, double currentFoodPrice) {
+    public void removeFoodPrice(double currentFoodPrice) {
         this.totalCost -= currentFoodPrice;
-        this.totalCost += newFoodPrice;
     }
 
     public EventID createPayment(Customer customer, String paymentMethod, Booking booking) {
@@ -111,6 +111,14 @@ public class Booking {
         return fee;
     }
 
+    public void setServiceFee(double fee){
+        this.serviceFee = fee;
+    }
+
+    public double getServiceFee(){
+        return this.serviceFee;
+    }
+
 
 
     public void str(){
@@ -119,7 +127,7 @@ public class Booking {
         System.out.println("Venue: " + venue.getName());
         System.out.println("Food: " + foodSelection.getFoodandBeveragePackage());
         getOptions().str();
-        System.out.println("Service Fee: " + ServiceFee());
+        System.out.println("Service Fee: " + getServiceFee());
         System.out.println("Total Cost: " + totalCost);
     }
 }

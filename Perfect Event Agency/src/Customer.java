@@ -301,10 +301,12 @@ public class Customer{
         for (EventID e : getEvents()) {
             double currentPayment = e.getPayment().getAmount();
             double currentFoodPrice =e.getBooking().getFoodSelection().getPrice();
+
             Options currentOption = e.getBooking().getOptions();
             FoodSelection currentFood = e.getBooking().getFoodSelection();
             change.setOldFoodSelection(currentFood);
             change.setOldOptions(currentOption);
+
             if (e.getEventID() == eventID) {
                 System.out.println("Here are the details of your booking: ");
                 e.getBooking().str();
@@ -318,9 +320,7 @@ public class Customer{
                     System.out.println("Enter the number of the foodSelection that you want: ");
                     int selection = sc.nextInt();
                     e.getBooking().SelectFood(foodSelections, selection);
-                    double newFoodPrice = e.getBooking().getFoodSelection().getPrice();
-                    e.getBooking().changeFoodPrice(newFoodPrice, currentFoodPrice);
-                
+                    e.getBooking().removeFoodPrice(currentFoodPrice);
                 }
                 System.out.println("Do you want to change the optional services? (Enter the number) \n1.Yes \n2.No ");
                 int optionalServices = sc.nextInt();
@@ -378,23 +378,12 @@ public class Customer{
                     } while (subchoice10!=4);
                 
                 }
-                //compares the old price to the new price and adds it to the booking object
-                double newPayment=e.getBooking().getTotalCost();
                 FoodSelection newFood=e.getBooking().getFoodSelection();
                 Options newOption=e.getBooking().getOptions();
                 change.setNewFoodSelection(newFood);
                 change.setNewOptions(newOption);
-                System.out.println("current payment: "+currentPayment);
-                System.out.println("new payment: "+newPayment);
-                double difference= newPayment-currentPayment;
-                change.setPrice(difference);
-                if (difference<0){
-                    setBalance((float) Math.abs(difference)+getBalance());
-                }
-                else if(difference>0){
-                    setBalance((float) (getBalance()-Math.abs(difference)));
-                }
                 e.addChanges(change);
+                this.setBalance((float) (getBalance()-change.getChangeFee()));
             }
         }
         
