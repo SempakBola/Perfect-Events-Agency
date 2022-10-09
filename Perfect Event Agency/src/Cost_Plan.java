@@ -40,17 +40,17 @@ public class Cost_Plan {
         this.eventID = eventID;
     }
 
-    public double getRevenue(){ //revenue calc method that calculates revenue from the service fee
+    public double getRevenue(EventID eventID){ //revenue calc method that calculates revenue from the service fee
         this.revenue  = totalCost+ eventID.getBooking().ServiceFee();
         return  revenue;
     }
-    public double getTotalCost(){ //based of the total cost in the booking class
+    public double getTotalCost(EventID eventID){ //based of the total cost in the booking class
         this.totalCost = eventID.getBooking().getTotalCost();
         return totalCost;
     }
 
-    public double getProfit(){ //calc method. subtracts two other methods
-        this.profit = getRevenue() - getTotalCost();
+    public double getProfit(EventID eventID){ //calc method. subtracts two other methods
+        this.profit = getRevenue(eventID) - getTotalCost(eventID);
         return  profit;
     }
 

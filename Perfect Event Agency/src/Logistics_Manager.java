@@ -35,7 +35,7 @@ public class Logistics_Manager extends Employee{ //logistic manager class that c
     //Add tasks on hiring band to the logistic manager tasks.
     public void hireMusicBand(int eventID){
         options.setIsHireBand(true); //safety measurement to enforce that the band is hired
-        String[] tasks = { "talk to members of the band","Get the equipment for the band", "Check the mics and instruments", "rehearsal"};
+        String[] tasks = { "talk to members of the band","Get the equipment for the band", "Check the mics and instruments", "rehearsal"}; //tasks are assumption on what would they entail
         taskSetter.setter(eventID, tasks,getLogisticManagerTasks()); //tasksetter class adds the task to the hashmap
         optionalServiceRequested = true;
     }
@@ -68,7 +68,7 @@ public class Logistics_Manager extends Employee{ //logistic manager class that c
                 if(EventID == eventID.getEventID()){
                     super.setBill(eventID.getBooking().getOptions().OptionCost());
                     System.out.println(super.getBill());
-                }if(!optionalServiceRequested){
+                }if(!optionalServiceRequested){ //error check to make sure options have been selected
                     super.setBill(0.00);
                     System.out.println("No optional service request");
                 }

@@ -18,7 +18,7 @@ public class Tracker { //class used to track the progress of the tasks
     }
 
     private ArrayList<String> tasks(int eventID,Customer customer){ //contains all the task needed by all the manager
-            List<EventID> listofTasks = customer.getEvents().stream().filter(f->f.getEventID() == eventID).collect(Collectors.toList());
+            List<EventID> listofTasks = customer.getEvents().stream().filter(f->f.getEventID() == eventID).toList();
             //matches the event id to existing event id.
             if(!listofTasks.equals("")){ //if the event id exist then the hashmaps are stored into the arraylist based on the event id
                 ArrayList<String> eventManagerTasks = Event_Manager.getEventManagerTasks().get(eventID);
@@ -28,6 +28,10 @@ public class Tracker { //class used to track the progress of the tasks
                 Optional.ofNullable(eventManagerTasks).ifPresent(tasks::addAll);
                 Optional.ofNullable(catererTasks).ifPresent(tasks::addAll);
                 Optional.ofNullable(logisticManagerTasks).ifPresent(tasks::addAll);
+                Set<String> set = new HashSet<>(tasks);
+                //this section removes all duplicate values and readds them to the tasks arraylist
+                tasks.clear();
+                tasks.addAll(set);
             }
 
         return tasks;
@@ -35,7 +39,7 @@ public class Tracker { //class used to track the progress of the tasks
 
 
     public int AvailableTask(int EventID,Customer customer){ //gets the size of all available task
-        List<String> uniquetasks = tasks(EventID,customer).stream().distinct().collect(Collectors.toList());
+        List<String> uniquetasks = tasks(EventID,customer).stream().distinct().toList();
         //if task added multiple times does not inflate the arraylist
         return uniquetasks.size();
     }
@@ -77,18 +81,16 @@ public class Tracker { //class used to track the progress of the tasks
         public void UpdateProgress (Scanner sc, Customer customer){ //utility method that is used multiple times in the app.java main method
                 System.out.println("Enter the event ID for the task to be removed ");
                 int selectedEventID = sc.nextInt();
-                List<EventID> listofTasks = customer.getEvents().stream().filter(f->f.getEventID() == selectedEventID).collect(Collectors.toList());
-            if (listofTasks != null) {
-                System.out.println("Enter task to remove");
-                String removeTask = sc.next();
-                taskRemover(selectedEventID, removeTask,customer); //uses the task remover method to update progress
-            } else if (!listofTasks.equals("")) {
-                System.out.println("Enter task to remove");
-                String removeTask = sc.nextLine();
-                taskRemover(selectedEventID, removeTask,customer); //uses the task remover method to update progress
-            } else {
-                System.out.println("Incorrect id");
-            }
+                sc.nextLine();
+               for(EventID eventID : customer.getEvents()) {
+                   if (selectedEventID == eventID.getEventID()) {
+                       System.out.println("Enter task to remove");
+                       String removeTask = sc.nextLine();
+                       taskRemover(selectedEventID, removeTask, customer); //uses the task remover method to update progress
+                   } else {
+                       System.out.println("Incorrect id");
+                   }
+               }
 
         }
 
