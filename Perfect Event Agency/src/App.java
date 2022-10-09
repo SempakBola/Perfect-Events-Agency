@@ -182,17 +182,17 @@ public class App {
                                         //Track Progress
                                         System.out.println("Enter eventID for the event you want to track");
                                         int trackingEventID = sc.nextInt();
-                                        tracker.checkProgress(trackingEventID);
+                                        tracker.checkProgress(trackingEventID,customer);
                                         break;
                                     case 6:
                                         //Update Progress
-                                        tracker.UpdateProgress(sc);
+                                        tracker.UpdateProgress(sc, customer);
                                         break;
                                     case 7:
                                         //Generate Bill
                                         System.out.println("Enter event id for bill");
                                        int billEventID  = sc.nextInt();
-                                       event_manager.getVenueBill(billEventID);
+                                       event_manager.getVenueBill(billEventID,customer);
 
                                         break;
                                 }
@@ -279,11 +279,11 @@ public class App {
                                         //Track Progress
                                         System.out.println("Enter eventID for the event you want to track");
                                         int trackingEventID = sc.nextInt();
-                                        tracker.checkProgress(trackingEventID);
+                                        tracker.checkProgress(trackingEventID,customer);
                                         break;
                                     case 6:
                                         //Update Progress
-                                        tracker.UpdateProgress(sc);
+                                        tracker.UpdateProgress(sc,customer);
                                         break;
                                     case 7:
                                         //Update Packages
@@ -369,17 +369,17 @@ public class App {
                                         //Track Progress
                                         System.out.println("Enter eventID for the event you want to track");
                                         int trackingEventID = sc.nextInt();
-                                        tracker.checkProgress(trackingEventID);
+                                        tracker.checkProgress(trackingEventID,customer);
                                         break;
                                     case 5:
                                         //Update Progress
-                                        tracker.UpdateProgress(sc);
+                                        tracker.UpdateProgress(sc,customer);
                                         break;
                                     case 6:
                                         //Generate Bill
                                         System.out.println("Enter event id for bill");
                                         int billEventID  = sc.nextInt();
-                                        logistics_manager.getLogBill(billEventID);
+                                        logistics_manager.getLogBill(billEventID,customer);
                                         break;
                                 }
                             } while (sub_choice4 != 7);
@@ -437,17 +437,17 @@ public class App {
                                         //Track Progress
                                         System.out.println("Enter eventID for the event you want to track");
                                         int trackingEventID = sc.nextInt();
-                                        tracker.checkProgress(trackingEventID);
+                                        tracker.checkProgress(trackingEventID,customer);
                                         break;
                                     case 5:
                                         //Update Progress
-                                        tracker.UpdateProgress(sc);
+                                        tracker.UpdateProgress(sc,customer);
                                         break;
                                     case 6:
                                         //Generate Bill
                                         System.out.println("Enter event id for bill");
                                         int billEventID  = sc.nextInt();
-                                        caterer.getMenuBill(billEventID);
+                                        caterer.billMenu(billEventID,customer);
                                         break;
                                     default:
                                         System.out.println("Invalid choice");
@@ -562,7 +562,7 @@ public class App {
                                 int trackingEventID = sc1.nextInt();
                                 for (EventID eventID1 : customer.getEvents()) {
                                     if (trackingEventID == eventID1.getEventID()) {
-                                        eventID1.getTracker().checkProgress(trackingEventID);
+                                        eventID1.getTracker().checkProgress(trackingEventID,customer);
                                     }
                                 }
                                 break;

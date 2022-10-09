@@ -65,7 +65,6 @@ public class Cost_Plan {
                 ", revenue=" + revenue +
                 ", profit=" + profit +
                 ", totalCost=" + totalCost +
-                ", rand=" + rand +
                 '}';
     }
 }

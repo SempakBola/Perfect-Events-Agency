@@ -51,16 +51,15 @@ public class Caterer extends Employee { //Caterer class that is responsible for 
 
 
     //bill to get the menu cost from the customer class
-    public void getMenuBill(int EventID){
-        List<EventID> billMenue = customer.getEvents().stream().filter(f->f.getEventID() == EventID).collect(Collectors.toList());
-        //matches the given event id with the existing event id
-            if(!billMenue.equals("")){
-                billMenue.forEach(f->setBill(f.getBooking().getFoodSelection().getPrice()));
-                System.out.println(getBill());
+    public void billMenu(int EventID, Customer customer) { //menu bill method
+        for(EventID eventID1: customer.getEvents()){
+            if(EventID == eventID1.getEventID()){ //matches event id to the customers
+                super.setBill(eventID1.getBooking().getFoodSelection().getPrice());
+                System.out.println(super.getBill());
                 System.out.println("Bill generated");
-            }else {
-                System.out.println("Incorrect ID");
+            }else{
+                System.out.println("Incorrect event ID");
             }
-
+        }
     }
 }
